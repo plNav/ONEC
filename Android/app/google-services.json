@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "988913403808",
+    "project_id": "onec-ceed3",
+    "storage_bucket": "onec-ceed3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988913403808:android:8a5f04b764f41cf51486c5",
+        "android_client_info": {
+          "package_name": "com.example.onec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988913403808-fflbkea29plru598qj2mteoppd8f9cve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs8s2iKILRGV8utHL8M7wJ0RpWN58yYMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988913403808-fflbkea29plru598qj2mteoppd8f9cve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988913403808:android:12afc1756b6b366b1486c5",
+        "android_client_info": {
+          "package_name": "com.fire.onec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988913403808-fflbkea29plru598qj2mteoppd8f9cve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs8s2iKILRGV8utHL8M7wJ0RpWN58yYMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988913403808-fflbkea29plru598qj2mteoppd8f9cve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
