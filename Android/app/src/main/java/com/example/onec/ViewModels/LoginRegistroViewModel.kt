@@ -1,16 +1,10 @@
 package com.example.onec.ViewModels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.onec.Models.ModelUsuario
-import com.example.onec.Models.UsuarioPost
 import com.example.onec.Soporte.FireAuth
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class LoginRegistroViewModel : ViewModel() {
@@ -18,10 +12,10 @@ class LoginRegistroViewModel : ViewModel() {
     //Función para logear a un usuario con email y password
     fun logear(email: String, password: String, onSucces: (did: String) -> Unit) {
         viewModelScope.launch {
-            FireAuth.auth.signInWithEmailAndPassword(email, password)
+            FireAuth.auth!!.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
-                        FireAuth.user = FireAuth.auth.currentUser!!
+                        FireAuth.user = FireAuth.auth!!.currentUser!!
                         onSucces("good")
                     }else {
                         try {
@@ -39,10 +33,10 @@ class LoginRegistroViewModel : ViewModel() {
     //Función para registrar a un usuario con email y password
     fun registrar(email:String,password: String,onSucces: (did: Boolean) -> Unit) {
         viewModelScope.launch {
-            FireAuth.auth.createUserWithEmailAndPassword(email,password)
+            FireAuth.auth!!.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener() {task ->
                     if (task.isSuccessful) {
-                       FireAuth.user = FireAuth.auth.currentUser!!
+                       FireAuth.user = FireAuth.auth!!.currentUser!!
                         onSucces(true)
                     }else {
                         onSucces(false)
@@ -54,7 +48,7 @@ class LoginRegistroViewModel : ViewModel() {
     //Función para comprobar que el email introducido es válido
     fun comprobarEmailExistente(email:String,onSucces: (did: Boolean) -> Unit) {
         viewModelScope.launch {
-            FireAuth.auth.fetchSignInMethodsForEmail(email).addOnCompleteListener() { task ->
+            FireAuth.auth!!.fetchSignInMethodsForEmail(email).addOnCompleteListener() { task ->
                 if(task.result?.signInMethods?.size != 0) {
                     onSucces(true)
                 }else {
@@ -67,7 +61,7 @@ class LoginRegistroViewModel : ViewModel() {
     //Función para mandar el correo de reseteo de password
     fun mandarCorreoResetPassword(email: String,onSucces: (did: Boolean) -> Unit) {
         viewModelScope.launch {
-            FireAuth.auth.sendPasswordResetEmail(email)
+            FireAuth.auth!!.sendPasswordResetEmail(email)
                 .addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
                         onSucces(true)
@@ -81,7 +75,7 @@ class LoginRegistroViewModel : ViewModel() {
     //Función para cerrar sesión
     fun logOut() {
         viewModelScope.launch {
-            FireAuth.auth.signOut()
+            FireAuth.auth!!.signOut()
             FireAuth.user = null
         }
     }

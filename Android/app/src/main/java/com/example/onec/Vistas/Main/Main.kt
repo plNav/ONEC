@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
+import com.example.onec.Vistas.Main.CV.cvMain
 import com.example.onec.Vistas.Main.MainEmpresario.anunciosEmpresario
 import com.example.onec.Vistas.Main.MainEmpresario.proyectosEmpresario
 import kotlinx.coroutines.launch
@@ -41,20 +42,26 @@ fun main(navController: NavController, elemento: Int){
     val isAnunciosSelected = remember { mutableStateOf(false)}
     val isProyectosSelected = remember { mutableStateOf(false)}
     val isPerfilSelected = remember { mutableStateOf(false)}
+    val isCvSelected = remember {
+        mutableStateOf(false)
+    }
 
     when (elemento) {
          1 -> if (!StaticVariables.appModo) isOfertaSelected.value = true else {isOfertaEmpresarioSelected.value = true}
          2 -> if (!StaticVariables.appModo) isAnunciosSelected.value = true else {isAnunciosEmpresarioSelected.value = true}
          3 -> if (!StaticVariables.appModo) isProyectosSelected.value = true else {isProyectosEmpresarioSelected.value = true}
-         4 -> isPerfilSelected.value = true
+         4 -> isCvSelected.value = true
+         5 -> isPerfilSelected.value = true
     }
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         ModalDrawer(
-            drawerContent = { perfil() },
+            drawerContent = { perfil(navController = navController) },
             gesturesEnabled = true,
             drawerState = state,
-            drawerShape = cusShape()
+            drawerShape = cusShape(),
+            scrimColor = Color(0x2D000000),
+            drawerBackgroundColor = Color(0xFF060609)
         ) {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Scaffold(
@@ -74,6 +81,7 @@ fun main(navController: NavController, elemento: Int){
                                         isAnunciosSelected.value = false
                                         isProyectosSelected.value = false
                                         isPerfilSelected.value = false
+                                        isCvSelected.value = false
                                     }else {
                                         isOfertaEmpresarioSelected.value = true
                                         isAnunciosEmpresarioSelected.value = false
@@ -90,7 +98,7 @@ fun main(navController: NavController, elemento: Int){
                                                 .height(25.dp)
                                                 .width(25.dp)
                                         )
-                                        if (isOfertaSelected.value) {
+                                        if (isOfertaSelected.value || isOfertaEmpresarioSelected.value) {
                                             Text(
                                                 text = "Ofertas",
                                                 textAlign = TextAlign.Center,
@@ -113,6 +121,7 @@ fun main(navController: NavController, elemento: Int){
                                         isOfertaSelected.value = false
                                         isProyectosSelected.value = false
                                         isPerfilSelected.value = false
+                                        isCvSelected.value = false
                                     }else {
                                         isAnunciosEmpresarioSelected.value = true
                                         isOfertaEmpresarioSelected.value = false
@@ -129,7 +138,7 @@ fun main(navController: NavController, elemento: Int){
                                                 .height(25.dp)
                                                 .width(25.dp)
                                         )
-                                        if (isAnunciosSelected.value) {
+                                        if (isAnunciosSelected.value || isAnunciosEmpresarioSelected.value) {
                                             Text(
                                                 text = "Anuncios",
                                                 textAlign = TextAlign.Center,
@@ -152,6 +161,7 @@ fun main(navController: NavController, elemento: Int){
                                         isOfertaSelected.value = false
                                         isAnunciosSelected.value = false
                                         isPerfilSelected.value = false
+                                        isCvSelected.value = false
                                     }else {
                                         isProyectosEmpresarioSelected.value = true
                                         isOfertaEmpresarioSelected.value = false
@@ -168,7 +178,7 @@ fun main(navController: NavController, elemento: Int){
                                                 .height(25.dp)
                                                 .width(25.dp)
                                         )
-                                        if (isProyectosSelected.value) {
+                                        if (isProyectosSelected.value || isProyectosEmpresarioSelected.value) {
                                             Text(
                                                 text = "Proyectos",
                                                 textAlign = TextAlign.Center,
@@ -181,6 +191,41 @@ fun main(navController: NavController, elemento: Int){
                                 selectedContentColor = Color(0xFF266E86),
                                 unselectedContentColor = Color(0xfffcffff)
                             )
+
+                            //CV  -> Lo iniciamos con un if, ya que este solo se verá si estamos en modo Estándar
+                            if (!StaticVariables.appModo) {
+                                BottomNavigationItem(
+                                    selected = isCvSelected.value,
+                                    onClick = {
+                                        isOfertaSelected.value = false
+                                        isAnunciosSelected.value = false
+                                        isProyectosSelected.value = false
+                                        isPerfilSelected.value = false
+                                        isCvSelected.value = true
+                                    },
+                                    icon = {
+                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.cv),
+                                                contentDescription = "CV",
+                                                modifier = Modifier
+                                                    .height(25.dp)
+                                                    .width(25.dp)
+                                            )
+                                            if (isCvSelected.value) {
+                                                Text(
+                                                    text = "CV",
+                                                    textAlign = TextAlign.Center,
+                                                    fontSize = 10.sp,
+                                                    fontFamily = FontFamily(Font(R.font.comforta))
+                                                )
+                                            }
+                                        }
+                                    },
+                                    selectedContentColor = Color(0xFF266E86),
+                                    unselectedContentColor = Color(0xfffcffff)
+                                )
+                            }
 
                             //Perfil
                             BottomNavigationItem(
@@ -222,7 +267,6 @@ fun main(navController: NavController, elemento: Int){
                             .background(Color(0xff3b3d4c))
                             .fillMaxWidth()
                             .fillMaxHeight(0.90f)
-                            .padding(0.dp, 0.dp, 0.dp, 5.dp)
                     ) {
                         //perfil(selected = isPerfilSelected)
                         proyectosEmpresario(selected = isProyectosEmpresarioSelected, navController = navController)
@@ -231,6 +275,7 @@ fun main(navController: NavController, elemento: Int){
                         ofertas(selected = isOfertaSelected, navController =  navController)
                         anuncios(selected = isAnunciosSelected, navController = navController)
                         proyectos(selected = isProyectosSelected, navController = navController)
+                        cvMain(selected = isCvSelected)
                     }
 
                 }

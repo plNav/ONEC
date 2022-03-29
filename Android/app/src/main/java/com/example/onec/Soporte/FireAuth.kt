@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class FireAuth {
     companion object{
-        lateinit var auth: FirebaseAuth
+        var auth: FirebaseAuth? = null
         var user : FirebaseUser? = null
     }
 }

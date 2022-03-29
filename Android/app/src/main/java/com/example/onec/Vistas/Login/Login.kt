@@ -3,9 +3,8 @@ package com.example.onec.Vistas.Login
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -53,6 +52,7 @@ fun Login(
 }
 @Composable
 fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewModel,applicationContext: Context){
+    val stateScroll = rememberScrollState(1000)
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -69,11 +69,11 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
             Spacer(modifier = Modifier.height(50.dp))
                 Image(painter = painterResource(id = R.drawable.onec), contentDescription = "Logo", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(50.dp))
-            Surface(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(50.dp,50.dp,50.dp,0.dp), color = Color(0xff434557)) {
+            Surface(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(50.dp,50.dp,0.dp,0.dp), color = Color(0xff434557)) {
                 Column(
                     Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 20.dp)) {
+                        .padding(horizontal = 20.dp).verticalScroll(state = stateScroll, enabled = true, reverseScrolling = true)) {
                     Spacer(Modifier.height(30.dp))
                     Text(
                         text = "Iniciar sesión",
@@ -179,7 +179,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                                         ) { logeado ->
                                                             when (logeado) {
                                                                 "good" -> {
-                                                                    navController.navigate(Rutas.Main.route) {
+                                                                    navController.navigate(Rutas.TipoCuenta.route) {
                                                                         popUpTo(
                                                                             0
                                                                         )

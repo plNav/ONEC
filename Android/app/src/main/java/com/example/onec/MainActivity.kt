@@ -19,8 +19,8 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        val currentUser = FireAuth.auth.currentUser
-        FireAuth.user = FireAuth.auth.currentUser
+        val currentUser = FireAuth.auth!!.currentUser
+        FireAuth.user = FireAuth.auth!!.currentUser
         setContent {
                     navHost(applicationContext, currentUser != null)
             }

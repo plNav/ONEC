@@ -16,6 +16,7 @@ import com.example.onec.ViewModels.LoginRegistroViewModel
 import com.example.onec.Vistas.Login.Login
 import com.example.onec.Vistas.Main.*
 import com.example.onec.Vistas.Main.Ofertas.crearOferta
+import com.example.onec.Vistas.Perfil.configuracion
 import com.example.onec.Vistas.Registro.Registro
 import com.example.onec.Vistas.ResetPassword.Forgot
 import com.example.onec.Vistas.ResetPassword.SendedEmail
@@ -80,6 +81,10 @@ fun navHost(context: Context,logged: Boolean) {
 
        composable(route = Rutas.TipoCuenta.route) {
            tipoUsuario(navController = navController)
+       }
+
+       composable(route = Rutas.Configuracion.route) {
+           configuracion(navController = navController)
        }
    }
 }

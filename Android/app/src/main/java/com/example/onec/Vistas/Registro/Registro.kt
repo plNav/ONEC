@@ -230,7 +230,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                                         loginRegistroViewModel.registrar(email = email.value.trim(), password = password.value) { registrado ->
                                                             if (registrado) {
                                                                 //El usuario se ha registrado, navegar hacia la vista de Main
-                                                                navController.navigate(Rutas.Main.route) {
+                                                                navController.navigate(Rutas.TipoCuenta.route) {
                                                                     popUpTo(0)
                                                                 }
                                                             }else {
