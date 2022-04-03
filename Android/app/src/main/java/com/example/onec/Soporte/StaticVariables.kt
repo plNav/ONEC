@@ -56,7 +56,10 @@ class StaticVariables {
         var nombreCv : String = ""
         var telefono : String = ""
         var ubicacion : String = ""
-        var titulos : List<String> = listOf()
+        var experiencia : Int = 0
+        var titulo : String = ""
+        var especialidad : String = ""
         var habilidades : List<String> = listOf()
+
     }
 }

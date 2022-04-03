@@ -1,3 +1,1210 @@
 <resources>
     <string name="app_name">Onec</string>
+    <!-- Titulos disponibles -->
+    <string-array name="titulos">
+        <item>ESO</item>
+        <item>Bachiller</item>
+        <item>FP Grado medio</item>
+        <item>FP Grado superior</item>
+        <item>Enseñanzas artísticas(regladas)</item>
+        <item>Enseñanzas deportivas(regladas)</item>
+        <item>Grado</item>
+        <item>Licenciatura</item>
+        <item>Diplomatura</item>
+        <item>Ingeniería técnica</item>
+        <item>Ingeniería superior</item>
+        <item>Postgrado</item>
+        <item>Máster</item>
+        <item>Doctorado</item>
+        <item>Otros títulos, certificaciones y carnés</item>
+        <item>Otros cursos y certificación no reglada</item>
+        <item>Ciclo formativo grado medio</item>
+        <item>Ciclo formativo grado superior</item>
+    </string-array>
+
+
+    <!--Titulo FP Grado Medio -->
+    <string-array name="fp_medio">
+        <item>Actividades agrarias</item>
+        <item>Actividades físicas y deportivas</item>
+        <item>Actividades marítimo-pesqueras</item>
+        <item>Administración</item>
+        <item>Artes gráficas</item>
+        <item>Comercio y marketing</item>
+        <item>Comunicacion, imagen y sonido</item>
+        <item>Edificación y obra civil</item>
+        <item>Electricidad y electrónica</item>
+        <item>Equipos e instalaciones electrotécnicas</item>
+        <item>Fabricación mecánica</item>
+        <item>Hostelería y turismo</item>
+        <item>Imagen Personal</item>
+        <item>Industrias alimentarias</item>
+        <item>Informática</item>
+        <item>Instalaciones frigoríficas y de climaticación</item>
+        <item>Madera y mueble</item>
+        <item>Mantenimiento de Vehículos autopropulsados</item>
+        <item>Mantenimiento y servicios a la producción</item>
+        <item>Química</item>
+        <item>Sanidad</item>
+        <item>Servicios socioculturales y a la comunidad</item>
+        <item>Textil, confección y piel</item>
+        <item>Vidrio y cerámica</item>
+    </string-array>
+
+
+    <!--Titulo FP Grado Superior-->
+    <string-array name="fp_superior">
+        <item>Actividades agrarias</item>
+        <item>Actividades físicas y deportivas</item>
+        <item>Actividades marítimo pesqueras</item>
+        <item>Administración</item>
+        <item>Administración y finanzas</item>
+        <item>Artes gráficas</item>
+        <item>Comercio internacional</item>
+        <item>Comercio y marketing</item>
+        <item>Comunicación, imagen y sonido</item>
+        <item>Edificación y obra civil</item>
+        <item>Educación infantil</item>
+        <item>Eficiencia energética y energía solar térmica</item>
+        <item>Electricidad y electrónica</item>
+        <item>Energía y agua</item>
+        <item>Especialidad industrial</item>
+        <item>Fabricación mecánica</item>
+        <item>Hosteleríay turismo</item>
+        <item>Imagen personal</item>
+        <item>Industrias alimentarias</item>
+        <item>Informática</item>
+        <item>Madera y mueble</item>
+        <item>Mantenimiento de vehículos autopropulsados</item>
+        <item>Mantenimiento y servicios a la producción</item>
+        <item>Prevención de riesgos profesionales</item>
+        <item>Química</item>
+        <item>Sanidad</item>
+        <item>Secretariado</item>
+        <item>Servicios al consumidor</item>
+        <item>Servicios socioculturales y a la comunidad</item>
+        <item>Sistemas de regulación y control automáticos</item>
+        <item>Textil, confección y piel</item>
+        <item>Transporte y logística</item>
+        <item>Vidrio y cerámica</item>
+        <item>Técnico superior en interpretación de la lengua de signos</item>
+    </string-array>
+
+
+    <!--Titulo Ciclo formativo grado medio-->
+    <string-array name="ciclo_gradoMed">
+        <item>Actividades físicas y deportivas</item>
+        <item>Agraria</item>
+        <item>Artes gráficas</item>
+        <item>Comercio y marketing</item>
+        <item>Imagen y sonido</item>
+        <item>Edificación y obra civil</item>
+        <item>Electricidad y eléctronica</item>
+        <item>Energía y agua</item>
+        <item>Fabricación mecánica</item>
+        <item>Hostelería y turismo</item>
+        <item>Imagen personal</item>
+        <item>Industrias extractivas</item>
+        <item>Informática y comunicaciones</item>
+        <item>Madera, mueble y corcho</item>
+        <item>Instalación y mantenimiento</item>
+        <item>Marítimo-pesqueras</item>
+        <item>Química</item>
+        <item>Sanidad</item>
+        <item>Servicios socioculturales y a la comunidad</item>
+        <item>Textil, confección y piel</item>
+        <item>Transporte y mantenimiento de vehículos</item>
+        <item>Vidrio y cerámica</item>
+        <item>Técnico en gestión administrativa</item>
+        <item>Técnico en carrocería</item>
+        <item>Técnico en emergencias y protección civil</item>
+        <item>Técnico en equipos electrónicos de consumo</item>
+        <item>Técnico en instalaciones de telecomunicaciones</item>
+    </string-array>
+
+
+    <!--Titulo Ciclo formativo grado superior-->
+    <string-array name="ciclo_gradoSup">
+        <item>Artes y artesanías</item>
+        <item>Energía y agua</item>
+        <item>Administración y gestión</item>
+        <item>Agraria</item>
+        <item>Instalación y mantenimiento</item>
+        <item>Artes gráficas</item>
+        <item>Seguridad y medio ambiente</item>
+        <item>Edificación y obra civil</item>
+        <item>Electricidad y eléctronica</item>
+        <item>Fabricación mecánica</item>
+        <item>Físicas y deportivas</item>
+        <item>Técnico superior en diseño en fabricación mecánica</item>
+        <item>Hostelería y turismo</item>
+        <item>Imagen personal</item>
+        <item>Imagen y sonido</item>
+        <item>Industrias Alimentarias</item>
+        <item>Informática y comunicaciones</item>
+        <item>Madera, mueble y corcho</item>
+        <item>Mantenimiento y servicios a la producción</item>
+        <item>Marítimo-pesquera</item>
+        <item>Química</item>
+        <item>Sanidad</item>
+        <item>Servicios socioculturales y a la comunidad</item>
+        <item>Textil, confección y piel</item>
+        <item>Transporte y mantenimiento de vehículos</item>
+        <item>Vidrio y cerámica</item>
+        <item>Técnico superior en artes plásticas y diseño en animación</item>
+        <item>Técnico superior en administración de sistemas informáticos en red</item>
+        <item>Técnico superior en artes plásticas y diseño en proyectos y dirección de obras de decoración</item>
+        <item>Técnico superior en audiología protésica</item>
+        <item>Técnico superior en automatización y robótica industrial</item>
+        <item>Técnico superior en coordinación de emergencias y protección civil</item>
+        <item>Técnico superior en desarrollo de aplicaciones web</item>
+        <item>Técnico superior en desarrollo de aplicaciones multiplataforma</item>
+        <item>Técnico superior en dietética</item>
+        <item>Técnico superior en diseño industrial(Deliniación)</item>
+        <item>Técnico superior en educación infantil</item>
+        <item>Técnico superior en educación y control ambiental</item>
+        <item>Técnico superior en energias renovables</item>
+        <item>Técnico superior en gestión forestal y el medio natural</item>
+        <item>Técnico superior en instalaciones eléctricas y automáticas</item>
+        <item>Técnico superior en integración social</item>
+        <item>Técnico superior en interpretación de la lengua de signos</item>
+        <item>Técnico superior en laboratorio de análisis clínicos</item>
+        <item>Técnico superior en laboratorio de análisis y control de calidad</item>
+        <item>Técnico superior en mantenimiento aeromecánico</item>
+        <item>Técnico superior en mantenimiento de aviónica</item>
+        <item>Técnico superior en mecatrónica industrial</item>
+        <item>Técnico superior en plásticos y caucho</item>
+        <item>Técnico superior en proyectos y dirección de obras de decoración</item>
+        <item>Técnico superior en radioterapia</item>
+        <item>Técnico superior en secretariado</item>
+        <item>Técnico superior en sistemas de telecomunicaciones e informáticos</item>
+        <item>Técnico superior en sistemas microinformáticos y redes</item>
+        <item>Técnico superior en sonido para audiovisuales</item>
+        <item>Técnico superior en sonido para audiovisuales y espectáculos</item>
+        <item>Técnico superior en transporte y logística</item>
+    </string-array>
+
+
+    <!--Titulo Enseñanzas artísticas-->
+    <string-array name="artisticas">
+        <item>Enseñanzas de arte dramático</item>
+        <item>Enseñanzas de artes plásticas y diseño</item>
+        <item>Enseñanzas de danza</item>
+        <item>Enseñanzas de música</item>
+    </string-array>
+
+
+    <!--Titulo Enseñanzas deportivas-->
+    <string-array name="departivas">
+      <item>Enseñanzas de atletismo</item>
+        <item>Enseñanzas de balonmano</item>
+        <item>Enseñanzas de esquí</item>
+        <item>Enseñanzas de fútbol</item>
+        <item>Enseñanzas de montaña</item>
+    </string-array>
+
+    <!--Titulo Grado-->
+    <string-array name="grado">
+        <item>Grado Abierto</item>
+        <item>Grado Abierto en Ciencias Sociales y Humanidades</item>
+        <item>Grado Abierto en Ciencias Sociales y Jurídicas</item>
+        <item>Grado Abierto en Ingeniería</item>
+        <item>Grado en Administración de Empresas</item>
+        <item>Grado en Administración de Empresas y Gestión de la Innovación</item>
+        <item>Grado en Administración y Dirección de Empresas</item>
+        <item>Grado en Administración y Dirección de Empresas Tecnológicas</item>
+        <item>Grado en Administración y Gestión Pública</item>
+        <item>Grado en Análisis de Negocios / Business Analytics</item>
+        <item>Grado en Análisis Económico</item>
+        <item>Grado en Animación</item>
+        <item>Grado en Antropología Social</item>
+        <item>Grado en Antropología Social y Cultural</item>
+        <item>Grado en Antropología y Evolución Humana</item>
+        <item>Grado en Arqueología</item>
+        <item>Grado en Arquitectura</item>
+        <item>Grado en Arquitectura</item>
+        <item>Grado en Arquitectura Naval</item>
+        <item>Grado en Arquitectura Naval e Ingeniería de Sistemas Marinos</item>
+        <item>Grado en Arquitectura Naval e Ingeniería Marítima</item>
+        <item>Grado en Arquitectura Técnica</item>
+        <item>Grado en Arquitectura Técnica y Edificación</item>
+        <item>Grado en Arte</item>
+        <item>Grado en Artes</item>
+        <item>Grado en Artes Digitales</item>
+        <item>Grado en Artes Escénicas</item>
+        <item>Grado en Artes Escénicas-Interpretación</item>
+        <item>Grado en Artes Visuales y Danza</item>
+        <item>Grado en Artes y Diseñ</item>o
+        <item>Grado en Asistencia de Dirección</item>
+        <item>Grado en Audiovisual y Multimedia</item>
+        <item>Grado en Bellas Artes</item>
+        <item>Grado en Bioinformática</item>
+        <item>Grado en Bioingeniería</item>
+        <item>Grado en Biología</item>
+        <item>Grado en Biología Ambiental</item>
+        <item>Grado en Biología Humana</item>
+        <item>Grado en Biología Sanitaria</item>
+        <item>Grado en Biomedicina</item>
+        <item>Grado en Biomedicina Básica y Experimental</item>
+        <item>Grado en Biomedicina y Terapias Avanzadas</item>
+        <item>Grado en Bioquímica</item>
+        <item>Grado en Bioquímica y Biología Molecular</item>
+        <item>Grado en Bioquímica y Ciencias Biomédicas</item>
+        <item>Grado en Biotecnología</item>
+        <item>Grado en Business Data Analytics</item>
+        <item>Grado en Ciencia de Datos</item>
+        <item>Grado en Ciencia de Datos Aplicada</item>
+        <item>Grado en Ciencia de Datos e Inteligencia Artificial</item>
+        <item>Grado en Ciencia e Ingeniería de Datos</item>
+        <item>Grado en Ciencia Política y Administración Pública</item>
+        <item>Grado en Ciencia Política y de la Administración</item>
+        <item>Grado en Ciencia Política y Gestión Pública</item>
+        <item>Grado en Ciencia y Producción Animal</item>
+        <item>Grado en Ciencia y Salud Animal</item>
+        <item>Grado en Ciencia y Tecnología de la Edificación</item>
+        <item>Grado en Ciencia y Tecnología de los Alimentos</item>
+        <item>Grado en Ciencia y Tecnología Geográficas</item>
+        <item>Grado en Ciencia, Gestión e Ingeniería de Servicios</item>
+        <item>Grado en Ciencias</item>
+        <item>Grado en Ciencias Agrarias y Bioeconomía</item>
+        <item>Grado en Ciencias Ambientales</item>
+        <item>Grado en Ciencias Biomédicas</item>
+        <item>Grado en Ciencias Criminológicas y de la Seguridad</item>
+        <item>Grado en Ciencias Culinarias y Gastronómicas</item>
+        <item>Grado en Ciencias de la Actividad Física y del Deporte</item>
+        <item>Grado en Ciencias de la Actividad Física y el Deporte</item>
+        <item>Grado en Ciencias de la Cultura y Difusión Cultural</item>
+        <item>Grado en Ciencias de la Seguridad</item>
+        <item>Grado en Ciencias del Deporte</item>
+        <item>Grado en Ciencias del Lenguaje y Estudios Literarios</item>
+        <item>Grado en Ciencias del Mar</item>
+        <item>Grado en Ciencias del Trabajo, Relaciones Laborales y Recursos Humanos</item>
+        <item>Grado en Ciencias Empresariales</item>
+        <item>Grado en Ciencias Empresariales - Management</item>
+        <item>Grado en Ciencias Experimentales</item>
+        <item>Grado en Ciencias Gastronómicas</item>
+        <item>Grado en Ciencias Jurídicas de las Administraciones Públicas</item>
+        <item>Grado en Ciencias Políticas</item>
+        <item>Grado en Ciencias Políticas y de la Administración</item>
+        <item>Grado en Ciencias Políticas y de la Administración Pública</item>
+        <item>Grado en Ciencias Políticas y Gestión Pública</item>
+        <item>Grado en Ciencias Sociales</item>
+        <item>Grado en Ciencias y Lenguas de la Antigüedad</item>
+        <item>Grado en Ciencias y Tecnologías Aplicadas al Deporte y al Acondicionamiento Físico</item>
+        <item>Grado en Cine</item>
+        <item>Grado en Cine y Cultura</item>
+        <item>Grado en Cine y Medios Audiovisuales</item>
+        <item>Grado en Cinematografía y Artes Audiovisuales</item>
+        <item>Grado en Comercio</item>
+        <item>Grado en Comercio Internacional</item>
+        <item>Grado en Comercio y Marketing</item>
+        <item>Grado en Comportamiento y Ciencias Sociales</item>
+        <item>Grado en Composición de Músicas Contemporáneas</item>
+        <item>Grado en Computación e Inteligencia Artificial</item>
+        <item>Grado en Comunicación</item>
+        <item>Grado en Comunicación / Bachelor of Communication</item>
+        <item>Grado en Comunicación Audiovisual</item>
+        <item>Grado en Comunicación Audiovisual y Multimedia</item>
+        <item>Grado en Comunicación Audiovisual y Nuevos Medios</item>
+        <item>Grado en Comunicación Corporativa, Protocolo y Organización de Eventos</item>
+        <item>Grado en Comunicación Cultural</item>
+        <item>Grado en Comunicación Digital</item>
+        <item>Grado en Comunicación e Industrias Culturales</item>
+        <item>Grado en Comunicación Global y Estratégica</item>
+        <item>Grado en Comunicación Interactiva</item>
+        <item>Grado en Comunicación Internacional</item>
+        <item>Grado en Comunicación Publicitaria</item>
+        <item>Grado en Comunicación y Creación Digital</item>
+        <item>Grado en Comunicación y Medios Digitales</item>
+        <item>Grado en Comunicación y Periodismo Audiovisual</item>
+        <item>Grado en Comunicación y Relaciones Públicas</item>
+        <item>Grado en Conservación y Restauración de Bienes Culturales</item>
+        <item>Grado en Conservación y Restauración del Patrimonio Cultural</item>
+        <item>Grado en Contabilidad y Finanzas</item>
+        <item>Grado en Contenidos Digitales Interactivos</item>
+        <item>Grado en Creación Artística para Videojuegos y Juegos Aplicados</item>
+        <item>Grado en Creación Digital, Animación y Videojuegos</item>
+        <item>Grado en Creación y Diseño</item>
+        <item>Grado en Creación y Narración de Videojuegos</item>
+        <item>Grado en Creación, Administración y Dirección de Empresas</item>
+        <item>Grado en Criminalística: Ciencias y Tecnologías Forenses</item>
+        <item>Grado en Criminología</item>
+        <item>Grado en Criminología y Políticas Públicas de Prevención</item>
+        <item>Grado en Criminología y Seguridad</item>
+        <item>Grado en Danza</item>
+        <item>Grado en Datos y Analítica de Negocio</item>
+        <item>Grado en Derecho</item>
+        <item>Grado en Derecho / Bachelor of Laws</item>
+        <item>Grado en Desarrollo de Aplicaciones 3D Interactivas y Videojuegos</item>
+        <item>Grado en Desarrollo de Videojuegos</item>
+        <item>Grado en Dirección Comercial y Marketing</item>
+        <item>Grado en Dirección de Empresas</item>
+        <item>Grado en Dirección de Empresas (BBA)</item>
+        <item>Grado en Dirección de Empresas en el Ámbito Digital</item>
+        <item>Grado en Dirección de Empresas Tecnológicas</item>
+        <item>Grado en Dirección Hotelera</item>
+        <item>Grado en Dirección Internacional de Empresas</item>
+        <item>Grado en Dirección Internacional de Empresas de Turismo y Ocio</item>
+        <item>Grado en Dirección y Administración de Empresas</item>
+        <item>Grado en Dirección y Creación de Empresas</item>
+        <item>Grado en Dirección y Gestión de Empresas en el Ámbito Digital</item>
+        <item>Grado en Dirección y Gestión Pública</item>
+        <item>Grado en Diseño</item>
+        <item>Grado en Diseño Arquitectónico de Interiores</item>
+        <item>Grado en Diseño de Interiores</item>
+        <item>Grado en Diseño de Moda</item>
+        <item>Grado en Diseño de Producto</item>
+        <item>Grado en Diseño de Productos Interactivos</item>
+        <item>Grado en Diseño de Videojuegos</item>
+        <item>Grado en Diseño Digital</item>
+        <item>Grado en Diseño Digital y Multimedia</item>
+        <item>Grado en Diseño Digital y Tecnologías Creativas</item>
+        <item>Grado en Diseño Industrial y Desarrollo de Producto</item>
+        <item>Grado en Diseño Integral y Gestión de la Imagen</item>
+        <item>Grado en Diseño Multimedia y Gráfico</item>
+        <item>Grado en Diseño Visual de Contenidos Digitales</item>
+        <item>Grado en Diseño y Creación Digitales</item>
+        <item>Grado en Diseño y Desarrollo de Videojuegos</item>
+        <item>Grado en Diseño y Desarrollo de Videojuegos y Experiencias Interactivas</item>
+        <item>Grado en Diseño y Gestión de Moda</item>
+        <item>Grado en Diseño y Gestión de Proyectos</item>
+        <item>Grado en Diseño y Producción de Videojuegos</item>
+        <item>Grado en Diseño y Tecnologías Creativas</item>
+        <item>Grado en Economía</item>
+        <item>Grado en Economía Financiera y Actuarial</item>
+        <item>Grado en Economía y Finanzas</item>
+        <item>Grado en Economía y Gestión</item>
+        <item>Grado en Economía y Negocios Internacionales</item>
+        <item>Grado en Edificación</item>
+        <item>Grado en Educación Infantil</item>
+        <item>Grado en Educación Infantil</item>
+        <item>Grado en Educación Primaria</item>
+        <item>Grado en Educación Primaria</item>
+        <item>Grado en Educación Social</item>
+        <item>Grado en Empresa Internacional</item>
+        <item>Grado en Empresa y Tecnología</item>
+        <item>Grado en Empresa y Tecnología</item>
+        <item>Grado en Empresas y Actividades Turísticas</item>
+        <item>Grado en Enfermería</item>
+        <item>Grado en Enología</item>
+        <item>Grado en Español: Estudios Lingüísticos y Literarios</item>
+        <item>Grado en Español: Lengua y Literatura</item>
+        <item>Grado en Español: Lengua y Literaturas</item>
+        <item>Grado en Estadística</item>
+        <item>Grado en Estadística Aplicada</item>
+        <item>Grado en Estadística Empresarial</item>
+        <item>Grado en Estadística y Empresa</item>
+        <item>Grado en Estudios Alemanes</item>
+        <item>Grado en Estudios Árabes e Islámicos</item>
+        <item>Grado en Estudios Árabes y Hebreos</item>
+        <item>Grado en Estudios Clásicos</item>
+        <item>Grado en Estudios Clásicos y Románicos</item>
+        <item>Grado en Estudios de Arquitectura</item>
+        <item>Grado en Estudios de Arquitectura</item>
+        <item>Grado en Estudios de Asia Oriental (Chino)</item>
+        <item>Grado en Estudios de Asia Oriental (Coreano)</item>
+        <item>Grado en Estudios de Asia Oriental (Japonés)</item>
+        <item>Grado en Estudios de Asia y África: Árabe, Chino y Japonés</item>
+        <item>Grado en Estudios de Catalán y Español</item>
+        <item>Grado en Estudios de Español y Chino: Lengua, Literatura y Cultura</item>
+        <item>Grado en Estudios de Inglés y Catalán</item>
+        <item>Grado en Estudios de Inglés y de Clásicas</item>
+        <item>Grado en Estudios de Inglés y Español</item>
+        <item>Grado en Estudios de Inglés y Francés</item>
+        <item>Grado en Estudios de la Arquitectura</item>
+        <item>Grado en Estudios en Arquitectura</item>
+        <item>Grado en Estudios Franceses</item>
+        <item>Grado en Estudios Francófonos Aplicados</item>
+        <item>Grado en Estudios Globales / Global Studies</item>
+        <item>Grado en Estudios Hebreos y Arameos</item>
+        <item>Grado en Estudios Hispánicos</item>
+        <item>Grado en Estudios Hispánicos, Lengua Española y sus Literaturas</item>
+        <item>Grado en Estudios Hispano-Alemanes</item>
+        <item>Grado en Estudios Ingleses</item>
+        <item>Grado en Estudios Ingleses. Lengua, Literatura y Cultura</item>
+        <item>Grado en Estudios Internacionales</item>
+        <item>Grado en Estudios Internacionales de Economía y Empresa</item>cs
+        <item>Grado en Estudios Italianos</item>
+        <item>Grado en Estudios Literarios</item>
+        <item>Grado en Estudios Portugueses y Brasileños</item>
+        <item>Grado en Estudios Semíticos e Islámicos</item>
+        <item>Grado en Estudios Socioculturales de Género</item>
+        <item>Grado en Estudios Vascos</item>
+        <item>Grado en Farmacia</item>
+        <item>Grado en Filología</item>
+        <item>Grado en Filología Catalana</item>
+        <item>Grado en Filología Catalana y Estudios Occitanos</item>
+        <item>Grado en Filología Catalana: Estudios de Literatura y Lingüística</item>
+        <item>Grado en Filología Clásica</item>
+        <item>Grado en Filología Hispánica</item>
+        <item>Grado en Filología Moderna. Inglés</item>
+        <item>Grado en Filología Vasca-Euskal Filologia</item>
+        <item>Grado en Filosofía</item>
+        <item>Grado en Filosofía, Política y Economía</item>
+        <item>Grado en Finanzas y Contabilidad</item>
+        <item>Grado en Finanzas, Banca y Seguros</item>
+        <item>Grado en Fiscalidad y Administración Pública</item>
+        <item>Grado en Física</item>
+        <item>Grado en Física e Instrumentación Espacial</item>
+        <item>Grado en Fisioterapia</item>
+        <item>Grado en Fotografía</item>
+        <item>Grado en Fundamentos de Arquitectura</item>
+        <item>Grado en Fundamentos de Arquitectura y Urbanismo</item>
+        <item>Grado en Gallego y Portugués: Estudios Lingüísticos y Literarios</item>
+        <item>Grado en Gastronomía</item>
+        <item>Grado en Gastronomía y Artes Culinarias</item>
+        <item>Grado en Genética</item>
+        <item>Grado en Geografía</item>
+        <item>Grado en Geografía e Historia</item>
+        <item>Grado en Geografía y Gestión del Territorio</item>
+        <item>Grado en Geografía y Medio Ambiente</item>
+        <item>Grado en Geografía y Ordenación del Territorio</item>
+        <item>Grado en Geografía, Análisis Territorial y Sostenibilidad</item>
+        <item>Grado en Geografía, Medio Ambiente y Planificación Territorial</item>
+        <item>Grado en Geografía, Ordenación del Territorio y Gestión del Medio Ambiente</item>
+        <item>Grado en Geología</item>
+        <item>Grado en Gestión Aeronáutica</item>
+        <item>Grado en Gestión Aplicada</item>
+        <item>Grado en Gestión Comercial y Marketing</item>
+        <item>Grado en Gestión Cultural</item>
+        <item>Grado en Gestión de Ciudades Inteligentes y Sostenibles</item>
+        <item>Grado en Gestión de Empresas de Comercio y Distribución</item>
+        <item>Grado en Gestión de Información y Contenidos Digitales</item>
+        <item>Grado en Gestión de Información y Documentación Digital</item>
+        <item>Grado en Gestión de la Ciberseguridad</item>
+        <item>Grado en Gestión de la Información y Contenidos Digitales</item>
+        <item>Grado en Gestión de Negocios</item>
+        <item>Grado en Gestión de Pequeñas y Medianas Empresas</item>
+        <item>Grado en Gestión de Seguridad Pública</item>
+        <item>Grado en Gestión de Sistemas de Información</item>
+        <item>Grado en Gestión del Turismo</item>
+        <item>Grado en Gestión Deportiva</item>
+        <item>Grado en Gestión Digital de Información y Documentación</item>
+        <item>Grado en Gestión Económico Financiera</item>
+        <item>Grado en Gestión Empresarial Basada en el Análisis de Datos</item>
+        <item>Grado en Gestión Hotelera y Turística</item>
+        <item>Grado en Gestión Industrial de la Moda</item>
+        <item>Grado en Gestión Informática Empresarial</item>
+        <item>Grado en Gestión Turística y Hotelera</item>
+        <item>Grado en Gestión Urbana / Bachelor of Urban Management</item>
+        <item>Grado en Gestión y Administración Pública</item>
+        <item>Grado en Gestión y Marketing Empresarial</item>
+        <item>Grado en Gestión y Operaciones del Transporte Aéreo</item>
+        <item>Grado en Gobernanza Global, Economía y Orden Legal</item>
+        <item>Grado en Historia</item>
+        <item>Grado en Historia del Arte</item>
+        <item>Grado en Historia del Arte y Arqueología</item>
+        <item>Grado en Historia del Arte y Gestión del Patrimonio Artístico</item>
+        <item>Grado en Historia del Arte y Patrimonio Histórico-Artístico</item>
+        <item>Grado en Historia y Ciencias de la Música</item>
+        <item>Grado en Historia y Ciencias de la Música y Tecnología Musical</item>
+        <item>Grado en Historia y Geografía</item>
+        <item>Grado en Historia y Patrimonio</item>
+        <item>Grado en Historia y Patrimonio Histórico</item>
+        <item>Grado en Historia y Política</item>
+        <item>Grado en Historia, Geografía e Historia del Arte</item>
+        <item>Grado en Humanidades</item>
+        <item>Grado en Humanidades Digitales Globales</item>
+        <item>Grado en Humanidades y Estudios Culturales</item>
+        <item>Grado en Humanidades y Estudios Sociales</item>
+        <item>Grado en Humanidades y Patrimonio</item>
+        <item>Grado en Humanidades: Estudios Interculturales</item>
+        <item>Grado en Humanidades: Historia Cultural</item>
+        <item>Grado en Industria Digital</item>
+        <item>Grado en Información y Documentación</item>
+        <item>Grado en Informática y Servicios</item>
+        <item>Grado en Ingeniería Aeroespacial</item>
+        <item>Grado en Ingeniería Aeroespacial en Aeronavegación</item>
+        <item>Grado en Ingeniería Aeroespacial en Aeronaves</item>
+        <item>Grado en Ingeniería Aeroespacial en Transporte y Aeropuertos</item>
+        <item>Grado en Ingeniería Aeroespacial en Vehículos Aeroespaciales</item>
+        <item>Grado en Ingeniería Agraria</item>
+        <item>Grado en Ingeniería Agraria y Alimentaria</item>
+        <item>Grado en Ingeniería Agraria y del Medio Rural</item>
+        <item>Grado en Ingeniería Agraria y Energética</item>
+        <item>Grado en Ingeniería Agrícola</item>
+        <item>Grado en Ingeniería Agrícola y Agroalimentaria</item>
+        <item>Grado en Ingeniería Agrícola y del Medio Rural</item>
+        <item>Grado en Ingeniería Agroalimentaria</item>
+        <item>Grado en Ingeniería Agroalimentaria y Agroambiental</item>
+        <item>Grado en Ingeniería Agroalimentaria y de Sistemas Biológicos</item>
+        <item>Grado en Ingeniería Agroalimentaria y del Medio Rural</item>
+        <item>Grado en Ingeniería Agroambiental</item>
+        <item>Grado en Ingeniería Agroambiental y del Paisaje</item>
+        <item>Grado en Ingeniería Alimentaria</item>
+        <item>Grado en Ingeniería Ambiental</item>
+        <item>Grado en Ingeniería Biomédica</item>
+        <item>Grado en Ingeniería Civil</item>
+        <item>Grado en Ingeniería Civil - Construcciones Civiles</item>
+        <item>Grado en Ingeniería Civil - Hidrología</item>
+        <item>Grado en Ingeniería Civil - Transportes y Servicios Urbanos</item>
+        <item>Grado en Ingeniería Civil en Construcciones Civiles</item>
+        <item>Grado en Ingeniería Civil en Hidrología</item>
+        <item>Grado en Ingeniería Civil en Transportes y Servicios Urbanos</item>
+        <item>Grado en Ingeniería Civil y Territorial</item>
+        <item>Grado en Ingeniería de Automoción</item>
+        <item>Grado en Ingeniería de Bioprocesos</item>
+        <item>Grado en Ingeniería de Computadores</item>
+        <item>Grado en Ingeniería de Comunicaciones Móviles y Espaciales</item>
+        <item>Grado en Ingeniería de Datos</item>
+        <item>Grado en Ingeniería de Diseño Industrial</item>
+        <item>Grado en Ingeniería de Diseño Industrial y Desarrollo del Producto</item>
+        <item>Grado en Ingeniería de Diseño y Tecnología Textil</item>
+        <item>Grado en Ingeniería de Edificación</item>
+        <item>Grado en Ingeniería de Energía</item>
+        <item>Grado en Ingeniería de Energía y Medio Ambiente</item>
+        <item>Grado en Ingeniería de Energías Renovables</item>
+        <item>Grado en Ingeniería de la Ciberseguridad</item>
+        <item>Grado en Ingeniería de la Edificación</item>
+        <item>Grado en Ingeniería de la Energía</item>
+        <item>Grado en Ingeniería de la Hortofruticultura y Jardinería</item>
+        <item>Grado en Ingeniería de la Salud</item>
+        <item>Grado en Ingeniería de la Seguridad</item>
+        <item>Grado en Ingeniería de la Tecnología de Minas y Energía</item>
+        <item>Grado en Ingeniería de la Tecnología Minera</item>
+        <item>Grado en Ingeniería de las Explotaciones Agropecuarias</item>
+        <item>Grado en Ingeniería de las Industrias Agrarias y Alimentarias</item>
+        <item>Grado en Ingeniería de las Tecnologías de la Información Geoespacial</item>
+        <item>Grado en Ingeniería de las Tecnologías de Telecomunicación</item>
+        <item>Grado en Ingeniería de los Recursos Energéticos</item>
+        <item>Grado en Ingeniería de los Recursos Energéticos, Combustibles y Explosivos</item>
+        <item>Grado en Ingeniería de los Recursos Mineros</item>
+        <item>Grado en Ingeniería de los Recursos Mineros y Energéticos</item>
+        <item>Grado en Ingeniería de Materiales</item>
+        <item>Grado en Ingeniería de Obras Públicas</item>
+        <item>Grado en Ingeniería de Obras Públicas en Construcciones Civiles</item>
+        <item>Grado en Ingeniería de Obras Públicas en Transportes y Servicios Urbanos</item>
+        <item>Grado en Ingeniería de Organización</item>
+        <item>Grado en Ingeniería de Organización Industrial</item>
+        <item>Grado en Ingeniería de Procesos Químicos Industriales</item>
+        <item>Grado en Ingeniería de Recursos Energéticos</item>
+        <item>Grado en Ingeniería de Recursos Minerales</item>
+        <item>Grado en Ingeniería de Recursos Mineros y Energéticos</item>
+        <item>Grado en Ingeniería de Redes de Telecomunicación</item>
+        <item>Grado en Ingeniería de Sistemas Aeroespaciales</item>
+        <item>Grado en Ingeniería de Sistemas Audiovisuales</item>
+        <item>Grado en Ingeniería de Sistemas Audiovisuales de Telecomunicación</item>
+        <item>Grado en Ingeniería de Sistemas Biológicos</item>
+        <item>Grado en Ingeniería de Sistemas de Comunicaciones</item>
+        <item>Grado en Ingeniería de Sistemas de Información</item>
+        <item>Grado en Ingeniería de Sistemas de Telecomunicación</item>
+        <item>Grado en Ingeniería de Sistemas de Telecomunicación, Sonido e Imagen</item>
+        <item>Grado en Ingeniería de Sistemas Electrónicos</item>
+        <item>Grado en Ingeniería de Sistemas TIC</item>
+        <item>Grado en Ingeniería de Sistemas y Servicios de Telecomunicaciones</item>
+        <item>Grado en Ingeniería de Sonido e Imagen</item>
+        <item>Grado en Ingeniería de Tecnología de Minas y Energía</item>
+        <item>Grado en Ingeniería de Tecnología y Diseño Textil</item>
+        <item>Grado en Ingeniería de Tecnologías de Caminos</item>
+        <item>Grado en Ingeniería de Tecnologías de Telecomunicación</item>
+        <item>Grado en Ingeniería de Tecnologías Específicas de Telecomunicación</item>
+        <item>Grado en Ingeniería de Tecnologías Industriales</item>
+        <item>Grado en Ingeniería de Tecnologías Mineras</item>
+        <item>Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación</item>
+        <item>Grado en Ingeniería del Automóvil</item>
+        <item>Grado en Ingeniería del Medio Natural</item>
+        <item>Grado en Ingeniería del Software</item>
+        <item>Grado en Ingeniería Eléctrica</item>
+        <item>Grado en Ingeniería Eléctrica y Electrónica</item>
+        <item>Grado en Ingeniería Electromecánica</item>
+        <item>Grado en Ingeniería Electrónica</item>
+        <item>Grado en Ingeniería Electrónica de Comunicaciones</item>
+        <item>Grado en Ingeniería Electrónica de Telecomunicación</item>
+        <item>Grado en Ingeniería Electrónica Industrial</item>
+        <item>Grado en Ingeniería Electrónica Industrial y Automática</item>
+        <item>Grado en Ingeniería Electrónica y Automática</item>
+        <item>Grado en Ingeniería Electrónica y Automática Industrial</item>
+        <item>Grado en Ingeniería Electrónica, Robótica y Mecatrónicav</item>
+        <item>Grado en Ingeniería en Automoción</item>
+        <item>Grado en Ingeniería en Desarrollo de Contenidos Digitales</item>
+        <item>Grado en Ingeniería en Diseño Industrial</item>
+        <item>Grado en Ingeniería en Diseño Industrial y Desarrollo de Productos</item>
+        <item>Grado en Ingeniería en Diseño Mecánico</item>
+        <item>Grado en Ingeniería en Ecotecnologías en Procesos Industriales</item>
+        <item>Grado en Ingeniería en Electrónica Industrial</item>
+        <item>Grado en Ingeniería en Electrónica Industrial y Automática</item>
+        <item>Grado en Ingeniería en Electrónica y Automática Industrial</item>
+        <item>Grado en Ingeniería en Energías Renovables y Eficiencia Energética</item>
+        <item>Grado en Ingeniería en Explotación de Minas y Recursos Energéticos</item>
+        <item>Grado en Ingeniería en Geoinformación y Geomática</item>
+        <item>Grado en Ingeniería en Geomática y Topografía</item>
+        <item>Grado en Ingeniería en Industria Conectada</item>
+        <item>Grado en Ingeniería en Informática</item>
+        <item>Grado en Ingeniería en Informática de Sistemas</item>
+        <item>Grado en Ingeniería en Innovación de Procesos y Productos</item>
+        <item>Grado en Ingeniería en Matemática Aplicada al Análisis de Datos</item>
+        <item>Grado en Ingeniería en Organización de las Tecnologías de la Información y de la Comunicación</item>
+        <item>Grado en Ingeniería en Organización Industrial</item>
+        <item>Grado en Ingeniería en Organización Industrial y Logística</item>
+        <item>Grado en Ingeniería en Química Industrial</item>
+        <item>Grado en Ingeniería en Recursos Energéticos y Mineros</item>
+        <item>Grado en Ingeniería en Sistemas Audiovisuales y Multimedia</item>
+        <item>Grado en Ingeniería en Sistemas de Telecomunicación</item>
+        <item>Grado en Ingeniería en Sistemas Industriales</item>
+        <item>Grado en Ingeniería en Sistemas y Tecnología Naval</item>
+        <item>Grado en Ingeniería en Sonido e Imagen</item>
+        <item>Grado en Ingeniería en Tecnología de Telecomunicación</item>
+        <item>Grado en Ingeniería en Tecnología Industrial</item>
+        <item>Grado en Ingeniería en Tecnología Minera</item>
+        <item>Grado en Ingeniería en Tecnología Naval</item>
+        <item>Grado en Ingeniería en Tecnologías Aeroespaciales</item>
+        <item>Grado en Ingeniería en Tecnologías Ambientales</item>
+        <item>Grado en Ingeniería en Tecnologías de la Telecomunicación</item>
+        <item>Grado en Ingeniería en Tecnologías de Telecomunicación</item>
+        <item>Grado en Ingeniería en Tecnologías Industriales</item>
+        <item>Grado en Ingeniería en Vehículos Aeroespaciales</item>
+        <item>Grado en Ingeniería Energética</item>
+        <item>Grado en Ingeniería Física</item>
+        <item>Grado en Ingeniería Forestal</item>
+        <item>Grado en Ingeniería Forestal y del Medio Natural</item>
+        <item>Grado en Ingeniería Forestal: Industrias Forestales</item>
+        <item>Grado en Ingeniería Geológica</item>
+        <item>Grado en Ingeniería Geomática</item>
+        <item>Grado en Ingeniería Geomática y Topografía</item>
+        <item>Grado en Ingeniería Hortofrutícola y Jardinería</item>
+        <item>Grado en Ingeniería Informática</item>
+        <item>Grado en Ingeniería Informática de Gestión y Sistemas de Información</item>
+        <item>Grado en Ingeniería Informática de Servicios y Aplicaciones</item>
+        <item>Grado en Ingeniería Informática del Software</item>
+        <item>Grado en Ingeniería Informática en Ingeniería de Computadores</item>
+        <item>Grado en Ingeniería Informática en Ingeniería del Software</item>
+        <item>Grado en Ingeniería Informática en Sistemas de Información</item>
+        <item>Grado en Ingeniería Informática en Tecnologías de la Información</item>
+        <item>Grado en Ingeniería Informática y Tecnologías Virtuales</item>
+        <item>Grado en Ingeniería Informática-Ingeniería de Computadores</item>
+        <item>Grado en Ingeniería Informática-Tecnologías Informáticas</item>
+        <item>Grado en Ingeniería Marina</item>
+        <item>Grado en Ingeniería Marítima</item>
+        <item>Grado en Ingeniería Matemática</item>
+        <item>Grado en Ingeniería Matemática en Ciencia de Datos</item>
+        <item>Grado en Ingeniería Mecánica</item>
+        <item>Grado en Ingeniería Mecatrónica</item>
+        <item>Grado en Ingeniería Mecatrónica y Robótica</item>
+        <item>Grado en Ingeniería Minera</item>
+        <item>Grado en Ingeniería Minera y Energética</item>
+        <item>Grado en Ingeniería Multimedia</item>
+        <item>Grado en Ingeniería Náutica y Transporte Marítimo</item>
+        <item>Grado en Ingeniería Naval y Oceánica</item>
+        <item>Grado en Ingeniería Química</item>
+        <item>Grado en Ingeniería Química Industrial</item>
+        <item>Grado en Ingeniería Radioelectrónica</item>
+        <item>Grado en Ingeniería Radioelectrónica Naval</item>
+        <item>Grado en Ingeniería Robótica</item>
+        <item>Grado en Ingeniería Telemática</item>
+        <item>Grado en Ingeniería Telemática en Telecomunicaciones</item>
+        <item>Grado en Ingeniería y Gestión Empresarial</item>
+        <item>Grado en Ingeniería y Sistemas de Datos</item>
+        <item>Grado en Inglés</item>
+        <item>Grado en Inglés: Estudios Lingüísticos y Literarios</item>
+        <item>Grado en Innovación en Procesos y Productos Alimentarios</item>
+        <item>Grado en Innovación y Seguridad Alimentaria</item>
+        <item>Grado en Inteligencia Artificial</item>
+        <item>Grado en Inteligencia de Negocios</item>
+        <item>Grado en Inteligencia de Negocios</item>
+        <item>Grado en Inteligencia Robótica</item>
+        <item>Grado en Inteligencia y Analítica de Negocios</item>
+        <item>Grado en Interpretación de Música Moderna</item>
+        <item>Grado en Interpretación Musical</item>
+        <item>Grado en Lengua de Signos Española y Comunidad Sorda</item>
+        <item>Grado en Lengua Española y Literaturas Hispánicas</item>
+        <item>Grado en Lengua Española y su Literatura</item>
+        <item>Grado en Lengua Española y sus Literaturas</item>
+        <item>Grado en Lengua y Cultura Vasca</item>
+        <item>Grado en Lengua y Literatura Alemanas</item>
+        <item>Grado en Lengua y Literatura Catalanas</item>
+        <item>Grado en Lengua y Literatura Española</item>
+        <item>Grado en Lengua y Literatura Españolas</item>
+        <item>Grado en Lengua y Literatura Gallegas</item>
+        <item>Grado en Lengua y Literatura Hispánica</item>
+        <item>Grado en Lengua y Literatura Hispánicas</item>
+        <item>Grado en Lengua y Literatura Inglesas</item>
+        <item>Grado en Lenguas Aplicadas</item>
+        <item>Grado en Lenguas Extranjeras</item>
+        <item>Grado en Lenguas Modernas</item>
+        <item>Grado en Lenguas Modernas y Gestión</item>
+        <item>Grado en Lenguas Modernas y sus Literaturas</item>
+        <item>Grado en Lenguas Modernas y Traducción</item>
+        <item>Grado en Lenguas Modernas, Cultura y Comunicación</item>
+        <item>Grado en Lenguas Románicas y sus Literaturas</item>
+        <item>Grado en Lenguas y Literaturas Modernas</item>
+        <item>Grado en Lenguas y Literaturas Modernas, Francés - Inglés</item>
+        <item>Grado en Lenguas y Literaturas Modernas-Francés</item>
+        <item>Grado en Lenguas y Literaturas Modernas-Portugués</item>
+        <item>Grado en Lenguas, Literaturas y Culturas Románicas</item>
+        <item>Grado en Liderazgo Emprendedor e Innovación</item>
+        <item>Grado en Lingüística</item>
+        <item>Grado en Lingüística Aplicada y Ciencias del Lenguaje</item>
+        <item>Grado en Lingüística y Lenguas Aplicadas</item>
+        <item>Grado en Literatura General y Comparada</item>
+        <item>Grado en Literatura y Escritura Creativa</item>
+        <item>Grado en Literaturas Comparadas</item>
+        <item>Grado en Logística Empresarial</item>
+        <item>Grado en Logística y Negocios Marítimos</item>
+        <item>Grado en Logopedia</item>
+        <item>Grado en Maestro de Educación Infantil</item>
+        <item>Grado en Maestro de Educación Primaria</item>
+        <item>Grado en Maestro en Educación Infantil</item>
+        <item>Grado en Maestro en Educación Primaria</item>
+        <item>Grado en Marina</item>
+        <item>Grado en Marketing</item>
+        <item>Grado en Marketing e Investigación de Mercados</item>
+        <item>Grado en Marketing e Investigación de Mercados</item>
+        <item>Grado en Marketing y Comercialización Internacional</item>
+        <item>Grado en Marketing y Comunicación</item>
+        <item>Grado en Marketing y Comunicación Digital</item>
+        <item>Grado en Marketing y Comunicación Empresarial</item>
+        <item>Grado en Marketing y Comunidades Digitales</item>
+        <item>Grado en Marketing y Dirección Comercial</item>
+        <item>Grado en Marketing y Gestión Comercial</item>
+        <item>Grado en Matemática Aplicada</item>
+        <item>Grado en Matemática Aplicada y Computación</item>
+        <item>Grado en Matemática Computacional</item>
+        <item>Grado en Matemática Computacional y Analítica de Datos</item>
+        <item>Grado en Matemáticas</item>
+        <item>Grado en Matemáticas e Informática</item>
+        <item>Grado en Matemáticas y Estadística</item>
+        <item>Grado en Medicina</item>
+        <item>Grado en Medio Ambiente y Sostenibilidad</item>
+        <item>Grado en Medios Audiovisuales</item>
+        <item>Grado en Microbiología</item>
+        <item>Grado en Multimedia</item>
+        <item>Grado en Multimedia y Artes Digitales</item>
+        <item>Grado en Multimedia. Aplicaciones y Videojuegos</item>
+        <item>Grado en Música</item>
+        <item>Grado en Musicología</item>
+        <item>Grado en Nanociencia y Nanotecnología</item>
+        <item>Grado en Náutica y Transporte Marítimo</item>
+        <item>Grado en Negocios Internacionales</item>
+        <item>Grado en Negocios Internacionales</item>
+        <item>Grado en Negocios y Marketing Internacionales</item>
+        <item>Grado en Nutrición Humana y Dietética</item>
+        <item>Grado en Odontología</item>
+        <item>Grado en Óptica y Optometría</item>
+        <item>Grado en Óptica, Optometría y Audiología</item>
+        <item>Grado en Organización de Eventos, Protocolo y Relaciones Institucionales</item>
+        <item>Grado en Paisaje</item>
+        <item>Grado en Paisajismo</item>
+        <item>Grado en Pedagogía</item>
+        <item>Grado en Periodismo</item>
+        <item>Grado en Periodismo y Comunicación Corporativa</item>
+        <item>Grado en Piloto de Aviación Comercial y Operaciones Aéreas</item>
+        <item>Grado en Podología</item>
+        <item>Grado en Política, Derecho y Economía</item>
+        <item>Grado en Prevención y Seguridad Integral</item>
+        <item>Grado en Protocolo y Organización de Eventos</item>
+        <item>Grado en Protocolo, Organización de Eventos y Comunicación Corporativa</item>
+        <item>Grado en Psicología</item>
+        <item>Grado en Publicidad</item>
+        <item>Grado en Publicidad y Relaciones Públicas</item>
+        <item>Grado en Publicidad, Marketing y Relaciones Públicas</item>
+        <item>Grado en Publicidad, Relaciones Públicas y Marketing</item>
+        <item>Grado en Química</item>
+        <item>Grado en Relaciones Internacionales</item>
+        <item>Grado en Relaciones Internacionales</item>
+        <item>Grado en Relaciones Internacionales y Unión Europea</item>
+        <item>Grado en Relaciones Laborales</item>
+        <item>Grado en Relaciones Laborales y Desarrollo de Recursos Humanos</item>
+        <item>Grado en Relaciones Laborales y Empleo</item>
+        <item>Grado en Relaciones Laborales y Ocupación</item>
+        <item>Grado en Relaciones Laborales y Recursos Humanos</item>
+        <item>Grado en Seguridad</item>
+        <item>Grado en Seguridad y Control de Riesgos</item>
+        <item>Grado en Seguros y Finanzas</item>
+        <item>Grado en Sistemas de Información</item>
+        <item>Grado en Sociología</item>
+        <item>Grado en Sociología Aplicada</item>
+        <item>Grado en Sonido e Imagen en Telecomunicación</item>
+        <item>Grado en Técnicas Cuantitativas para la Economía y la Empresa</item>
+        <item>Grado en Técnicas de Aplicaciones de Software</item>
+        <item>Grado en Técnicas de Interacción Digital y de Computación</item>
+        <item>Grado en Tecnología de la Ingeniería Civil</item>
+        <item>Grado en Tecnología e Innovación Alimentaria</item>
+        <item>Grado en Tecnologías de Caminos, Canales y Puertos</item>
+        <item>Grado en Tecnologías de la Información</item>
+        <item>Grado en Tecnologías Industriales y Análisis Económico</item>
+        <item>Grado en Tecnologías Interactivas</item>
+        <item>Grado en Tecnologías Marinas</item>
+        <item>Grado en Tecnologías para la Sociedad de la Información</item>
+        <item>Grado en Tecnologías y Servicios de Telecomunicación</item>
+        <item>Grado en Terapia Ocupacional</item>
+        <item>Grado en Trabajo Social</item>
+        <item>Grado en Traducción e Interpretación</item>
+        <item>Grado en Traducción e Interpretación: Inglés - Alemán</item>
+        <item>Grado en Traducción e Interpretación: Inglés - Francés</item>
+        <item>Grado en Traducción y Comunicación Intercultural</item>
+        <item>Grado en Traducción y Mediación Interlingüística</item>
+        <item>Grado en Traducción, Interpretación y Lenguas Aplicadas</item>
+        <item>Grado en Transporte y Logística</item>
+        <item>Grado en Turismo</item>
+        <item>Grado en Turismo y Gestión del Ocio</item>
+        <item>Grado en Turismo y Ocio</item>
+        <item>Grado en Veterinaria</item>
+    </string-array>
+
+
+    <!--Título Licenciatura-->
+    <string-array name="licenciatura">
+        <item>Administración y direccción de empresas</item>
+        <item>Antropologísa social y cultural</item>
+        <item>Bellas artes</item>
+        <item>Biología</item>
+        <item>Bioquímica</item>
+        <item>Biotecnología</item>
+        <item>Ciencia y tecnología de los alimentos</item>
+        <item>Ciencias actuariales y financieras</item>
+        <item>Ciencias ambientales</item>
+        <item>Ciencias de la actividad física y del deporte</item>
+        <item>Ciencias del mar</item>
+        <item>Ciencias del trabajo</item>
+        <item>Ciencias políticas y de la administración</item>
+        <item>Cincias químicas</item>
+        <item>Ciencias religiosas</item>
+        <item>Ciencias y técnicas estadísticas</item>
+        <item>Comunicación audiovisual</item>
+        <item>Criminología</item>
+        <item>Derecho</item>
+        <item>Documentación</item>
+        <item>Economía</item>
+        <item>Enología</item>
+        <item>Estudios de asia oriental</item>
+        <item>Farmacia</item>
+        <item>Filología alemana</item>
+        <item>Filología arabe</item>
+        <item>Filología catalana</item>
+        <item>Filología clásica</item>
+        <item>Filología eslava</item>
+        <item>Filología francesa</item>
+        <item>Filología gallega</item>
+        <item>Filología hebrea</item>
+        <item>Filología hispánica</item>
+        <item>Filología inglesa</item>
+        <item>Filología italiana</item>
+        <item>Filología portuguesa</item>
+        <item>Filología romántica</item>
+        <item>Filología vasca</item>
+        <item>Filosofía</item>
+        <item>Física</item>
+        <item>Geografía</item>
+        <item>Geología</item>
+        <item>Historia</item>
+        <item>Historia del arte</item>
+        <item>Historia y ciencias de la música</item>
+        <item>Humanidades</item>
+        <item>Investigación y técnicas de mercado</item>
+        <item>Lingüistica</item>
+        <item>Maquinas navales</item>
+        <item>Maketing</item>
+        <item>Matemáticas</item>
+        <item>Medicina</item>
+        <item>Náutica y transporte marítimo</item>
+        <item>Odontología</item>
+        <item>Pedagogía</item>
+        <item>Periodismo</item>
+        <item>Psicología</item>
+        <item>Psicopedagogía</item>
+        <item>Publicidad y relaciones públicas</item>
+        <item>Química</item>
+        <item>Radioelectrónica naval</item>
+        <item>Sociología</item>
+        <item>Teoría de la literatura y literatura comparada</item>
+        <item>Traducción e interpretación</item>
+        <item>Veterinaria</item>
+    </string-array>
+
+    <!--Título Diplomatura-->
+    <string-array name="diplomatura">
+        <item>Biblioteconomía y documentación</item>
+        <item>Ciencias empresariales</item>
+        <item>Educación social</item>
+        <item>Enfermería</item>
+        <item>Estadística</item>
+        <item>Fisiterapia</item>
+        <item>Gestión y administración pública</item>
+        <item>Logopedia</item>
+        <item>Maestro: Especialidad de audición y lenguaje</item>
+        <item>Maestro: Especialidad de educación especial</item>
+        <item>Maestro: Especialidad de educación física</item>
+        <item>Maestro: Especialidad de educación infantil</item>
+        <item>Maestro: Especialidad de educación musical</item>
+        <item>Maestro: Especialidad de educación primaria</item>
+        <item>Maestro: Especialidad de lengua extranjera</item>
+        <item>Máquinas navales</item>
+        <item>Navegación marítima</item>
+        <item>Nutrición humana y dietética</item>
+        <item>Óptica y Optometría</item>
+        <item>Podología</item>
+        <item>Protocolo y relaciones institucionales</item>
+        <item>Radioelectrónica naval</item>
+        <item>Relaciones laborales</item>
+        <item>Terapia ocupacional</item>
+        <item>Trabajo social</item>
+        <item>Turismo</item>
+    </string-array>
+
+
+    <!--Título Ingeniería técnica-->
+    <string-array name="ing_tec">
+        <item>Aeronáutico</item>
+        <item>Aeronáutico, especialidad en aeromotores</item>
+        <item>Aeronáutico, especialidad en aeronavegación</item>
+        <item>Aeronáutico, especialidad en aeronaves</item>
+        <item>Aeronáutico, especialidad en aeropuertos</item>
+        <item>Aeronáutico, especialidad en equipos y materiales aeroespaciales</item>
+        <item>Agrícola</item>
+        <item>Agrícola, especialidad en explotaciones agropecuarias</item>
+        <item>Agrícola, especialidad en hortofruticultura y jardinería</item>
+        <item>Agrícola, especialidad en industrias agrarias y alimentarias</item>
+        <item>Agrícola, especialidad en mecanización y construcciones rurales</item>
+        <item>Arquitecto técnico</item>
+        <item>Forestal</item>
+        <item>Forestal, especialidad en explotaciones forestales</item>
+        <item>Forestal, especialidad en industrias forestales</item>
+        <item>Industrial</item>
+        <item>Industrial, especialidad en electricidad</item>
+        <item>Industrial, especialidad en electrónica industrial</item>
+        <item>Industrial, especialidad en mecánica</item>
+        <item>Industrial, especialidad en química industrial</item>
+        <item>Industrial, especialidad textil</item>
+        <item>Naval</item>
+        <item>Naval, especialidad en estructura marina</item>
+        <item>Naval, especialidad en propulsión y servicios del buque</item>
+        <item>Técnico de minas</item>
+        <item>Técnico de minas, especialidad en explotación de minas</item>
+        <item>Técnico de minas, especialidad en instalaciones electromecánicas mineras</item>
+        <item>Técnico de minas, especialidad en mineralurgia y metalurgia</item>
+        <item>Técnico de minas, especialidad en recursos energéticos, combustibles y explosivos</item>
+        <item>Técnico de minas, especialidad en sondeos y prospecciones mineras</item>
+        <item>Técnico de obras públicas</item>
+        <item>Técnico de obras públicas, especialidad en construcciones civiles</item>
+        <item>Técnico de obras públicas, especialidad en hidrología</item>
+        <item>Técnico de obras públicas, especialidad en transportes y servicios urbanos</item>
+        <item>Técnico de telecomunicación</item>
+        <item>Técnico de telecomunicación, especialidad en sistemas de telecomunicación</item>
+        <item>Técnico de telecomunicación, especialidad en sistemas electrónicos</item>
+        <item>Técnico de telecomunicación, especialidad en sonido e imagen</item>
+        <item>Técnico de telecomunicación, especialidad en telemática</item>
+        <item>Técnico en diseño industrial</item>
+        <item>Técnico en informática de gestión</item>
+        <item>Técnico en informática de sistemas</item>
+        <item>Técnico en topografía</item>
+    </string-array>
+
+
+
+    <!--Título Ingeniería superior-->
+    <string-array name="ing_sup">
+        <item>Aeronáutico</item>
+        <item>Agrónomo</item>
+        <item>Arquitecto</item>
+        <item>Geólogo</item>
+        <item>Industrial</item>
+        <item>Ingeniero de caminos, canales y puertos</item>
+        <item>Ingeniero de materiales</item>
+        <item>Ingeniero de minas</item>
+        <item>Ingeniero de montes</item>
+        <item>Ingeniero de sistemas de defensa</item>
+        <item>Ingeniero de telecomunicación</item>
+        <item>Ingeniero en automática y electrónica industrial</item>
+        <item>Ingeniero en electrónica</item>
+        <item>Ingeniero en geodesia y cartografía</item>
+        <item>Ingeniero en informática</item>
+        <item>Ingeniero en organización industrial</item>
+        <item>Naval y oceánico</item>
+        <item>Químico</item>
+    </string-array>
+
+    <!--Título Doctorado-->
+    <string-array name="doctorado">
+        <item>Álgebra</item>
+        <item>Análisis geográfico regional</item>
+        <item>Análisis matemático</item>
+        <item>Anatomía patológica</item>
+        <item>Anatomía y anatomía patológica comparadas</item>
+        <item>Anatomía y embriología humana</item>
+        <item>Antropología física</item>
+        <item>Antropología social</item>
+        <item>Arqueología</item>
+        <item>Arquitectura y tecnología de computadores</item>
+        <item>Astronomía y astrofísica</item>
+        <item>Biblioteconomía y documentación</item>
+        <item>Biología celular</item>
+        <item>Biomedicina</item>
+        <item>Bioquímica y biología molecular</item>
+        <item>Botánica</item>
+        <item>Ciencia de la computación e inteligencia artificial</item>
+        <item>Ciencia de los materiales e ingeniería metalúrgica</item>
+        <item>Ciencia política y de la administración</item>
+        <item>Ciencias y técnicas de la navegación</item>
+        <item>Ciencias y técnicas historiográficas</item>
+        <item>Cirugía</item>
+        <item>Comercialización e investigación de mercados</item>
+        <item>Composición arquitectónica</item>
+        <item>Comunicación audiovisual y publicidad</item>
+        <item>Construcciones arquitectónicas</item>
+        <item>Construcciones navales</item>
+        <item>Cristalografía y mineralogía</item>
+        <item>Derecho administrativo</item>
+        <item>Derecho civil</item>
+        <item>Derecho constitucional</item>
+        <item>Derecho del trabajo y de la seguridad social</item>
+        <item>Derecho eclesiástico del estado</item>
+        <item>Derecho financiero y tributario</item>
+        <item>Derecho internacional privado</item>
+        <item>Derecho internacional público y relaciones internacionales</item>
+        <item>Derecho mercantil</item>
+        <item>Derecho penal</item>
+        <item>Derecho procesal</item>
+        <item>Derecho romano</item>
+        <item>Dermatología</item>
+        <item>Dibujo</item>
+        <item>Didáctica de la expresión corporal</item>
+        <item>Didáctica de la expresión musical</item>
+        <item>Didáctica de la expresión musical, plástica y corporal(desagregada)</item>
+        <item>Didáctica de la expresión plástica</item>
+        <item>Didáctica de la lengua y la literatura</item>
+        <item>Didáctica de la matemática</item>
+        <item>Didáctica de las ciencias experimentales</item>
+        <item>Didáctica de las ciencias sociales</item>
+        <item>Didáctica y organización escolar</item>
+        <item>Ecología</item>
+        <item>Economía aplicada</item>
+        <item>Economía financiera y contabilidad</item>
+        <item>Economía, sociología y política agraria</item>
+        <item>Edafología y química agrícola</item>
+        <item>Educación física y deportiva</item>
+        <item>Electromagnetismo</item>
+        <item>Electrónica</item>
+        <item>Enfermería</item>
+        <item>Escultura</item>
+        <item>Estadística e investigación operativa</item>
+        <item>Estética y teoría de las artes</item>
+        <item>Estomatología</item>
+        <item>Estratigrafía</item>
+        <item>Estudios arabes e islámicos</item>
+        <item>Estudios hebreos y arameos</item>
+        <item>Explotación de minas</item>
+        <item>Expresión gráfica arquitectónica</item>
+        <item>Expresión gráfica en la ingeniería</item>
+        <item>Farmacia y tecnología farmaceútica</item>
+        <item>Farmacología</item>
+        <item>Filología alemana</item>
+        <item>Filología catalana</item>
+        <item>Filología eslava</item>
+        <item>Filología francesa</item>
+        <item>Filología gallega y portuguesa</item>
+        <item>Filología griega</item>
+        <item>Filología hispánica</item>
+        <item>Filología inglesa</item>
+        <item>Filología italiana</item>
+        <item>Filología latina</item>
+        <item>Filología romántica</item>
+        <item>Filología vasca</item>
+        <item>Filosofía</item>
+        <item>Filosofía del derecho</item>
+        <item>Filosofía moral</item>
+        <item>Física aplicada</item>
+        <item>Física atómica, molecular y nuclear</item>
+        <item>Física de la materia condensada</item>
+        <item>Física de la tierra</item>
+        <item>Física teórica</item>
+        <item>Fisiología</item>
+        <item>Fisiología vegetal</item>
+        <item>Fisioterapia</item>
+        <item>Fundamentos del análisis económico</item>
+        <item>Genética</item>
+        <item>Geodesia y geomática</item>
+        <item>Geodinámica externa</item>
+        <item>Geodinámica interna</item>
+        <item>Geografía física</item>
+        <item>Geografía humana</item>
+        <item>Geometría y topología</item>
+        <item>Histología</item>
+        <item>Historia antigua</item>
+        <item>Historia contemporánea</item>
+        <item>Historia de América</item>
+        <item>Historia de la ciencia</item>
+        <item>Historia del arte</item>
+        <item>Historia del derecho y las instituciones</item>
+        <item>Historia del pensamiento y de los movimientos sociales</item>
+        <item>Historia e instituciones económicas</item>
+        <item>Historia medieval</item>
+        <item>Historia moderna</item>
+        <item>Ingeniería aeroespacial</item>
+        <item>Ingeniería agroforestal</item>
+        <item>Ingeniería biomédica</item>
+        <item>Ingeniería cartográfica, geodésica y fotogrametría</item>
+        <item>Ingeniería de la construcción</item>
+        <item>Ingeniería de los procesos de la fabricación</item>
+        <item>Ingeniería de sistemas y automática</item>
+        <item>Ingeniería del terreno</item>
+        <item>Ingeniería e infraestructura de los transportes</item>
+        <item>Ingeniería eléctrica</item>
+        <item>Ingeniería hidráulica</item>
+        <item>Ingeniería mecánica</item>
+        <item>Ingeniería nuclear</item>
+        <item>Ingeniería química</item>
+        <item>Ingeniería telemática</item>
+        <item>Ingeniería textil y papelera</item>
+        <item>Inmunología</item>
+        <item>Lengua española</item>
+        <item>Lengua y cultura del extremo oriente</item>
+        <item>Lenguajes y sistemas informáticos</item>
+        <item>Lingüistica general</item>
+        <item>Lingüistica indoeuropea</item>
+        <item>Literatura española</item>
+        <item>Lógica y filosofía de la ciencia</item>
+        <item>Máquinas y motores térmicos</item>
+        <item>Matemática aplicada</item>
+        <item>Mecánica de fluidos</item>
+        <item>Mecánica de medios contínuos y teoría de estructuras</item>
+        <item>Medicina</item>
+        <item>Medicina legal y forense</item>
+        <item>Medicina preventiva y salud pública</item>
+        <item>Medicina y cirugía animal</item>
+        <item>Metodología de las ciencias del comportamiento</item>
+        <item>Métodos de investigación y diagnóstico en educación</item>
+        <item>Microbiología</item>
+        <item>Nutrición y bromatología</item>
+        <item>Obstetricia y ginecología</item>
+        <item>Oftalmología</item>
+        <item>Óptica</item>
+        <item>Organización de empresas</item>
+        <item>Otorrinolaringología</item>
+        <item>Paleontología</item>
+        <item>Parasitología</item>
+        <item>Pediatría</item>
+        <item>Periodismo</item>
+        <item>Personalidad, evaluación y tratamiento psicológico</item>
+        <item>Petrología y geoquímica</item>
+        <item>Pintura</item>
+        <item>Prehistoria</item>
+        <item>Producción animal</item>
+        <item>Producción vegetal</item>
+        <item>Prospección e investigación minera</item>
+        <item>Proyectos arquitectónicos</item>
+        <item>Proyectos de ingeniería</item>
+        <item>Psicobiología</item>
+        <item>Psicología básica</item>
+        <item>Psicología evolutiva y de la educación</item>
+        <item>Psicología social</item>
+        <item>Psiquiatría</item>
+        <item>Química analítica</item>
+        <item>Química física</item>
+        <item>Química inorgánica</item>
+        <item>Química orgánica</item>
+        <item>Radiología y medicina física</item>
+        <item>Sanidad animal</item>
+        <item>Sociología</item>
+        <item>Tecnología de alimentos</item>
+        <item>Tecnología electrónica</item>
+        <item>Tecnología del medio ambiente</item>
+        <item>Teoría de la literatura y literatura comparada</item>
+        <item>Teoría de la señal y comunicaciones</item>
+        <item>Teoría e historia de la educación</item>
+        <item>Toxicología</item>
+        <item>Trabajo social y servicios sociales</item>
+        <item>Traducción e interpretación</item>
+        <item>Urbanística y ordenacióndel territorio</item>
+        <item>Zoología</item>
+    </string-array>
 </resources>

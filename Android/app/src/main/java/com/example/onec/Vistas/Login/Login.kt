@@ -52,7 +52,7 @@ fun Login(
 }
 @Composable
 fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewModel,applicationContext: Context){
-    val stateScroll = rememberScrollState(1000)
+    val stateScroll = rememberScrollState(0)
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -65,16 +65,21 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
         Column(
             Modifier
                 .fillMaxSize()
-                .align(Alignment.Center)) {
-            Spacer(modifier = Modifier.height(50.dp))
-                Image(painter = painterResource(id = R.drawable.onec), contentDescription = "Logo", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(50.dp))
+                .align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
+            Spacer(modifier = Modifier.fillMaxHeight(0.05f))
+                Image(painter = painterResource(id = R.drawable.onec), contentDescription = "Logo", alignment = Alignment.Center, modifier = Modifier
+                    .fillMaxWidth(0.3f)
+                    .fillMaxHeight(0.2f))
+            Spacer(modifier = Modifier.fillMaxHeight(0.05f))
             Surface(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(50.dp,50.dp,0.dp,0.dp), color = Color(0xff434557)) {
                 Column(
                     Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 20.dp).verticalScroll(state = stateScroll, enabled = true, reverseScrolling = true)) {
-                    Spacer(Modifier.height(30.dp))
+                        .padding(horizontal = 20.dp)
+                        .verticalScroll(state = stateScroll, enabled = true)
+                        ,verticalArrangement = Arrangement.Top) {
+                    //Spacer(Modifier.fillMaxHeight(0.5f))
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "Iniciar sesión",
                         fontSize = 23.sp,
@@ -82,8 +87,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                         color = Color(0xffbfc9c9),
                         modifier = Modifier.fillMaxWidth()
                     )
-                    Spacer(Modifier.height(20.dp))
-                    Spacer(modifier = Modifier.height(50.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     TextField(value = email.value,
                         singleLine = true,
@@ -114,7 +118,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                         )
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(10.dp))
                     TextField(value = password.value,
                         singleLine = true,
                         textStyle = TextStyle(
@@ -158,7 +162,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                     Text(text = "¿Has olvidado la contraseña?", color = Color(0xFF999dba), fontSize = 15.sp, modifier = Modifier
                         .fillMaxWidth()
                         .clickable { navController.navigate(Rutas.Forgot.route) }, textAlign = TextAlign.Right)
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                     Button(onClick = {
                                     //Validar Mail y logear
                                     if(email.value.isEmpty() || password.value.isEmpty()) {
@@ -219,7 +223,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                     )) {
                         Text(text = "Acceder", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(0.dp,7.dp), fontFamily = FontFamily(Font(R.font.comforta)))
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
                         Text(text = "¿Usuario nuevo ? ", fontSize = 15.sp, color = Color(0xFF999dba))
                         Text(text= "Registrarse", fontSize = 15.sp, color = Color(0xffbfc9c9), modifier = Modifier.clickable { navController.navigate(Rutas.Registro.route) })

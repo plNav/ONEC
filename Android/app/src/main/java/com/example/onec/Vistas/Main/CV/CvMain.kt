@@ -32,6 +32,11 @@ fun cvMain(selected: MutableState<Boolean>) {
     val loading = remember {
         mutableStateOf(true)
     }
+
+    val showError = remember {
+        mutableStateOf(false)
+    }
+
     if (selected.value) {
         //Mostramos el Loading, para indicar al usuario que se están cargando datos
         if (loading.value) {
@@ -58,8 +63,8 @@ fun cvMain(selected: MutableState<Boolean>) {
             when (resultState.value) {
                 "LOADED" -> muestraCv()
                 "NOCV" -> creaCV()
-                "ERROR" -> dialogError()
-                else -> dialogError()
+                "ERROR" -> dialogError(showError)
+                else -> dialogError(showError = showError)
             }
 
         }
@@ -82,8 +87,10 @@ fun LoadCv() {
 }
 
 @Composable
-fun dialogError() {
-    Text(text = "Error", color = Color.White)
+fun dialogError(showError: MutableState<Boolean>) {
+    if (showError.value) {
+        //Mostramos un Dialog de error, que reintente cargar el CV
+    }
 }
 
 @Composable
