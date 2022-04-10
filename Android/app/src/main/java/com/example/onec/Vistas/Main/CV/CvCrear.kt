@@ -647,6 +647,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                               StaticVariables.titulo = titulo.value
                               StaticVariables.especialidad = especialidadSelect.value
                               StaticVariables.experiencia = anyos
+                              StaticVariables.pasoRegistro = "3"
                               valor.value = "3"
                           }catch (e : Exception) {
                              isDialogOpen.value = true
@@ -670,6 +671,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                               StaticVariables.titulo = titulo.value
                               StaticVariables.especialidad = especialidadSelect.value
                               StaticVariables.experiencia = anyos
+                              StaticVariables.pasoRegistro = "3"
                               valor.value = "3"
                           }catch (e: Exception) {
                               isDialogOpen.value = true

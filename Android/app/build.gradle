@@ -75,5 +75,4 @@ dependencies {
 
     //Coil -> Imagenes
     implementation("io.coil-kt:coil-compose:2.0.0-rc02")
-    implementation "com.google.accompanist:accompanist-flowlayout:<version>"
 }

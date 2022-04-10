@@ -174,44 +174,43 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                                 isDialogOpen.value = true
                                                 dialogError.value = "El email introducido\nno es un email válido."
                                             }else {
-                                                loginRegistroViewModel.comprobarEmailExistente(email = email.value.trim()) { existe ->
-                                                    if (existe) {
+                                                loginRegistroViewModel.comprobarEmailExistente(email = email.value.trim()) { existe,cause ->
+                                                    if (existe && cause == "existe") {
                                                         //Si el email existe, intentamos hacer un login, capturando cada error.
                                                         loginRegistroViewModel.logear(
                                                             email = email.value.trim(),
                                                             password = password.value.trim()
-                                                        ) { logeado ->
-                                                            when (logeado) {
-                                                                "good" -> {
-                                                                    navController.navigate(Rutas.TipoCuenta.route) {
-                                                                        popUpTo(
-                                                                            0
-                                                                        )
-                                                                    }
-                                                                }
-                                                                "pass" -> {
-                                                                    isDialogOpen.value = true
-                                                                    dialogError.value =
-                                                                        "La contraseña introducida\nes incorrecta."
-                                                                }
-                                                                "unknown" -> {
-                                                                    isDialogOpen.value = true
-                                                                    dialogError.value =
-                                                                        "Error al inciar sesión"
-                                                                }
-                                                                //En caso de fallo desconocido, también mostramos un error para avisar al usuario.
-                                                                else -> {
-                                                                    isDialogOpen.value = true
-                                                                    dialogError.value =
-                                                                        "Error al inciar sesión"
-                                                                }
+                                                        ) {
+                                                            if (it == "good") {
+                                                                navController.navigate(Rutas.TipoCuenta.route) { popUpTo(0) }
+                                                            }else if (it == "error") {
+                                                                isDialogOpen.value = true
+                                                                dialogError.value = "La contraseña es incorrecta"
+                                                            }else {
+                                                                isDialogOpen.value = true
+                                                                dialogError.value = "Error al iniciar sesión"
                                                             }
                                                         }
                                                     } else {
-                                                        //Mostramos un error diciendo que el email introducido no pertenece a ningún usuario.
-                                                        isDialogOpen.value = true
-                                                        dialogError.value =
-                                                            "El email introducido\nno pertenece a ningún usuario."
+
+                                                        if (!existe && cause == "no existe") {
+                                                            //Mostramos un error diciendo que el email introducido no pertenece a ningún usuario.
+                                                            isDialogOpen.value = true
+                                                            dialogError.value =
+                                                                "El email introducido\nno pertenece a ningún usuario."
+                                                        }
+
+                                                        if (!existe && cause == "error") {
+                                                            isDialogOpen.value = true
+                                                            dialogError.value =
+                                                                "Error al comprobar el email."
+                                                        }
+
+                                                        if (!existe && cause == "catch") {
+                                                            isDialogOpen.value = true
+                                                            dialogError.value =
+                                                                "Error al comprobar el email."
+                                                        }
                                                     }
                                                 }
                                             }

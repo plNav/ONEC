@@ -1,12 +1,13 @@
 package com.example.onec.Soporte
 
 import android.net.Uri
+import com.example.onec.Models.UsuarioModel
 
 
 class StaticVariables {
     companion object {
 
-        /*
+        /**
         * fragmento : Int
         * 1 = Ofertas
         * 2 = Anuncios
@@ -17,7 +18,7 @@ class StaticVariables {
 
 
 
-        /*
+        /**
         * appModo : Boolean
         * true = Modo de App Empresario
         * false = Mode de App candidato
@@ -26,25 +27,24 @@ class StaticVariables {
 
 
 
-        /*
+        /**
         * fun clean() -> Sirve para Resetear valores en la aplicación, por si se cambia de modo, o se cierra sesión
         * */
         fun clean() {
             appModo = false
             fragmento = 1
-            FireAuth.user = null
         }
 
+        /**
+         * Variables estáticas Usuario
+         * */
+
+        var usuario: UsuarioModel? = null
 
 
-        /*
-        *
-        *
-        *
+
+        /**
         * Variables estáticas de CV
-        *
-        *
-        *
         * */
 
 

@@ -57,6 +57,7 @@ fun cvMain(selected: MutableState<Boolean>) {
                     //Ha ocurrido un error, mostrar mensaje de error
                     resultState.value = "ERROR"
                     loading.value = false
+                    showError.value = true
                 }
             }
         }else {
@@ -89,7 +90,7 @@ fun LoadCv() {
 @Composable
 fun dialogError(showError: MutableState<Boolean>) {
     if (showError.value) {
-        //Mostramos un Dialog de error, que reintente cargar el CV
+        Text(text = "Error de conexión")
     }
 }
 

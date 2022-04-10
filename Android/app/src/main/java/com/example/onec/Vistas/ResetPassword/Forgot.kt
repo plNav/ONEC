@@ -113,11 +113,11 @@ fun Forg(navController: NavController,loginRegistroViewModel: LoginRegistroViewM
                                  dialogError.value = "Debe introducir un email."
                              }else if(android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()){
                                  //Comprobamos que el email introducido existe
-                                 loginRegistroViewModel.comprobarEmailExistente(email = email.value) { existe ->
-                                     if (existe) {
+                                 loginRegistroViewModel.comprobarEmailExistente(email = email.value) { existe,cause ->
+                                     if (existe && cause == "existe") {
                                          //Si existe el email mandamos el correo para cambiar la contraseña
-                                         loginRegistroViewModel.mandarCorreoResetPassword(email = email.value) {enviado ->
-                                             if (enviado) {
+                                         loginRegistroViewModel.mandarCorreoResetPassword(email = email.value) {enviado, cause ->
+                                             if (enviado && cause == "good") {
                                                  //El correo se ha mandado navegamos a la vista de Sended pasando como parametro el email introducido
                                                  navController.navigate("Vistas.ResetPassword.SendedEmail/${email.value}") {popUpTo(Rutas.Sended.route)}
                                              }else {
@@ -127,9 +127,17 @@ fun Forg(navController: NavController,loginRegistroViewModel: LoginRegistroViewM
                                              }
                                          }
                                      }else {
-                                         //Si no existe mostramos el dialogo de error en pantalla.
-                                         isDialogOpen.value = true
-                                         dialogError.value = "El correo introducido\nno pertenece a ningún usuario."
+                                         if (!existe && cause == "no existe") {
+                                             //Si no existe mostramos el dialogo de error en pantalla.
+                                             isDialogOpen.value = true
+                                             dialogError.value =
+                                                 "El correo introducido\nno pertenece a ningún usuario."
+                                         }
+                                         if (!existe && cause == "error" || !existe && cause == "catch") {
+                                             isDialogOpen.value = true
+                                             dialogError.value =
+                                                 "Ha ocurrido un error\nintentelo más tarde."
+                                         }
                                      }
                                  }
                              }else {

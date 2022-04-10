@@ -88,6 +88,7 @@ fun main(navController: NavController, elemento: Int){
                                         isProyectosEmpresarioSelected.value = false
                                         isPerfilSelected.value = false
                                     }
+                                    StaticVariables.fragmento = 1
                                 },
                                 icon = {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -128,6 +129,7 @@ fun main(navController: NavController, elemento: Int){
                                         isProyectosEmpresarioSelected.value = false
                                         isPerfilSelected.value = false
                                     }
+                                    StaticVariables.fragmento = 2
                                 },
                                 icon = {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -168,6 +170,7 @@ fun main(navController: NavController, elemento: Int){
                                         isAnunciosEmpresarioSelected.value = false
                                         isPerfilSelected.value = false
                                     }
+                                    StaticVariables.fragmento = 3
                                 },
                                 icon = {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -202,6 +205,7 @@ fun main(navController: NavController, elemento: Int){
                                         isProyectosSelected.value = false
                                         isPerfilSelected.value = false
                                         isCvSelected.value = true
+                                        StaticVariables.fragmento = 4
                                     },
                                     icon = {
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {

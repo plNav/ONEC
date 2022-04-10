@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="992198c3-a2d8-41bf-9fae-ba3dc783b130" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Models/CvPost.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Models/UsuarioModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Servicios/ApiServices.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Soporte/Encrypt.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Models/CvModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Models/CvModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Navegacion/NavigationHost.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Navegacion/NavigationHost.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Soporte/FireAuth.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Soporte/StaticVariables.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Soporte/StaticVariables.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/ViewModels/CvViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/ViewModels/CvViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/ViewModels/LoginRegistroViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/ViewModels/LoginRegistroViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Login/Login.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Login/Login.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/CV/CvCrear.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/CV/CvCrear.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/CV/CvMain.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/CV/CvMain.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/MainEmpresario/OfertasEmpresario.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/MainEmpresario/OfertasEmpresario.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/Ofertas.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Main/Ofertas.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Registro/Registro.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/Registro/Registro.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/ResetPassword/Forgot.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/ResetPassword/Forgot.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/ResetPassword/SendedEmail.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../Android/app/src/main/java/com/example/onec/Vistas/ResetPassword/SendedEmail.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="27Obwt9iLJ7fTQaSGp5HzRXRoF4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="992198c3-a2d8-41bf-9fae-ba3dc783b130" name="Changes" comment="" />
+      <created>1649194322620</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649194322620</updated>
+    </task>
+    <servers />
+  </component>
+</project>

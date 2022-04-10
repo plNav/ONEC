@@ -90,8 +90,8 @@ fun sended(navController: NavController,loginRegistroViewModel: LoginRegistroVie
                         dialogError.value = "Ha ocurrido un error\nal enviar el correo."
                     }else {
                        //Mandamos un correo
-                        loginRegistroViewModel.mandarCorreoResetPassword(email = email) {enviado ->
-                            if (enviado) {
+                        loginRegistroViewModel.mandarCorreoResetPassword(email = email) {enviado, cause->
+                            if (enviado && cause == "good") {
                                 //El correo se ha mandado, navegar al login
                                 navController.navigate(Rutas.Login.route) {popUpTo(0)}
                             }else {

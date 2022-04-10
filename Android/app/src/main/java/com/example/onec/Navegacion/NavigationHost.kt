@@ -23,13 +23,13 @@ import com.example.onec.Vistas.ResetPassword.SendedEmail
 import com.example.onec.Vistas.TipoUsuario.tipoUsuario
 
 @Composable
-fun navHost(context: Context,logged: Boolean) {
+fun navHost(context: Context) {
     val loginRegistroViewModel = LoginRegistroViewModel()
     val navController = rememberNavController()
 
    NavHost(
        navController = navController,
-       startDestination = if(logged){Rutas.TipoCuenta.route}else{Rutas.Login.route}) {
+       startDestination = Rutas.Login.route) {
 
        //Ruta Login
        composable(route = Rutas.Login.route) {

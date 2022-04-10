@@ -1,0 +1,67 @@
+﻿<Page x:Class="ONEC.VIEWS.ResetPass.MailEnviado"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ONEC.VIEWS.ResetPass"
+      mc:Ignorable="d" 
+      Height="Auto"
+      Width="Auto"
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="EnviarMail">
+    <Page.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="7" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Image VerticalAlignment="top" HorizontalAlignment="Left" Source="/ONEC;component/IMAGES/back.png" RenderOptions.BitmapScalingMode="HighQuality" Height="30" Width="30" Margin="15,15,0,0" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="25" Foreground="#fcffff" TextAlignment="Center" Text="Mail Enviado!"/>
+            <TextBlock Grid.Row="1" FontSize="19" TextAlignment="Center" Foreground="#999dba">
+                Revise su correo electrónico
+                <LineBreak />
+                Para restablecer su contraseña
+            </TextBlock>
+            <Image  Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/revemail.png" RenderOptions.BitmapScalingMode="HighQuality" MaxHeight="300" MaxWidth="300"/>
+           
+            <Button x:Name="btnLogin" Grid.Row="3" Content="Acceder" Style="{StaticResource MyButtonStyle}" Background="#266E86" BorderThickness="0" FontSize="19" Height="50" Foreground="White" Cursor="Hand"/>
+            <Grid Grid.Row="4" HorizontalAlignment="Left" Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock FontSize="16" Foreground="#999dba" Text="¿No has recibido ningún correo?"/>
+                <TextBlock  Grid.Column="1" FontSize="16" Foreground="#fcffff" Text="Reenviar" HorizontalAlignment="Left" Margin="5,0,0,0" Cursor="Hand"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
