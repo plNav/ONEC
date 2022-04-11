@@ -131,7 +131,7 @@ namespace ONEC.API_MODELS
         public static async Task<bool> loguear(string email, string password)
         {
             string passwCifrado = Encrypt.GetSHA256(password);
-            string url = $"{StaticResources.urlHead}client/validate/{email}/{passwCifrado}";
+            string url = $"{StaticResources.urlHead}usuario/validar/{email}/{passwCifrado}";
 
             HttpResponseMessage httpResponse = await StaticResources.httpClient.GetAsync(url);
 

@@ -65,7 +65,7 @@
                                     <TextBlock Grid.Column="1" FontSize="14" Text="Email" VerticalAlignment="Center" Foreground="#999dba" Margin="0,0,10,0"/>
                                 </Grid>
                             </Border>
-                            <TextBox VerticalContentAlignment="Center" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0"/>
+                            <TextBox x:Name="txtEmail" VerticalContentAlignment="Center" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0"/>
                         </Grid>
                     </Border>
                     <Border Background="#3b3d4c" CornerRadius="7" Grid.Row="2" Height="50" Grid.Column="1" Margin="0,10,0,0">
@@ -116,7 +116,7 @@
                     </Border>
                     
 
-                    <Button x:Name="btnRegistro" Grid.Column="1" Grid.Row="4" Content="Registrarse" Style="{StaticResource MyButtonStyle}" Background="#266E86" BorderThickness="0" FontSize="19" Height="50" Foreground="White" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="btnLogin_MouseLeave"/>
+                    <Button x:Name="btnRegistro" Grid.Column="1" Grid.Row="4" Content="Registrarse" Style="{StaticResource MyButtonStyle}" Background="#266E86" BorderThickness="0" FontSize="19" Height="50" Foreground="White" Cursor="Hand" MouseEnter="Button_MouseEnter" MouseLeave="btnLogin_MouseLeave" Click="btnRegistro_Click"/>
 
                     <Grid Grid.Row="5" Grid.Column="1">
                         <Grid.ColumnDefinitions>
