@@ -38,10 +38,12 @@ namespace ONEC.API_MODELS
         {
             string url = $"{StaticResources.urlHead}usuario";
 
+            string passwCifrado = Encrypt.GetSHA256(usuario.password);
+
             JObject values = new JObject
             {
                 { "email", usuario.email },
-                { "password", usuario.password }
+                { "password", passwCifrado }
             };
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");

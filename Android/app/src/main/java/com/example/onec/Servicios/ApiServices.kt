@@ -21,7 +21,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.17:8081/api/")
+                        .baseUrl("http://192.168.0.22:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
