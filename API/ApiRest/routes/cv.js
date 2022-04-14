@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const cvSchema = require('../controllers/cv');
+const cvSchema = require('../controllers/cv')
+
 
 //Crear nuevo CV
 router.post("/cv", (req, res) => {
@@ -17,7 +18,7 @@ router.post("/cv", (req, res) => {
     })
 });
 
-//Obtener CV
+//Obtener CVs
 router.get("/cv", (req, res) => {
     cvSchema
     .find()
@@ -72,7 +73,8 @@ router.delete("/cv/:id", (req, res) => {
         console.log("\nCV Eliminado\n"+data)
     })
     .catch((err) =>{
-        res.json
+        res.json({err : message})
     })
 });
+
 module.exports = router;

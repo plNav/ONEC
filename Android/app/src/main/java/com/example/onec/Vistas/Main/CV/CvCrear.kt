@@ -1,10 +1,14 @@
 package com.example.onec.Vistas.Main.CV
 
 import android.net.Uri
+import android.util.Log
+import android.widget.Space
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,9 +17,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -32,29 +40,44 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.window.Dialog
 import coil.compose.rememberAsyncImagePainter
+import com.example.onec.Models.CvModel
+import com.example.onec.Models.CvPost
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
+import com.example.onec.ViewModels.CvViewModel
 import com.example.onec.ui.theme.OnecTheme
+import com.google.accompanist.flowlayout.FlowRow
+import com.google.accompanist.flowlayout.MainAxisAlignment
+import com.google.accompanist.flowlayout.SizeMode
 import org.w3c.dom.Text
 import java.lang.Exception
 import java.util.regex.Pattern
+import kotlin.math.ceil
+import kotlin.math.floor
+import kotlin.math.round
 
 
 @Composable
-fun creaCV() {
+fun creaCV(resultState: MutableState<String>) {
+
+    /** valor -> Valor que tendra cada pestaña de creación de CV*/
     val valor = remember {
         mutableStateOf(StaticVariables.pasoRegistro)
     }
 
+    /** showError -> Muestra o no el Dialog de Error*/
     val showError = remember {
         mutableStateOf(false)
     }
 
+    /** errorMsj -> Contiene el error que se le pasa por parámetro al dialogo de error*/
     val errorMsj = remember {
         mutableStateOf("")
     }
@@ -63,6 +86,8 @@ fun creaCV() {
         "1" -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj)
         "2" -> creaCvTitulos(valor = valor)
         "3" -> creaCvHabilidades(valor = valor)
+        "4" -> guardandoPerfil(resultState)
+        else -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj)
     }
     if (showError.value) {
         dialogoError(showDialog = showError, error = errorMsj)
@@ -73,25 +98,28 @@ fun creaCV() {
 @Composable
 fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensaje : MutableState<String>) {
     OnecTheme {
+        /** scrollState -> Almacena el estado del scroll*/
         val scrollState = rememberScrollState(0)
 
+        /** selectedImage -> Almacena la imagen seleccionada*/
         var selectedImage = remember { mutableStateOf<Uri?>(StaticVariables.imageUri) }
 
+        /** nombre -> Almacena el nombre del usuario*/
         val nombre = remember {
             mutableStateOf("")
         }
-        val apellidos = remember {
-            mutableStateOf("")
-        }
 
+        /** telefono -> Almacena el teléfono del usuario*/
         val telefono = remember {
             mutableStateOf("")
         }
 
+        /** ubicacion -> Almacena la ubicación del usuario*/
         val ubicacion = remember {
             mutableStateOf("")
         }
 
+        /** launcher -> Sirve para poder abrir la galeria y seleccionar una imagen*/
         val launcher =
             rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
                 selectedImage.value = uri
@@ -132,7 +160,7 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                             )
                         }else {
                             Image(
-                                painter = rememberAsyncImagePainter(model = selectedImage.value),
+                                painter = rememberAsyncImagePainter(model = StaticVariables.imageUri),
                                 contentDescription = "Imagen seleccionada",
                                 modifier = Modifier
                                     .clickable {
@@ -235,7 +263,7 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                         Spacer(modifier = Modifier.height(30.dp))
                         Button(
                             onClick = {
-                                if(nombre.value.isNotBlank() && nombre.value.isNotEmpty() && telefono.value.isNotBlank() && telefono.value.isNotEmpty() && ubicacion.value.isNotBlank() && ubicacion.value.isNotEmpty() /*&& selectedImage != null*/) {
+                                if(nombre.value.isNotBlank() && nombre.value.isNotEmpty() && telefono.value.isNotBlank() && telefono.value.isNotEmpty() && ubicacion.value.isNotBlank() && ubicacion.value.isNotEmpty() && selectedImage != null) {
                                     StaticVariables.pasoRegistro = "2"
                                     StaticVariables.nombreCv = nombre.value
                                     StaticVariables.telefono = telefono.value
@@ -291,12 +319,150 @@ fun creaCvTitulos(valor : MutableState<String>) {
 @Composable
 fun creaCvHabilidades(valor: MutableState<String>) {
     OnecTheme() {
+
+        val habilidadCreada = remember {
+            mutableStateOf("")
+        }
+
+        /**showPopUp -> Booleano que controla si se muestra o no el dialogo para crear una nueva habilidad*/
+        val showPopUp = remember {
+            mutableStateOf(false)
+        }
+
+        /** scrollState -> Almacena el estado del scroll*/
+        val scrollState = rememberScrollState(0)
+
+        /** selector -> Se utiliza para ordenar posteriormente los elementos de listHabilidades, por longitud de carácteres*/
+        val selector: (String) -> Int = { str -> str.length }
+
+        /** listHabilidades -> Lista que almacena las habilidades insertadas por el usuario, por defecto será null*/
+        val listHabilidades = remember {
+            mutableStateOf(StaticVariables.habilidades)
+        }
+
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(horizontal = 10.dp, vertical = 5.dp)) {
+                .padding(horizontal = 10.dp, vertical = 5.dp)
+                ) {
             Spacer(modifier = Modifier.height(20.dp))
-            Text(text = "Añade tus habilidades", fontSize = 19.sp, color = Color(0xffbfc9c9))
+            Text(text = "Añade tus habilidades", fontSize = 19.sp, color = Color(0xffbfc9c9), textAlign = TextAlign.Center, modifier = Modifier.align(CenterHorizontally))
+            Spacer(modifier = Modifier.height(15.dp))
+            TextField(value = habilidadCreada.value,
+                singleLine = true,
+                textStyle = TextStyle(
+                    fontFamily = FontFamily(Font(R.font.comforta)),
+                    color = Color(0xFF266E86)
+                ),
+                placeholder = { Text(text = "# Habilidad...", overflow = TextOverflow.Ellipsis)},
+                onValueChange = { it.also { habilidadCreada.value = it } },
+                shape = RoundedCornerShape(7.dp),
+                trailingIcon = {
+                    Icon(
+                        imageVector = Icons.Filled.AddCircle,
+                        contentDescription = "Add",
+                        tint = Color(0xFF388BA7),
+                        modifier = Modifier.clickable {
+                            if (!habilidadCreada.value.isNullOrEmpty() && !habilidadCreada.value.isNullOrBlank()) {
+                                val habilidadesLow = listHabilidades.value.map {it.lowercase()}
+                                if (!habilidadesLow.contains(habilidadCreada.value.lowercase())) {
+                                    StaticVariables.habilidades.add(habilidadCreada.value)
+                                    habilidadCreada.value = ""
+                                }else {
+                                    habilidadCreada.value = ""
+                                }
+                            }
+                        }
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .shadow(elevation = 3.dp, shape = RoundedCornerShape(7.dp)),
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color(0xFFFCFFFF),
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                    textColor = Color(0xFF999dba),
+                    cursorColor = Color(0xFF388BA7)
+                )
+            )
+            Spacer(modifier = Modifier.height(15.dp))
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    ) {
+                if (listHabilidades.value != null && !listHabilidades.value.isEmpty()) {
+                           Surface(modifier = Modifier
+                               .fillMaxWidth()
+                               .fillMaxHeight(0.8f), shape = RoundedCornerShape(7.dp), color = Color(0xFF2F303A)) {
+                               Box(modifier = Modifier
+                                   .fillMaxSize()
+                                   .padding(5.dp)
+                                   .background(Color.Transparent)) {
+                                   FlowRow(
+                                       modifier = Modifier
+                                           .fillMaxSize()
+                                           .verticalScroll(scrollState)
+                                           .background(Color.Transparent),
+                                       mainAxisAlignment = MainAxisAlignment.Start,
+                                       mainAxisSize = SizeMode.Expand,
+                                       crossAxisSpacing = 12.dp,
+                                       mainAxisSpacing = 8.dp
+                                   ) {
+                                       listHabilidades.value!!.sortBy(selector)//Con esta línea Ordenamos por longitud de carácteres para que se ordene automáticamente "selector" -> Está definido arriba, es lo que le dice como debe hacer el sort .
+                                       listHabilidades.value!!.forEach { habilidad ->
+                                           Row(modifier = Modifier
+                                               .background(
+                                                   color = Color(0xFF388BA7),
+                                                   shape = RoundedCornerShape(4.dp)
+                                               )
+                                               .padding(2.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center
+                                               ) {
+                                               Text(
+                                                   text = "# $habilidad",
+                                                   color = Color.White,
+                                                   overflow = TextOverflow.Ellipsis,
+                                                   maxLines = 1,
+                                                   modifier = Modifier.padding(10.dp,0.dp,0.dp,0.dp)
+                                               )
+                                               IconButton(onClick = {
+                                                  listHabilidades.value.remove(habilidad)
+                                               }) {
+                                                   Icon(imageVector = Icons.Filled.Delete, contentDescription = "delete", tint = Color(
+                                                       0xFF34565F
+                                                   ))
+                                               }
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+                }else {
+                    Surface(shape = RoundedCornerShape(7.dp), color = Color(0xFF2F303A)) {
+                        Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally , modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.7f)) {
+                            Text(text = "Ninguna habilidad especificada", fontSize = 19.sp, color = Color(0xfffcffff))
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+                Button(
+                    onClick = {
+                              valor.value = "4"
+                    },
+                    Modifier
+                        .fillMaxWidth()
+                        .align(CenterHorizontally), shape = RoundedCornerShape(8.dp), colors = ButtonDefaults.buttonColors(backgroundColor = Color(
+                        0xFF266E86
+                    )
+                    )) {
+                    Text(text = "Aceptar", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(0.dp,2.dp),fontFamily = FontFamily(Font(R.font.comforta)))
+                }
+
+            }
+
         }
     }
 }
@@ -413,6 +579,8 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
             Spacer(modifier = Modifier.height(5.dp))
             TextField(
                 value = selectedText.value,
+                singleLine = true
+                ,
                 onValueChange = { selectedText.value = it },
                 readOnly = true,
                 modifier = Modifier
@@ -421,7 +589,7 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
                         textfieldSize = coordinates.size.toSize()
                     },
                 label = {
-                        Text(text = "Seleccione un título")
+                        Text(text = "Seleccione un título", overflow = TextOverflow.Ellipsis)
                 },
                 trailingIcon = {
                     Icon(
@@ -463,6 +631,8 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
                             muestraBtnSiguiente.value = false
                             showExp.value = false
                             selectedText.value = label
+                            especialidadSelect.value = ""
+                            experiencia.value = ""
                             expanded = false
                         }
                     ) {
@@ -495,7 +665,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                 "FP Grado medio" -> especialidad.value = stringArrayResource(R.array.fp_medio)
                 "FP Grado superior" -> especialidad.value = stringArrayResource(R.array.fp_superior)
                 "Enseñanzas artísticas(regladas)" -> especialidad.value = stringArrayResource(R.array.artisticas)
-                "Enseñanzas deportivas(regladas)" ->  especialidad.value = stringArrayResource(R.array.departivas)
+                "Enseñanzas deportivas(regladas)" ->  especialidad.value = stringArrayResource(R.array.deportivas)
                 "Grado" -> especialidad.value = stringArrayResource(R.array.grado)
                 "Licencitura" -> especialidad.value = stringArrayResource(R.array.licenciatura)
                 "Diplomatura" -> especialidad.value = stringArrayResource(R.array.diplomatura)
@@ -509,7 +679,123 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
     }
     Spacer(modifier = Modifier.height(20.dp))
     if (muestraEspecialidadList.value) {
-        //El titulo seleccionado tiene una lista de especialidades
+
+        val focus = LocalFocusManager.current
+
+        var expanded by remember { mutableStateOf(false) }
+
+        var textfieldSize by remember { mutableStateOf(Size.Zero) }
+
+        val icon = if (expanded)
+
+            Icons.Filled.KeyboardArrowUp
+        else
+            Icons.Filled.KeyboardArrowDown
+
+        Column() {
+            Text(text = "Especialidad", fontSize = 16.sp, color = Color(0xffbfc9c9))
+            Spacer(modifier = Modifier.height(5.dp))
+            TextField(
+                value = especialidadSelect.value,
+                singleLine = true,
+                onValueChange = { especialidadSelect.value = it },
+                readOnly = true,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onGloballyPositioned { coordinates ->
+                        textfieldSize = coordinates.size.toSize()
+                    },
+                label = {
+                    Text(text = "Seleccione una especialidad", overflow = TextOverflow.Ellipsis)
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "arrowExpanded",
+                        modifier = Modifier.clickable {
+                            focus.clearFocus()
+                            expanded = !expanded
+                        }
+                    )
+                },
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = Color(0xFFEEEEEE),
+                    focusedIndicatorColor = Color(
+                        0xFF266E86
+                    ),
+                    unfocusedIndicatorColor = Color(0xff3b3d4c),
+                    disabledIndicatorColor = Color(0xff3b3d4c),
+                    textColor = Color(
+                        0xFF266E86
+                    ),
+                    cursorColor = Color(0xFF999dba)
+                )
+            )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier
+                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
+                    .fillMaxHeight(0.3f)
+                    .background(color = Color(0xFFEEEEEE))
+            ) {
+                especialidad.value!!.forEach { label ->
+                    DropdownMenuItem(
+                        modifier = Modifier.background(color = Color(0xFFEEEEEE)),
+                        onClick = {
+                            muestraEspecialidad.value = false
+                            muestraEspecialidadList.value = false
+                            muestraBtnSiguiente.value = false
+                            showExp.value = false
+                            especialidadSelect.value = label
+                            expanded = false
+                        }
+                    ) {
+                        Text(text = label, color = Color(0xff3b3d4c))
+                    }
+                }
+            }
+        }
+        Column() {
+            Spacer(modifier = Modifier.height(20.dp))
+            Row(Modifier.fillMaxWidth()){
+                Text(text = "Añadir experiencia", fontSize = 16.sp, color = Color(0xffbfc9c9))
+                Switch(checked = showExp.value, onCheckedChange = {showExp.value = !showExp.value})
+            }
+            if (showExp.value) {
+                Spacer(modifier = Modifier.height(5.dp))
+                TextField(
+                    value = experiencia.value,
+                    singleLine = true,
+                    textStyle = TextStyle(
+                        fontFamily = FontFamily(Font(R.font.comforta))
+                    ),
+                    label = {
+                        Text(text = "Experiencia(Años)")
+                    },
+                    onValueChange = { it.also { experiencia.value = it } },
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = Color(0xFFEEEEEE),
+                        focusedIndicatorColor = Color(
+                            0xFF266E86
+                        ),
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent,
+                        textColor = Color(
+                            0xFF266E86
+                        ),
+                        cursorColor = Color(
+                            0xFF266E86
+                        )
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.NumberPassword
+                    )
+                )
+            }
+        }
     }
     if(muestraEspecialidad.value){
         //Muestra un Textfield normal
@@ -523,7 +809,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                         fontFamily = FontFamily(Font(R.font.comforta))
                     ),
                     label = {
-                        Text(text = "Introduzca su especialidad")
+                        Text(text = "Introduzca su especialidad", overflow = TextOverflow.Ellipsis)
                     },
                     onValueChange = { it.also { especialidadSelect.value = it } },
                     modifier = Modifier
@@ -559,7 +845,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                             fontFamily = FontFamily(Font(R.font.comforta))
                         ),
                         label = {
-                            Text(text = "Experiencia(Años)")
+                            Text(text = "Experiencia(Años)", overflow = TextOverflow.Ellipsis)
                         },
                         onValueChange = { it.also { experiencia.value = it } },
                         modifier = Modifier
@@ -602,7 +888,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                         fontFamily = FontFamily(Font(R.font.comforta))
                     ),
                     label = {
-                        Text(text = "Experiencia(Años)")
+                        Text(text = "Experiencia(Años)", overflow = TextOverflow.Ellipsis)
                     },
                     onValueChange = { it.also { experiencia.value = it }
                     },
@@ -649,6 +935,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                               StaticVariables.experiencia = anyos
                               StaticVariables.pasoRegistro = "3"
                               valor.value = "3"
+                              Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                           }catch (e : Exception) {
                              isDialogOpen.value = true
                              dialogError.value = "Debe introducir la experiencia\núnicamente en años."
@@ -656,7 +943,9 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                       }else {
                           StaticVariables.titulo = titulo.value
                           StaticVariables.especialidad = especialidadSelect.value
+                          StaticVariables.pasoRegistro = "3"
                           valor.value = "3"
+                          Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                       }
                   }else if(muestraEspecialidadList.value) {
                       if (especialidadSelect.value == "") {
@@ -673,6 +962,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                               StaticVariables.experiencia = anyos
                               StaticVariables.pasoRegistro = "3"
                               valor.value = "3"
+                              Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                           }catch (e: Exception) {
                               isDialogOpen.value = true
                               dialogError.value = "Debe introducir la experiencia\núnicamente en años."
@@ -680,7 +970,9 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                       }else {
                           StaticVariables.titulo = titulo.value
                           StaticVariables.especialidad = especialidadSelect.value
+                          StaticVariables.pasoRegistro = "3"
                           valor.value = "3"
+                          Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                       }
                   }else if(muestraBtnSiguiente.value) {
                         if (showExp.value && experiencia.value == "") {
@@ -691,15 +983,18 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                                 val anyos = experiencia.value.toInt()
                                 StaticVariables.titulo = titulo.value
                                 StaticVariables.experiencia = anyos
+                                StaticVariables.pasoRegistro = "3"
                                 valor.value = "3"
+                                Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                             }catch (e: Exception) {
                                 isDialogOpen.value = true
                                 dialogError.value = "Debe introducir la experiencia\núnicamente en años."
                             }
                         }else {
                             StaticVariables.titulo = titulo.value
-                            StaticVariables.especialidad = titulo.value
+                            StaticVariables.pasoRegistro = "3"
                             valor.value = "3"
+                            Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                         }
                   }
         },
@@ -714,15 +1009,42 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
 
 
 @Composable
-fun guardandoPerfil() {
-    //Mostramos el icono de guardar
-}
-
-@Preview
-@Composable
-fun preview() {
-    OnecTheme() {
-        
+fun guardandoPerfil(resultState: MutableState<String>) {
+    val errorDialog = remember {
+        mutableStateOf("Error al crear el CV\nintentelo más tarde.")
+    }
+    val mostrarError = remember {
+        mutableStateOf(false)
+    }
+    val viewModelCv = CvViewModel()
+    val loading = remember {
+        mutableStateOf(true)
+    }
+    if (loading.value) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(modifier = Modifier
+                .height(50.dp)
+                .width(50.dp), color = Color(0xfffcffff))
+            Text(text = "Creando CV...", fontSize = 16.sp, color = Color(0xfffcffff))
+        }
+        val cv = CvPost(StaticVariables.usuario!!._id,"Prueba",StaticVariables.nombreCv,StaticVariables.telefono,StaticVariables.ubicacion,StaticVariables.usuario!!.email,StaticVariables.experiencia,StaticVariables.titulo,StaticVariables.especialidad,StaticVariables.habilidades) //No está mal, la imagen tiene que ser Uri, pero primero hay que subirla a un servidor y después guardarla como String
+        viewModelCv.crearCv(cv) { cvModel ->
+            if (cvModel != null) {
+                StaticVariables.cv = cvModel
+                loading.value = false
+                resultState.value = "LOADED"
+            }else {
+                //Mostramos un error y volvemos a intentarlo
+                loading.value = false
+            }
+        }
+    }else {
+        Text(text = "ASdasdasdasdasdasd")
     }
 }
 
+
+@Composable
+fun guardarPerfilError() {
+
+}

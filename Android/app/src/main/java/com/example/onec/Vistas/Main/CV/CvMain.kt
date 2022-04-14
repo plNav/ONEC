@@ -15,13 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.onec.Models.CvModel
+import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.CvViewModel
 
 @Composable
 fun cvMain(selected: MutableState<Boolean>) {
-    val modeloCv = remember {
-        mutableStateOf(CvModel("","","","","","", ""))
-    }
+
     val cvViewModel = remember {
         CvViewModel()
     }
@@ -45,7 +44,7 @@ fun cvMain(selected: MutableState<Boolean>) {
             cvViewModel.obtenerCvUsuarioActual() { cv: CvModel?, succes: Boolean? ->
                 if (cv != null && succes == true) {
                     //El usuario ya ha creado un CV, por lo tanto se guarda
-                    modeloCv.value = cv
+                    StaticVariables.cv = cv
                     resultState.value = "LOADED"
                     loading.value = false
 
@@ -63,7 +62,7 @@ fun cvMain(selected: MutableState<Boolean>) {
         }else {
             when (resultState.value) {
                 "LOADED" -> muestraCv()
-                "NOCV" -> creaCV()
+                "NOCV" -> creaCV(resultState)
                 "ERROR" -> dialogError(showError)
                 else -> dialogError(showError = showError)
             }

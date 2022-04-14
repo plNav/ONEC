@@ -4,15 +4,6 @@ const experienciaSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    id_oferta: {
-        type: String,
-        required: false,
-        default: "none"
-    },
-    nombre: {
-        type: String,
-        required: true
-    },
     tiempo: {
         type: Number,
         required: true

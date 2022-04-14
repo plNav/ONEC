@@ -195,7 +195,7 @@
 
 
     <!--Titulo Enseñanzas deportivas-->
-    <string-array name="departivas">
+    <string-array name="deportivas">
       <item>Enseñanzas de atletismo</item>
         <item>Enseñanzas de balonmano</item>
         <item>Enseñanzas de esquí</item>
@@ -234,7 +234,7 @@
         <item>Grado en Artes Escénicas</item>
         <item>Grado en Artes Escénicas-Interpretación</item>
         <item>Grado en Artes Visuales y Danza</item>
-        <item>Grado en Artes y Diseñ</item>o
+        <item>Grado en Artes y Diseño</item>
         <item>Grado en Asistencia de Dirección</item>
         <item>Grado en Audiovisual y Multimedia</item>
         <item>Grado en Bellas Artes</item>
@@ -423,7 +423,7 @@
         <item>Grado en Estudios Ingleses</item>
         <item>Grado en Estudios Ingleses. Lengua, Literatura y Cultura</item>
         <item>Grado en Estudios Internacionales</item>
-        <item>Grado en Estudios Internacionales de Economía y Empresa</item>cs
+        <item>Grado en Estudios Internacionales de Economía y Empresa</item>
         <item>Grado en Estudios Italianos</item>
         <item>Grado en Estudios Literarios</item>
         <item>Grado en Estudios Portugueses y Brasileños</item>

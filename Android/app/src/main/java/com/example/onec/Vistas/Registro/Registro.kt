@@ -205,7 +205,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                     }else {
                                       //Comprobamos cada campo y registramos al usuario
                                         //Comprobamos que el valor de email sea un email válido
-                                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.value.trim()).matches()) {
                                             isDialogOpen.value = true
                                             dialogError.value = "El campo de email\ncontiene un formato no válido."
 
@@ -218,7 +218,10 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                                     dialogError.value = "El correo introducido\nya pertenece a un usuario."
                                                 }else if (!existe && cause == "no existe"){
                                                         //Todos los campos son válidos, comprobar que las contraseñas coinciden
-                                                            if (password.value == repass.value) {
+                                                            if (password.value.contains(" ") || repass.value.contains(" ")) {
+                                                                isDialogOpen.value = true
+                                                                dialogError.value = "La contraseña\nno puede contener espacios."
+                                                            }else if (password.value == repass.value) {
                                                                 loginRegistroViewModel.registrar(email = email.value.trim(), password = password.value) { registrado, cause ->
                                                                     if (registrado && cause == "good") {
                                                                 //El usuario se ha registrado, navegar hacia la vista de Main

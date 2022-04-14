@@ -10,6 +10,9 @@ Content-Type: application/json
 ###
 GET http://localhost:8081/api/usuario HTTP/1.1
 
+###
+GET http://localhost:8081/api/cv/6220b0aa8197a378ac0f9dab HTTP/1.1
+
 
 ###
 GET http://localhost:8081/api/usuario/email/:email HTTP/1.1
@@ -24,4 +27,8 @@ Content-Type: application/json
 }
 
 ###
+POST  http://localhost:8081/api/cv/621f90705e83904d12fdc58c/https://upload.wikimedia.org/wikipedia/commons/6/63/Logo_La_Linea_100x100.png HTTP/1.1
+
+###
 DELETE http://localhost:8081/api/usuario/621f90705e83904d12fdc58c HTTP/1.1
+

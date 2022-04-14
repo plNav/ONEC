@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const cvSchema = mongoose.Schema({
-    id_usuario: {
+    id_user: {
         type: String,
         required: true
     },
@@ -24,5 +24,21 @@ const cvSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    experiencia: {
+        type: Number,
+        required: true
+    },
+    titulo: {
+        type: String,
+        required: true
+    },
+    especialidad: {
+        type: String,
+        required: false
+    },
+    habilidades: {
+        type: Array,
+        required: false
+    }
 });
 module.exports = mongoose.model('CV',cvSchema)

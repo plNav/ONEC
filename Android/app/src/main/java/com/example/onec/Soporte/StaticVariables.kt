@@ -1,6 +1,8 @@
 package com.example.onec.Soporte
 
 import android.net.Uri
+import androidx.compose.runtime.mutableStateListOf
+import com.example.onec.Models.CvModel
 import com.example.onec.Models.UsuarioModel
 
 
@@ -36,15 +38,21 @@ class StaticVariables {
         }
 
         /**
-         * Variables estáticas Usuario
+         *  Usuario
          * */
 
         var usuario: UsuarioModel? = null
 
+        /**
+         *  CV
+         * */
+
+        var cv : CvModel? = null
+
 
 
         /**
-        * Variables estáticas de CV
+        * Variables estáticas de  creación de CV
         * */
 
 
@@ -58,8 +66,8 @@ class StaticVariables {
         var ubicacion : String = ""
         var experiencia : Int = 0
         var titulo : String = ""
-        var especialidad : String = ""
-        var habilidades : List<String> = listOf()
+        var especialidad : String? = null
+        var habilidades : MutableList<String> = mutableStateListOf()
 
     }
 }

@@ -93,6 +93,7 @@
     </ApplicationDefinition>
     <Compile Include="SUPPORT\Encrypt.cs" />
     <Compile Include="SUPPORT\StaticResources.cs" />
+    <Compile Include="SUPPORT\Titulos.cs" />
     <Compile Include="VIEWS\Error\ErrorPopUp.xaml.cs">
       <DependentUpon>ErrorPopUp.xaml</DependentUpon>
     </Compile>
