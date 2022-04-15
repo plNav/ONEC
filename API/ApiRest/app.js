@@ -5,9 +5,6 @@ const port = process.env.PORT || 8081;
 const mongoose = require('mongoose');
 const express = require('express');
 const rutaUsuarios = require('./routes/usuario');
-const rutaOferta = require('./routes/oferta');
-const rutaEstudios = require('./routes/estudios');
-const rutaExperiencia = require('./routes/experiencia');
 const rutaCV = require('./routes/cv');
 const app = express();
 require('dotenv').config();
@@ -16,10 +13,7 @@ require('dotenv').config();
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use('/api',rutaUsuarios);
-app.use('./api',rutaOferta);
-app.use('./api',rutaEstudios);
-app.use('./api',rutaExperiencia);
-app.use('./api',rutaCV);
+app.use('/api',rutaCV);
 
 
 //Conexión DB

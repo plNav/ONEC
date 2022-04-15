@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const cvSchema = require('../controllers/cv')
+const cvSchema = require('../controllers/cv');
 
 
 //Crear nuevo CV
@@ -50,9 +50,9 @@ router.get("/cv/:id", (req, res) => {
 //Actualizar CV
 router.put("/cv/:id", (req, res) => {
     const {id} = req.params;
-    const {id_usuario, foto_url, nombre, telefono, ubicacion, correo} = req.body;
+    const {id_user, foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades} = req.body;
     cvSchema
-    .updateOne({_id: id},{$set:{id_usuario,foto_url, nombre, telefono, ubicacion, correo}})
+    .updateOne({_id: id},{$set:{id_usuario,foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades}})
     .then((data) => {
         res.json(data);
         console.log("\nCV actualizado\n" + data);

@@ -32,3 +32,5 @@ POST  http://localhost:8081/api/cv/621f90705e83904d12fdc58c/https://upload.wikim
 ###
 DELETE http://localhost:8081/api/usuario/621f90705e83904d12fdc58c HTTP/1.1
 
+###
+GET http://localhost:8081/api/cv HTTP/1.1
