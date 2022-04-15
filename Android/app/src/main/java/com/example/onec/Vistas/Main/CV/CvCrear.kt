@@ -2,12 +2,14 @@ package com.example.onec.Vistas.Main.CV
 
 import android.net.Uri
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Space
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +25,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -72,6 +75,7 @@ import kotlin.math.round
 
 @Composable
 fun creaCV(resultState: MutableState<String>) {
+
 
     /** valor -> Valor que tendra cada pestaña de creación de CV*/
     val valor = remember {
@@ -627,6 +631,26 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
         mutableStateOf("")
     }
 
+    val grado : @Composable () -> Unit = {
+        stringArrayResource(R.array.grado).forEach { label ->
+            DropdownMenuItem(
+                modifier = Modifier.background(color = Color(0xFFEEEEEE)),
+                onClick = {
+                    muestraEspecialidad.value = false
+                    muestraEspecialidadList.value = false
+                    muestraBtnSiguiente.value = false
+                    showExp.value = false
+                    selectedText.value = label
+                    especialidadSelect.value = ""
+                    experiencia.value = ""
+                    expanded = false
+                }
+            ) {
+                Text(text = label, color = Color(0xff3b3d4c))
+            }
+        }
+    }
+
 
     val icon = if (expanded)
 
@@ -700,6 +724,8 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
                     }
                 }
             }
+
+
         }
             if (selectedText.value != "") {
                 dropDownEspecialidad(titulo = selectedText, especialidad = especialidad, muestraBtnSiguiente = muestraBtnSiguiente, muestraEspecialidad = muestraEspecialidad, muestraEspecialidadList = muestraEspecialidadList, showExp = showExp, especialidadSelect = especialidadSelect, experiencia = experiencia, isDialogOpen =  isDialogOpen, valor = valor)
@@ -711,6 +737,9 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
     val dialogError = remember {
         mutableStateOf("")
     }
+
+    val context = LocalContext.current
+
     dialogoError(showDialog = isDialogOpen, error = dialogError )
     when(titulo.value) {
         "ESO","Bachiller", -> {
@@ -799,7 +828,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                     .fillMaxHeight(0.3f)
                     .background(color = Color(0xFFEEEEEE))
             ) {
-                especialidad.value!!.forEach { label ->
+                 especialidad.value!!.forEach { label ->
                     DropdownMenuItem(
                         modifier = Modifier.background(color = Color(0xFFEEEEEE)),
                         onClick = {
@@ -815,6 +844,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                     }
                 }
             }
+
         }
         Column() {
             Spacer(modifier = Modifier.height(20.dp))
