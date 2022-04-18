@@ -1,5 +1,6 @@
 package com.example.onec.Vistas.Main.CV
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -43,7 +44,7 @@ fun cvMain(selected: MutableState<Boolean>) {
             //Comprobar si el usuario tiene ya un CV
             cvViewModel.obtenerCvUsuarioActual() { cv: CvModel?, succes: Boolean? ->
                 if (cv != null && succes == true) {
-                    //El usuario ya ha creado un CV, por lo tanto se guarda
+                    //El usuario ya ha creado un CV, por lo tanto se guardo
                     StaticVariables.cv = cv
                     resultState.value = "LOADED"
                     loading.value = false

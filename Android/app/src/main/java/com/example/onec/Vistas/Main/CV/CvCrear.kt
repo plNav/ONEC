@@ -10,6 +10,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -52,6 +53,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.window.Dialog
 import coil.Coil
+import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -65,6 +67,7 @@ import com.example.onec.ui.theme.OnecTheme
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.flowlayout.SizeMode
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 import java.lang.Exception
 import java.util.regex.Pattern
@@ -157,18 +160,6 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                         .verticalScroll(scrollState, enabled = true), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
                         Text(text = "Seleccione una imagen", fontSize = 19.sp, color = Color(0xffbfc9c9))
                         Spacer(modifier = Modifier.height(10.dp))
-                        if (selectedImage.value == null) {
-                            Image(
-                                painter = painterResource(id = R.drawable.foto),
-                                contentDescription = "Foto",
-                                modifier = Modifier
-                                    .clickable {
-                                        launcher.launch("image/*")
-                                    }
-                                    .fillMaxHeight(0.3f)
-                                    .fillMaxWidth(0.3f)
-                            )
-                        }else {
                             SubcomposeAsyncImage(model = ImageRequest.Builder(LocalContext.current)
                                 .data(selectedImage.value)
                                 .crossfade(true)
@@ -177,10 +168,19 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                                 .clickable {
                                     launcher.launch("image/*")
                                 }
-                                .fillMaxHeight(0.5f)
-                                .fillMaxWidth(0.5f)
+                                .fillMaxHeight(0.3f)
+                                .fillMaxWidth(0.3f),
+                                error = {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.foto),
+                                        contentDescription = "Default",
+                                        modifier = Modifier
+                                            .fillMaxHeight(0.3f)
+                                            .fillMaxWidth(0.3f)
+                                    )
+                                },
+                                contentScale = ContentScale.Crop
                                )
-                        }
 
                         //Mostramos el resto de la vista de crear CV
                         //Nombre
@@ -296,6 +296,7 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun creaCvTitulos(valor : MutableState<String>) {
     OnecTheme {
@@ -595,6 +596,7 @@ fun dialogoError(showDialog : MutableState<Boolean>,error : MutableState<String>
         }
     }
 }
+@ExperimentalFoundationApi
 @Composable
 fun selectedDropDownMenu(valor : MutableState<String>) {
     val isDialogOpen = remember {
@@ -630,28 +632,7 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
     val experiencia = remember {
         mutableStateOf("")
     }
-
-    val grado : @Composable () -> Unit = {
-        stringArrayResource(R.array.grado).forEach { label ->
-            DropdownMenuItem(
-                modifier = Modifier.background(color = Color(0xFFEEEEEE)),
-                onClick = {
-                    muestraEspecialidad.value = false
-                    muestraEspecialidadList.value = false
-                    muestraBtnSiguiente.value = false
-                    showExp.value = false
-                    selectedText.value = label
-                    especialidadSelect.value = ""
-                    experiencia.value = ""
-                    expanded = false
-                }
-            ) {
-                Text(text = label, color = Color(0xff3b3d4c))
-            }
-        }
-    }
-
-
+    
     val icon = if (expanded)
 
         Icons.Filled.KeyboardArrowUp
@@ -732,10 +713,15 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
             }
     }
 
+@ExperimentalFoundationApi
 @Composable
 fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<String> , especialidad : MutableState<Array<String>?>, muestraBtnSiguiente : MutableState<Boolean>, muestraEspecialidad  : MutableState<Boolean>, muestraEspecialidadList: MutableState<Boolean>,showExp : MutableState<Boolean>, especialidadSelect : MutableState<String>, experiencia : MutableState<String>, isDialogOpen : MutableState<Boolean>) {
     val dialogError = remember {
         mutableStateOf("")
+    }
+
+    val loading = remember {
+        mutableStateOf(false)
     }
 
     val context = LocalContext.current
@@ -769,6 +755,8 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
     Spacer(modifier = Modifier.height(20.dp))
     if (muestraEspecialidadList.value) {
 
+        val contentNull : @Composable () -> Unit? = {null}
+
         val focus = LocalFocusManager.current
 
         var expanded by remember { mutableStateOf(false) }
@@ -781,7 +769,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
         else
             Icons.Filled.KeyboardArrowDown
 
-        Column() {
+        Column {
             Text(text = "Especialidad", fontSize = 16.sp, color = Color(0xffbfc9c9))
             Spacer(modifier = Modifier.height(5.dp))
             TextField(
@@ -801,10 +789,17 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                     Icon(
                         imageVector = icon,
                         contentDescription = "arrowExpanded",
-                        modifier = Modifier.clickable {
-                            focus.clearFocus()
-                            expanded = !expanded
-                        }
+                        modifier = Modifier
+                            .clickable {
+                                focus.clearFocus()
+                                if (expanded) {
+                                    expanded = false
+                                }else {
+                                    expanded = true
+                                    loading.value = true
+                                }
+                            }
+
                     )
                 },
                 colors = TextFieldDefaults.textFieldColors(
@@ -820,31 +815,54 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                     cursorColor = Color(0xFF999dba)
                 )
             )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                    .fillMaxHeight(0.3f)
-                    .background(color = Color(0xFFEEEEEE))
-            ) {
-                 especialidad.value!!.forEach { label ->
-                    DropdownMenuItem(
-                        modifier = Modifier.background(color = Color(0xFFEEEEEE)),
-                        onClick = {
-                            muestraEspecialidad.value = false
-                            muestraEspecialidadList.value = false
-                            muestraBtnSiguiente.value = false
-                            showExp.value = false
-                            especialidadSelect.value = label
-                            expanded = false
-                        }
+            val scope = rememberCoroutineScope()
+                if (loading.value) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight(0.4f)
+                            .fillMaxWidth()
                     ) {
-                        Text(text = label, color = Color(0xff3b3d4c))
+                        Surface(
+                            shape = RoundedCornerShape(5.dp),
+                            color = Color(0xfffcffff),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Cargando...",
+                                modifier = Modifier.padding(5.dp),
+                                color = Color(
+                                    0xFF266E86
+                                )
+                            )
+                        }
                     }
                 }
-            }
 
+                DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false}, modifier = Modifier
+                    .fillMaxHeight(0.4f)
+                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })) {
+                    if (expanded) {
+                        especialidad.value!!.forEach { label ->
+                            DropdownMenuItem(
+                                onClick = {
+                                    muestraEspecialidad.value = false
+                                    muestraEspecialidadList.value = false
+                                    muestraBtnSiguiente.value = false
+                                    showExp.value = false
+                                    especialidadSelect.value = label
+                                    expanded = false
+                                }
+                            ) {
+                                Text(text = label, color = Color(0xff3b3d4c))
+                            }
+                        }
+                        loading.value = false
+                    }else {
+                        DropdownMenu(expanded = expanded, onDismissRequest = {}) {
+
+                        }
+                    }
+                }
         }
         Column() {
             Spacer(modifier = Modifier.height(20.dp))
@@ -1252,5 +1270,24 @@ fun guardarPerfilError(visible : MutableState<Boolean>, cv : CvPost, resultState
 @Preview
 @Composable
 fun prev() {
-
+    Surface(modifier = Modifier.fillMaxHeight(0.5f), shape = RoundedCornerShape(5.dp), color = Color(0xfffcffff)) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(20.dp),
+                color = Color(
+                    0xFF266E86
+                )
+            )
+            Text(
+                text = "Cargando...", modifier = Modifier.padding(5.dp), color = Color(
+                    0xFF266E86
+                )
+            )
+        }
+    }
 }

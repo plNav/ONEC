@@ -3,6 +3,7 @@ package com.example.onec.ViewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.onec.Models.UsuarioModel
 import com.example.onec.Models.UsuarioPost
 import com.example.onec.Servicios.ApiServices
 import com.example.onec.Soporte.StaticVariables
@@ -19,7 +20,7 @@ class LoginRegistroViewModel : ViewModel() {
             try {
                 val pass = getSHA256(password)
                val respuesta = api.validarUsuario(email = email, passw = pass)
-                Log.e("Pass","Pass "+ password +"\nencrypt "+pass)
+                Log.e("Pass", "Pass $password\nencrypt $pass")
                 if (respuesta.isSuccessful) {
                     StaticVariables.usuario = respuesta.body()!![0]
                     onSucces("good")
@@ -28,6 +29,22 @@ class LoginRegistroViewModel : ViewModel() {
                 }
             }catch (e: Exception) {
                 onSucces("unknown")
+            }
+        }
+    }
+
+    fun actualizarUsuario(id: String, usuarioPost: UsuarioPost, onSucces: (did: Boolean) -> Unit) {
+        viewModelScope.launch {
+            val api = ApiServices.ApiServices.getInstance()
+            try {
+              val respuesta = api.actualizarUsuario(id, usuario = usuarioPost)
+                if (respuesta.isSuccessful) {
+                    onSucces(true)
+                }else {
+                    onSucces(false)
+                }
+            }catch (e: Exception) {
+                onSucces(false)
             }
         }
     }

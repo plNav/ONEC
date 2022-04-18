@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const rutaUsuarios = require('./routes/usuario');
 const rutaCV = require('./routes/cv');
+const rutaOferta = require('./routes/oferta');
 const app = express();
 require('dotenv').config();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use('/api',rutaUsuarios);
 app.use('/api',rutaCV);
+app.use('/api',rutaOferta);
 
 
 //Conexión DB

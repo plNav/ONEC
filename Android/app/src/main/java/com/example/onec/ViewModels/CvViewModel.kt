@@ -13,18 +13,18 @@ import java.lang.Exception
 
 class CvViewModel : ViewModel() {
 
-    fun obtenerCvUsuarioActual(onComplete : (cv : CvModel?, succes : Boolean?) -> Unit) {
+    fun obtenerCvEspecifico(id:String,onComplete : (cv : CvModel?) -> Unit) {
         viewModelScope.launch {
             try {
                 val api = ApiServices.ApiServices.getInstance()
-                val respuesta = api.obtenerCVUsuario(StaticVariables.usuario!!._id)
+                val respuesta = api.obtenerCVEspecifico(id)
                 if (respuesta.isSuccessful) {
-                    onComplete(respuesta.body(),true)
+                    onComplete(respuesta.body())
                 }else {
-                    onComplete(null,true)
+                    onComplete(null)
                 }
             } catch (e: Exception) {
-                onComplete(null, false)
+                onComplete(null)
             }
         }
     }
@@ -41,6 +41,22 @@ class CvViewModel : ViewModel() {
                }
             }catch (e: Exception) {
                 onComplete(null)
+            }
+        }
+    }
+
+    fun obtenerCvUsuarioActual(onComplete: (cv: CvModel?, succes : Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.obtenerCvUsuario(StaticVariables.usuario!!._id)
+                if (respuesta.isSuccessful) {
+                    onComplete(respuesta.body(),true)
+                }else {
+                    onComplete(null, true)
+                }
+            }catch (e: Exception) {
+                onComplete(null, false)
             }
         }
     }

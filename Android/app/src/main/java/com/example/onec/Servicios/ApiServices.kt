@@ -21,7 +21,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.23:8081/api/")
+                        .baseUrl("http://192.168.0.19:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -59,6 +59,9 @@ interface ApiServices {
         @POST("usuario")
         suspend fun registrar(@Body usuarioPost: UsuarioPost) : Response<UsuarioModel>
 
+        @PUT("usuario/{id}")
+        suspend fun actualizarUsuario(@Path(value = "id") id : String, @Body usuario : UsuarioPost) : Response<UsuarioModel>
+
 
 
         /********************CV**********************/
@@ -67,7 +70,12 @@ interface ApiServices {
         suspend fun crearCV(@Body cv: CvPost) : Response<CvModel>
 
         @GET("cv/{id}")
-        suspend fun obtenerCVUsuario(
+        suspend fun obtenerCVEspecifico(
+            @Path("id") id : String
+        ): Response<CvModel>
+
+        @GET("cv/usuario/{id}")
+        suspend fun obtenerCvUsuario(
             @Path("id") id : String
         ): Response<CvModel>
 
