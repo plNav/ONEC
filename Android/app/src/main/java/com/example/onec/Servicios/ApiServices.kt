@@ -1,10 +1,8 @@
 package com.example.onec.Servicios
 
 import android.util.Log
-import com.example.onec.Models.CvModel
-import com.example.onec.Models.CvPost
-import com.example.onec.Models.UsuarioModel
-import com.example.onec.Models.UsuarioPost
+import com.example.onec.Models.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -79,10 +77,48 @@ interface ApiServices {
             @Path("id") id : String
         ): Response<CvModel>
 
-        @GET("cv/{id}")
+        @PUT("cv/{id}")
         suspend fun actualizarCV(
             @Path("id") id : String,
-            @Body cv : CvModel
+            @Body cv : CvPost
         ): Response<CvModel>
+
+        @Multipart
+        @POST("cv/upload/{id}")
+        fun postImage(
+            @Path("id") id:String,
+            @Part imagen:MultipartBody.Part
+        ): Response<Any>
+
+
+        /****************Anuncio*******************/
+
+        @POST("anuncio")
+        suspend fun crearAnuncio(@Body anuncio : AnuncioPost) : Response<AnuncioModel>
+
+        @GET("anuncio")
+        suspend fun obtenerAnuncios() : Response<List<AnuncioModel>>
+
+        @GET("anuncio/{id}")
+        suspend fun obtenerAnuncio(
+            @Path("id") id : String
+        ): Response<AnuncioModel>
+
+        @GET("anuncio/usuario/{id}")
+        suspend fun obtenerAnunciosUsuario(
+            @Path("id") id : String
+        ) : Response<List<AnuncioModel>>
+
+        @PUT("anuncio/{id}")
+        suspend fun actualizarAnuncio(
+            @Path("id") id : String,
+            @Body anuncio: AnuncioPost
+        ) : Response<AnuncioModel>
+
+        @DELETE("anuncio/{id}")
+        suspend fun borrarAnuncio(
+            @Path("id") id: String
+        ): Response<AnuncioModel>
+
     }
 }

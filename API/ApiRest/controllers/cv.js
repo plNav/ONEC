@@ -6,7 +6,8 @@ const cvSchema = mongoose.Schema({
     },
     foto_url: {
         type: String,
-        required: true
+        required: false,
+        default: "sinImg"
     },
     nombre: {
         type: String,

@@ -390,7 +390,7 @@ fun dialogPass(show : MutableState<Boolean>, showLoading : MutableState<Boolean>
                                             }else {
                                                 //Cambiar el correo
                                                     val usuario = UsuarioPost(email.value,StaticVariables!!.usuario!!.password)
-                                                loginRegViewMod.actualizarUsuario(StaticVariables!!.usuario!!._id, usuario) {did ->
+                                                    loginRegViewMod.actualizarUsuario(StaticVariables!!.usuario!!._id, usuario) {did ->
                                                     if (did) {
                                                         StaticVariables!!.usuario!!.email = email.value
                                                         showLoading.value = false

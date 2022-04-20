@@ -20,7 +20,6 @@ import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.Vistas.Main.CV.cvMain
 import com.example.onec.Vistas.Main.MainEmpresario.anunciosEmpresario
-import com.example.onec.Vistas.Main.MainEmpresario.proyectosEmpresario
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,13 +33,9 @@ fun main(navController: NavController, elemento: Int){
         mutableStateOf(false)
     }
 
-    val isProyectosEmpresarioSelected = remember {
-        mutableStateOf(false)
-    }
 
     val isOfertaSelected = remember { mutableStateOf(false)}
     val isAnunciosSelected = remember { mutableStateOf(false)}
-    val isProyectosSelected = remember { mutableStateOf(false)}
     val isPerfilSelected = remember { mutableStateOf(false)}
     val isCvSelected = remember {
         mutableStateOf(false)
@@ -49,9 +44,8 @@ fun main(navController: NavController, elemento: Int){
     when (elemento) {
          1 -> if (!StaticVariables.appModo) isOfertaSelected.value = true else {isOfertaEmpresarioSelected.value = true}
          2 -> if (!StaticVariables.appModo) isAnunciosSelected.value = true else {isAnunciosEmpresarioSelected.value = true}
-         3 -> if (!StaticVariables.appModo) isProyectosSelected.value = true else {isProyectosEmpresarioSelected.value = true}
-         4 -> isCvSelected.value = true
-         5 -> isPerfilSelected.value = true
+         3 -> isCvSelected.value = true
+         4 -> isPerfilSelected.value = true
     }
 
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
@@ -79,13 +73,11 @@ fun main(navController: NavController, elemento: Int){
                                     if(!StaticVariables.appModo) {
                                         isOfertaSelected.value = true
                                         isAnunciosSelected.value = false
-                                        isProyectosSelected.value = false
                                         isPerfilSelected.value = false
                                         isCvSelected.value = false
                                     }else {
                                         isOfertaEmpresarioSelected.value = true
                                         isAnunciosEmpresarioSelected.value = false
-                                        isProyectosEmpresarioSelected.value = false
                                         isPerfilSelected.value = false
                                     }
                                     StaticVariables.fragmento = 1
@@ -120,13 +112,11 @@ fun main(navController: NavController, elemento: Int){
                                     if (!StaticVariables.appModo) {
                                         isAnunciosSelected.value = true
                                         isOfertaSelected.value = false
-                                        isProyectosSelected.value = false
                                         isPerfilSelected.value = false
                                         isCvSelected.value = false
                                     }else {
                                         isAnunciosEmpresarioSelected.value = true
                                         isOfertaEmpresarioSelected.value = false
-                                        isProyectosEmpresarioSelected.value = false
                                         isPerfilSelected.value = false
                                     }
                                     StaticVariables.fragmento = 2
@@ -154,47 +144,6 @@ fun main(navController: NavController, elemento: Int){
                                 unselectedContentColor = Color(0xfffcffff)
                             )
 
-                            //Proyectos
-                            BottomNavigationItem(
-                                selected = if(!StaticVariables.appModo) isProyectosSelected.value else isProyectosEmpresarioSelected.value,
-                                onClick = {
-                                    if(!StaticVariables.appModo) {
-                                        isProyectosSelected.value = true
-                                        isOfertaSelected.value = false
-                                        isAnunciosSelected.value = false
-                                        isPerfilSelected.value = false
-                                        isCvSelected.value = false
-                                    }else {
-                                        isProyectosEmpresarioSelected.value = true
-                                        isOfertaEmpresarioSelected.value = false
-                                        isAnunciosEmpresarioSelected.value = false
-                                        isPerfilSelected.value = false
-                                    }
-                                    StaticVariables.fragmento = 3
-                                },
-                                icon = {
-                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.proyectos),
-                                            contentDescription = "Proyectos",
-                                            modifier = Modifier
-                                                .height(25.dp)
-                                                .width(25.dp)
-                                        )
-                                        if (isProyectosSelected.value || isProyectosEmpresarioSelected.value) {
-                                            Text(
-                                                text = "Proyectos",
-                                                textAlign = TextAlign.Center,
-                                                fontSize = 10.sp,
-                                                fontFamily = FontFamily(Font(R.font.comforta))
-                                            )
-                                        }
-                                    }
-                                },
-                                selectedContentColor = Color(0xFF266E86),
-                                unselectedContentColor = Color(0xfffcffff)
-                            )
-
                             //CV  -> Lo iniciamos con un if, ya que este solo se verá si estamos en modo Estándar
                             if (!StaticVariables.appModo) {
                                 BottomNavigationItem(
@@ -202,10 +151,9 @@ fun main(navController: NavController, elemento: Int){
                                     onClick = {
                                         isOfertaSelected.value = false
                                         isAnunciosSelected.value = false
-                                        isProyectosSelected.value = false
                                         isPerfilSelected.value = false
                                         isCvSelected.value = true
-                                        StaticVariables.fragmento = 4
+                                        StaticVariables.fragmento = 3
                                     },
                                     icon = {
                                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -273,12 +221,10 @@ fun main(navController: NavController, elemento: Int){
                             .fillMaxHeight(0.90f)
                     ) {
                         //perfil(selected = isPerfilSelected)
-                        proyectosEmpresario(selected = isProyectosEmpresarioSelected, navController = navController)
                         anunciosEmpresario(selected = isAnunciosEmpresarioSelected, navController = navController)
                         ofertaEmpresario(selected = isOfertaEmpresarioSelected, navController = navController)
                         ofertas(selected = isOfertaSelected, navController =  navController)
                         anuncios(selected = isAnunciosSelected, navController = navController)
-                        proyectos(selected = isProyectosSelected, navController = navController)
                         cvMain(selected = isCvSelected)
                     }
 

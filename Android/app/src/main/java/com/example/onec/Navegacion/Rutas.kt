@@ -23,4 +23,5 @@ sealed class Rutas(
     object CrearOferta : Rutas(route = "Main.Ofertas.CrearOferta")
     object TipoCuenta : Rutas(route = "TipoCuenta")
     object Configuracion : Rutas(route = "Vistas.Main.Perfil.Configuracion")
+    object CrearAnuncio : Rutas(route = "CrearAnuncio")
 }

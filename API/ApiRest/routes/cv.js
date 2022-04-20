@@ -3,6 +3,20 @@ const cv = require('../controllers/cv');
 const router = express.Router();
 const cvSchema = require('../controllers/cv');
 const ofertaSchema = require('../controllers/oferta');
+const path = require('path');
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './../images')
+    },
+    filename: (req, file, cb) => {
+        console.log(file)
+        cb(null, req.params.id + path.extname(file.originalname))
+    }
+})
+const upload = multer({storage: storage})
 
 
 //Crear nuevo CV
@@ -93,11 +107,17 @@ router.delete("/cv/:id", (req, res) => {
     })
 });
 
-
+//Subir imagen
+/*
+router.post("/cv/imagen/:id",(req,res) => {
+    res.send("Imagen subida");
+},upload.single(req.params.id))
+*/
 
 //Obtener CVs Filtrados partiendo de una oferta
-router.get("/cv/oferta/:id", (req, res) => {
+router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
     const {id} = req.params;
+    const {habilidadesReq} = req.params;
     ofertaSchema.findById(id).then((data) => {
        let titulo = data.titulo;
        let especialidad = data.especialidad;
@@ -105,19 +125,17 @@ router.get("/cv/oferta/:id", (req, res) => {
        let habilidades = data.habilidades
         if(especialidad != null) {
             cvSchema
-            .find({titulo : titulo})
-            .find({especialidad : especialidad})
-            .find({habilidades : habilidades})
+            .find({titulo : titulo,especialidad : especialidad})
+            .where("habilidades").all(habilidades) //El all nos devuelve las colecciones que contienen todos los elementos del array
             .where("experiencia").gte(experiencia)
             .then((data) => {
                 if (data.length != []) {
                     res.json(data)
-                }else {
+                }else if(habilidadesReq != "S"){
                     cvSchema
-                    .find({titulo : titulo})
-                    .find({especialidad : especialidad})
-                    .where("habilidades").in(habilidades)
-                    .where("experiencia").gte(experiencia)
+                    .find({titulo : titulo,especialidad : especialidad})
+                    .where("habilidades").in(habilidades) //Este solo muestra los que incluyen algunos de los valores del array
+                    .where("experiencia").gte(experiencia) //Mayor o igual
                     .then((data) => {
                         res.json(data)
                     })
@@ -125,6 +143,8 @@ router.get("/cv/oferta/:id", (req, res) => {
                         res.json({message : err})
                     })
 
+                }else {
+                    res.json(data)
                 }
             })
             .catch((err) => {
@@ -132,13 +152,12 @@ router.get("/cv/oferta/:id", (req, res) => {
             })
         }else {
            cvSchema
-           .find({titulo : titulo})
-           .find({habilidades : habilidades})
+           .find({titulo : titulo,habilidades:habilidades})
            .where("experiencia").gte(experiencia)
            .then((data) => {
                 if (data.length != []) {
                     res.json(data)
-                }else {
+                }else if(habilidadesReq != "S"){
                     cvSchema
                     .find({titulo : titulo})
                     .where("habilidades").in(habilidades)
@@ -149,6 +168,8 @@ router.get("/cv/oferta/:id", (req, res) => {
                     .catch((err) => {
                         res.json({message : err})
                     })
+                }else {
+                    res.json(data)
                 }
            }) 
         }   

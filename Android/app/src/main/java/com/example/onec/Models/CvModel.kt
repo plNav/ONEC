@@ -2,14 +2,14 @@ package com.example.onec.Models
 
 data class CvModel(
     val _id : String,
-    val id_user : String,
-    val foto_url : String,
-    val nombre : String,
-    val telefono : String,
-    val ubicacion: String,
-    val correo : String,
-    val experiencia : Int,
-    val titulo: String,
-    val especialidad : String?,
-    val habilidades: MutableList<String>
+    var id_user : String,
+    var foto_url : String,
+    var nombre : String,
+    var telefono : String,
+    var ubicacion: String,
+    var correo : String,
+    var experiencia : Int,
+    var titulo: String,
+    var especialidad : String?,
+    var habilidades: MutableList<String>
 )

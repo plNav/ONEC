@@ -1,9 +1,12 @@
 package com.example.onec.Soporte
 
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.runtime.mutableStateListOf
+import com.example.onec.Models.AnuncioModel
 import com.example.onec.Models.CvModel
 import com.example.onec.Models.UsuarioModel
+import java.io.File
 
 
 class StaticVariables {
@@ -13,7 +16,7 @@ class StaticVariables {
         * fragmento : Int
         * 1 = Ofertas
         * 2 = Anuncios
-        * 3 = Proyectos
+        * 3 = CV
         * 4 = Perfil
         * */
         var fragmento = 1
@@ -59,6 +62,7 @@ class StaticVariables {
         /*
         * imageUri : Uri?   -> Contiene el Uri de la Imagen que ha seleccionado de la galeria el Usuario tipo Estandar en su CV para no perderla al cambiar de Composable
         * */
+        var imagen : File? = null
         var imageUri : Uri? = null
         var pasoRegistro: String = "1"
         var nombreCv : String = ""
@@ -69,5 +73,12 @@ class StaticVariables {
         var especialidad : String? = null
         var habilidades : MutableList<String> = mutableStateListOf()
 
+
+        /**
+         * Anuncios
+         * */
+
+        var anunciosUsuario : MutableList<AnuncioModel> = mutableStateListOf()
+        var anunciosBuscados = false
     }
 }

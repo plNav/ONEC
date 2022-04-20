@@ -75,10 +75,10 @@ GET http://localhost:8081/api/oferta/625aa8e14ed3824e1a650807 HTTP/1.1
 GET http://localhost:8081/api/oferta/usuario/userYeray HTTP/1.1
 
 ### Obtener CVs Filtrados por oferta
-GET http://localhost:8081/api/cv/oferta/625ae566603b0ae842d8f828 HTTP/1.1
+GET http://localhost:8081/api/cv/oferta/625ae566603b0ae842d8f828/N HTTP/1.1
 
 ### Obtener CV de un usuario
 GET http://localhost:8081/api/cv/usuario/6220b0aa8197a378ac0f9dab HTTP/1.1
 
 ### Borrar CV de un usuario
-DELETE http://localhost:8081/api/cv/6220b0aa8197a378ac0f9dab HTTP/1.1
+DELETE http://localhost:8081/api/cv/625bf37392ca75023c8385d5 HTTP/1.1

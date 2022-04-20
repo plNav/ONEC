@@ -1,6 +1,7 @@
 package com.example.onec.Vistas.Main.CV
 
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Space
@@ -69,6 +70,7 @@ import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.flowlayout.SizeMode
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
+import java.io.File
 import java.lang.Exception
 import java.util.regex.Pattern
 import kotlin.math.ceil
@@ -96,10 +98,10 @@ fun creaCV(resultState: MutableState<String>) {
     }
 
     when (valor.value) {
-        "1" -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj)
+        "1" -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj,)
         "2" -> creaCvTitulos(valor = valor)
         "3" -> creaCvHabilidades(valor = valor , resultState)
-        else -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj)
+        else -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj,)
     }
     if (showError.value) {
         dialogoError(showDialog = showError, error = errorMsj)
@@ -134,9 +136,13 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
         /** launcher -> Sirve para poder abrir la galeria y seleccionar una imagen*/
         val launcher =
             rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
-                selectedImage.value = uri
-                StaticVariables.imageUri = uri
-                StaticVariables.fragmento = 4
+                if (uri != null) {
+                    selectedImage.value = uri
+                    StaticVariables.imageUri = uri
+                    //Creamos un archivo que apunta al uri que hemos sacado antes
+                    StaticVariables.imagen = File(uri.path)
+                }
+                StaticVariables.fragmento = 3
                 Log.e("Uri",selectedImage.value.toString())
             }
 
