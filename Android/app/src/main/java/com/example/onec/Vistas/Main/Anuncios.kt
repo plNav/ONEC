@@ -1,19 +1,20 @@
 package com.example.onec.Vistas.Main
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animate
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -23,20 +24,28 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
+import com.example.onec.Models.AnuncioModel
 import com.example.onec.Models.ModelOferta
 import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
+import com.example.onec.Vistas.Perfil.dialogError
 import com.example.onec.ui.theme.OnecTheme
 
 @Composable
 fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
     if(selected.value) {
+
+        val eliminando = remember {
+            mutableStateOf(false)
+        }
 
         val isLoading = remember {
             mutableStateOf(false)
@@ -117,14 +126,14 @@ fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
                             //La respuesta llega correctamente, pero el usuario no tienen ningun anuncio creado
                             showlistEmpty.value = true
                             StaticVariables.anunciosBuscados = true
-                            StaticVariables.anunciosUsuario = anuncios.toMutableList()
+                            StaticVariables.anunciosUsuario = anuncios.toMutableStateList()
                             isLoading.value = false
                         }else if (anuncios.isNotEmpty()) {
                             //El usuario tiene anuncios ya creados
                             showList.value = true
                             isLoading.value = false
                             StaticVariables.anunciosBuscados = true
-                            StaticVariables.anunciosUsuario = anuncios.toMutableList()
+                            StaticVariables.anunciosUsuario = anuncios.toMutableStateList()
                         }else {
                             //Mostrar Error por si acaso
                             showError.value = true
@@ -132,9 +141,10 @@ fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
                         }
                     }
                 }else {
-                    listAnuncios(showList)
+                    listAnuncios(showList, navController, eliminando)
                     listAnunciosEmpty(showlistEmpty)
                     errorCarga(isLoading,showError)
+                    dialogEliminando(show = eliminando)
                 }
             }
         }
@@ -146,11 +156,59 @@ fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
 
 
 
+
+@Composable
+fun dialogEliminando(show: MutableState<Boolean>) {
+    if (show.value) {
+        OnecTheme() {
+            Dialog(onDismissRequest = { /*TODO*/ }) {
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .height(50.dp)
+                            .width(50.dp), color = Color(0xfffcffff)
+                    )
+                    Text(
+                        text = "Eliminando...",
+                        fontSize = 16.sp,
+                        color = Color(0xfffcffff),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
+    }
+}
+
 /**
  * listAnuncios -> mostrará la vista de los anuncios que tiene el usuario
  * */
 @Composable
-fun listAnuncios(show: MutableState<Boolean>) {
+fun listAnuncios(show: MutableState<Boolean>, navController: NavController, eliminando : MutableState<Boolean>) {
+
+    val listaItemsEliminados = remember {
+        mutableStateOf<MutableList<AnuncioModel>>(mutableStateListOf())
+    }
+
+    val showListEmpty = remember {
+        mutableStateOf(false)
+    }
+
+    val anuncioViewModel = remember {
+        AnuncioViewModel()
+    }
+
+    val showDialogError = remember {
+        mutableStateOf(false)
+    }
+
+    val errorMsj = remember {
+        mutableStateOf("Error desconocido")
+    }
     if (show.value) {
         OnecTheme() {
             Box(
@@ -163,8 +221,125 @@ fun listAnuncios(show: MutableState<Boolean>) {
                         .fillMaxSize()
                         .padding(5.dp)
                 ) {
-
+                    if (StaticVariables.anunciosUsuario.isNotEmpty()) {
+                        items(StaticVariables.anunciosUsuario) { item ->
+                            Spacer(modifier = Modifier.height(10.dp))
+                            AnimatedVisibility(
+                                visible = !listaItemsEliminados.value.contains(item),
+                                enter = expandVertically(),
+                                exit = shrinkVertically(animationSpec = tween(durationMillis = 7000))
+                            ) {
+                                Surface(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            navController.navigate(Rutas.AnuncioDetalles.route)
+                                        },
+                                    shape = RoundedCornerShape(7.dp),
+                                    color = Color(0xfffcffff)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(5.dp)
+                                    ) {
+                                        Row(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            horizontalArrangement = Arrangement.Start,
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Column(modifier = Modifier.fillMaxWidth(0.9f)) {
+                                                Row() {
+                                                    Text(
+                                                        text = "Nombre",
+                                                        fontSize = 16.sp,
+                                                        color = Color(
+                                                            0xFF272727
+                                                        )
+                                                    )
+                                                    Spacer(modifier = Modifier.width(3.dp))
+                                                    Text(
+                                                        text = item.nombre,
+                                                        maxLines = 1,
+                                                        fontSize = 16.sp,
+                                                        overflow = TextOverflow.Ellipsis,
+                                                        color = Color(
+                                                            0xFF22596B
+                                                        )
+                                                    )
+                                                }
+                                                Row() {
+                                                    Text(
+                                                        text = "Categoría",
+                                                        fontSize = 16.sp,
+                                                        color = Color(
+                                                            0xFF272727
+                                                        )
+                                                    )
+                                                    Spacer(modifier = Modifier.width(3.dp))
+                                                    Text(
+                                                        text = item.categoria,
+                                                        fontSize = 16.sp,
+                                                        overflow = TextOverflow.Ellipsis,
+                                                        color = Color(
+                                                            0xFF22596B
+                                                        )
+                                                    )
+                                                }
+                                                Row() {
+                                                    Text(
+                                                        text = "Precio",
+                                                        fontSize = 16.sp,
+                                                        color = Color(
+                                                            0xFF272727
+                                                        )
+                                                    )
+                                                    Spacer(modifier = Modifier.width(3.dp))
+                                                    val precio = remember {
+                                                        if (item.precioPorHora) "${item.precio}€ Hora" else item.precio.toString()
+                                                    }
+                                                    Text(
+                                                        text = precio,
+                                                        fontSize = 16.sp,
+                                                        overflow = TextOverflow.Ellipsis,
+                                                        color = Color(
+                                                            0xFF22596B
+                                                        )
+                                                    )
+                                                }
+                                            }
+                                            IconButton(onClick = {
+                                                eliminando.value = true
+                                                anuncioViewModel.eliminarAnuncio(item._id) { did ->
+                                                    if (did) {
+                                                        eliminando.value = false
+                                                        StaticVariables.anunciosUsuario.remove(item)
+                                                        listaItemsEliminados.value.add(item)
+                                                    } else {
+                                                        errorMsj.value = "Error al eliminar el anuncio"
+                                                        showDialogError.value = true
+                                                        eliminando.value = false
+                                                    }
+                                                }
+                                            }) {
+                                                Icon(
+                                                    imageVector = Icons.Filled.Delete,
+                                                    contentDescription = "Borra",
+                                                    tint = Color(0xFF1783A7)
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }else {
+                        show.value = false
+                        showListEmpty.value = true
+                    }
                 }
+                dialogError(show = showDialogError , msj = errorMsj)
+                listAnunciosEmpty(show = showListEmpty)
             }
         }
     }
@@ -182,7 +357,10 @@ fun listAnuncios(show: MutableState<Boolean>) {
 fun listAnunciosEmpty(show: MutableState<Boolean>) {
     if (show.value) {
         OnecTheme() {
-            Column(Modifier.fillMaxSize().background(Color(0xff3b3d4c)), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .background(Color(0xff3b3d4c)), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "Ningún anuncio creado", fontSize = 19.sp, color = Color(0xfffcffff), textAlign = TextAlign.Center)
             }
         }
@@ -244,6 +422,30 @@ fun errorCarga(show: MutableState<Boolean>, isLoading : MutableState<Boolean>) {
                     )
                 }
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun previ() {
+    Dialog(onDismissRequest = { /*TODO*/ }) {
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .height(50.dp)
+                    .width(50.dp), color = Color(0xfffcffff)
+            )
+            Text(
+                text = "Eliminando...",
+                fontSize = 16.sp,
+                color = Color(0xfffcffff),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }

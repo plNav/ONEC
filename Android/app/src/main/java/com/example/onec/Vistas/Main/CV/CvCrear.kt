@@ -112,6 +112,11 @@ fun creaCV(resultState: MutableState<String>) {
 @Composable
 fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensaje : MutableState<String>) {
     OnecTheme {
+
+        val cvViewModel = remember{
+            CvViewModel()
+        }
+
         /** scrollState -> Almacena el estado del scroll*/
         val scrollState = rememberScrollState(0)
 
@@ -141,6 +146,13 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                     StaticVariables.imageUri = uri
                     //Creamos un archivo que apunta al uri que hemos sacado antes
                     StaticVariables.imagen = File(uri.path)
+                    cvViewModel.subirImagen(imagen = StaticVariables.imagen!!) { did ->
+                        if (did) {
+                            //TODO
+                        }else {
+                            //TODO
+                        }
+                    }
                 }
                 StaticVariables.fragmento = 3
                 Log.e("Uri",selectedImage.value.toString())

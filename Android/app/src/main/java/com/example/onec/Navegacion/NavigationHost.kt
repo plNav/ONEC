@@ -15,6 +15,7 @@ import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.LoginRegistroViewModel
 import com.example.onec.Vistas.Login.Login
 import com.example.onec.Vistas.Main.*
+import com.example.onec.Vistas.Main.Anuncios.anuncioDetalle
 import com.example.onec.Vistas.Main.Anuncios.crearAnuncio
 import com.example.onec.Vistas.Main.Ofertas.crearOferta
 import com.example.onec.Vistas.Perfil.configuracion
@@ -91,6 +92,11 @@ fun navHost(context: Context) {
        //Ruta crear anuncio
        composable(route = Rutas.CrearAnuncio.route) {
            crearAnuncio(navController = navController)
+       }
+       
+       //Ruta Anuncio Detalles
+       composable(route = Rutas.AnuncioDetalles.route) {
+           anuncioDetalle(navController = navController)
        }
    }
 }

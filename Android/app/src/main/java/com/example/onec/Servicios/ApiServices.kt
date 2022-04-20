@@ -3,6 +3,8 @@ package com.example.onec.Servicios
 import android.util.Log
 import com.example.onec.Models.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,7 +21,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.19:8081/api/")
+                        .baseUrl("http://192.168.0.15:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -84,11 +86,11 @@ interface ApiServices {
         ): Response<CvModel>
 
         @Multipart
-        @POST("cv/upload/{id}")
+        @POST("cv/upload/")
         fun postImage(
-            @Path("id") id:String,
-            @Part imagen:MultipartBody.Part
-        ): Response<Any>
+            @Part imagen:MultipartBody.Part?,
+            @Part("upload") name : RequestBody?
+        ): Call<Any>
 
 
         /****************Anuncio*******************/

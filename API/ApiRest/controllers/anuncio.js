@@ -27,10 +27,15 @@ const anuncioSchema = mongoose.Schema({
         required : true
     },
 
+    precioPorHora: {
+        type: Boolean,
+        required: true
+    },
+
     votos: {
         type: Array,
         required : false,
         default: []
     }
 });
-module.exports = mongoose.model('Usuario',anuncioSchema);
+module.exports = mongoose.model('Anuncio',anuncioSchema);

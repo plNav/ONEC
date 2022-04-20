@@ -6,5 +6,5 @@ data class AnuncioPost(
     val nombre: String,
     val descripcion : String,
     val precio : Float,
-    val votos : MutableList<Int>
+    val precioPorHora : Boolean,
 )

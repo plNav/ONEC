@@ -4,19 +4,22 @@ const router = express.Router();
 const cvSchema = require('../controllers/cv');
 const ofertaSchema = require('../controllers/oferta');
 const path = require('path');
-
 const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './../images')
-    },
+var crypto;
+var storage = multer.diskStorage({
+    destination: './images/',
     filename: (req, file, cb) => {
-        console.log(file)
-        cb(null, req.params.id + path.extname(file.originalname))
+      return crypto.pseudoRandomBytes(16, function(err, raw) {
+        if (err) {
+          console.log(`Error in diskStorage ${err}`)
+          return cb(err);
+        }
+      //return cb(null, "" + (raw.toString('hex')) + ( pathD.extname(file.originalname)));
+        return cb(null, file.originalname);
+  
+      });
     }
-})
-const upload = multer({storage: storage})
+});
 
 
 //Crear nuevo CV
@@ -108,11 +111,14 @@ router.delete("/cv/:id", (req, res) => {
 });
 
 //Subir imagen
-/*
-router.post("/cv/imagen/:id",(req,res) => {
-    res.send("Imagen subida");
-},upload.single(req.params.id))
-*/
+router.post( "/cv/upload/", multer({storage: storage}).single('upload'),(req, res) => {
+      console.log(req.file);
+      console.log(req.body);
+      res.redirect("./images" + req.file.filename);
+      return res.status(200).end();
+    }
+  );
+
 
 //Obtener CVs Filtrados partiendo de una oferta
 router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {

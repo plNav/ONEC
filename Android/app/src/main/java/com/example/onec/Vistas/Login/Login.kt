@@ -52,6 +52,9 @@ fun Login(
 }
 @Composable
 fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewModel,applicationContext: Context){
+    val showDialogLoading = remember{
+        mutableStateOf(false)
+    }
     val stateScroll = rememberScrollState(0)
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -174,6 +177,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                                 isDialogOpen.value = true
                                                 dialogError.value = "El email introducido\nno es un email válido."
                                             }else {
+                                                showDialogLoading.value = true
                                                 loginRegistroViewModel.comprobarEmailExistente(email = email.value.trim()) { existe,cause ->
                                                     if (existe && cause == "existe") {
                                                         //Si el email existe, intentamos hacer un login, capturando cada error.
@@ -190,9 +194,10 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                                                 isDialogOpen.value = true
                                                                 dialogError.value = "Error al iniciar sesión"
                                                             }
+                                                            showDialogLoading.value = false
                                                         }
                                                     } else {
-
+                                                        showDialogLoading.value = false
                                                         if (!existe && cause == "no existe") {
                                                             //Mostramos un error diciendo que el email introducido no pertenece a ningún usuario.
                                                             isDialogOpen.value = true
@@ -288,6 +293,21 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                         }
                     }
                 }
+            }
+        }
+    }
+    dialogLoading(show = showDialogLoading)
+}
+
+@Composable
+fun dialogLoading(show : MutableState<Boolean>) {
+    if (show.value) {
+        Dialog(onDismissRequest = { /*TODO*/ }) {
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator(color = Color(0xfffcffff), modifier = Modifier
+                    .height(30.dp)
+                    .width(30.dp))
+                Text(text = "Cargando...", fontSize = 16.sp, color = Color(0xfffcffff))
             }
         }
     }
