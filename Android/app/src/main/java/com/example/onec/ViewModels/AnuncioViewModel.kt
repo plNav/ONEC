@@ -1,10 +1,15 @@
 package com.example.onec.ViewModels
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onec.Models.AnuncioModel
 import com.example.onec.Models.AnuncioPost
+import com.example.onec.Models.AnunciosGuardadosModel
 import com.example.onec.Servicios.ApiServices
+import com.example.onec.Soporte.StaticVariables
 import kotlinx.coroutines.launch
 
 class AnuncioViewModel : ViewModel() {
@@ -104,4 +109,38 @@ class AnuncioViewModel : ViewModel() {
             }
         }
     }
+
+    fun obtenerPuntuacionAnuncio(id: String, onComplete: (puntuacion : Int?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.obtenerPuntuacionAnuncio(id)
+                if (respuesta.isSuccessful) {
+                    onComplete(respuesta.body())
+                }else {
+                    onComplete(null)
+                }
+            }catch (e: Exception) {
+                onComplete(null)
+            }
+        }
+    }
+
+    fun buscarAnuncios(campo : String, onComplete: (anuncios : MutableList<AnuncioModel>?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.buscarAnuncio(campo = campo)
+                if (respuesta.isSuccessful) {
+                    onComplete(respuesta.body())
+                }else {
+                    onComplete(null)
+                }
+            }catch (e: Exception) {
+                Log.d("CATCH",e.message.toString())
+                onComplete(null)
+            }
+        }
+    }
+
 }

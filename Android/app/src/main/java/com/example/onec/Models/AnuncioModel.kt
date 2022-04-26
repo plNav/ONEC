@@ -8,6 +8,9 @@ data class AnuncioModel(
     var descripcion : String,
     var precio : Float,
     var precioPorHora : Boolean,
-    var votos : MutableList<Int>
+    var votos : MutableList<Int>,
+    var numVecesVisto : Int,
+    var numVotos : Int,
+    var puntuacion : Int
 )
 

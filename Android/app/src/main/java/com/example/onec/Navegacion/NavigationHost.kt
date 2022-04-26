@@ -15,8 +15,11 @@ import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.LoginRegistroViewModel
 import com.example.onec.Vistas.Login.Login
 import com.example.onec.Vistas.Main.*
+import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.anuncioBuscadoDetalles
+import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.buscarAnuncio
 import com.example.onec.Vistas.Main.Anuncios.anuncioDetalle
 import com.example.onec.Vistas.Main.Anuncios.crearAnuncio
+import com.example.onec.Vistas.Main.Anuncios.editarAnuncio
 import com.example.onec.Vistas.Main.Ofertas.crearOferta
 import com.example.onec.Vistas.Perfil.configuracion
 import com.example.onec.Vistas.Registro.Registro
@@ -76,15 +79,18 @@ fun navHost(context: Context) {
        composable(route = Rutas.Main.route) {
            main(navController = navController, elemento = StaticVariables.fragmento)
        }
-       
+
+       //Ruta Crear Oferta
        composable(route = Rutas.CrearOferta.route) {
            crearOferta(navController = navController)
        }
 
+       //Ruta Tipo de Cuenta
        composable(route = Rutas.TipoCuenta.route) {
            tipoUsuario(navController = navController)
        }
 
+       //Ruta Configuración
        composable(route = Rutas.Configuracion.route) {
            configuracion(navController = navController)
        }
@@ -98,5 +104,23 @@ fun navHost(context: Context) {
        composable(route = Rutas.AnuncioDetalles.route) {
            anuncioDetalle(navController = navController)
        }
+
+       //Ruta Editar Anuncio
+       composable(route = Rutas.EditarAnuncio.route) {
+           editarAnuncio(navController = navController)
+       }
+       
+       //Ruta Buscar Anuncio
+       composable(route = Rutas.BuscarAnuncio.route) {
+           buscarAnuncio(navController = navController)
+       }
+       
+       //Ruta Detalles Anuncio Buscado
+       composable(route = Rutas.AnuncioBuscadoDetalles.route) {
+           anuncioBuscadoDetalles(navController = navController)
+       }
+
+       //Ruta Detalles Anuncio Favorito
+
    }
 }

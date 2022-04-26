@@ -1,25 +1,24 @@
 
 package com.example.onec.ViewModels
 
-import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onec.Models.CvModel
 import com.example.onec.Models.CvPost
 import com.example.onec.Servicios.ApiServices
-import com.example.onec.Soporte.ProgressRequestBody
 import com.example.onec.Soporte.StaticVariables
-import com.google.protobuf.Api
-import com.google.protobuf.SourceContext
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.MultipartBody.Part.Companion.createFormData
 import okhttp3.RequestBody
+import retrofit2.http.Part
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.lang.Exception
+
 
 class CvViewModel : ViewModel() {
 
@@ -87,25 +86,27 @@ class CvViewModel : ViewModel() {
         }
     }
 
-    fun subirImagen(imagen:File, onComplete: (did: Boolean) -> Unit) {
+    fun subirImagen(imagen:Bitmap, onComplete: (did: Boolean) -> Unit) {
         viewModelScope.launch {
             try {
                 val api = ApiServices.ApiServices.getInstance()
-                val fileBody = ProgressRequestBody(imagen)
-                val body: MultipartBody.Part = createFormData("upload", StaticVariables.usuario!!._id, fileBody)
-                val name = RequestBody.create("text/plain".toMediaTypeOrNull(), "upload")
-
-                Log.e("Body y name", "Body $body \n Name ${StaticVariables.usuario!!._id} file")
-                val respuesta = api.postImage(body,name)
+                val stream = ByteArrayOutputStream()
+                imagen.compress(Bitmap.CompressFormat.PNG,90,stream)
+                val imageByte = stream.toByteArray()
+                val requestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(),imageByte)
+                val parte = createFormData("upload",StaticVariables.usuario!!._id, requestBody)
+                val respuesta = api.postImage(parte)
                 if (respuesta.isExecuted) {
                     onComplete(true)
                 }else {
                     onComplete(false)
+                    Log.d("respuesta",respuesta.toString())
                 }
             }catch (e: Exception) {
-                Log.e("Error subir imagen", e.message.toString())
                 onComplete(false)
+                Log.d("respuesta",e.message.toString())
             }
+
         }
     }
 }

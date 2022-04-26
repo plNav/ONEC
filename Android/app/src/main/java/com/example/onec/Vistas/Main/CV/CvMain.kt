@@ -61,7 +61,7 @@ fun cvMain(selected: MutableState<Boolean>) {
                     //El usuario ya ha creado un CV, por lo tanto se guardo
                         if (cv.correo != StaticVariables.usuario!!.email) {
                             StaticVariables.cv = cv
-                                val cvPost = CvPost(cv.id_user,cv.foto_url,cv.nombre,cv.telefono,cv.ubicacion,StaticVariables.usuario!!.email,cv.experiencia,cv.titulo,cv.especialidad,cv.habilidades)
+                                val cvPost = CvPost(cv.id_user,cv.foto_url,cv.nombre,cv.telefono,cv.ubicacion,StaticVariables.usuario!!.email,cv.experiencia,cv.titulo,cv.especialidad,cv.habilidades,cv.habilidadesLow)
                                 cvViewModel.actualizarCV(cv._id,cvPost) { did ->
                                    if (did) {
                                        StaticVariables!!.cv!!.correo = cvPost.correo

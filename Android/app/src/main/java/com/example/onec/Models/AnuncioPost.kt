@@ -7,4 +7,7 @@ data class AnuncioPost(
     val descripcion : String,
     val precio : Float,
     val precioPorHora : Boolean,
+    val numVecesVisto : Int,
+    val numVotos : Int,
+    val puntuacion : Int
 )

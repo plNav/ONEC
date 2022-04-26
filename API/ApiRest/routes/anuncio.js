@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const anuncioSchema = require('../controllers/anuncio');
-const path = require('path');
+const { route } = require('./anunciosGuardados');
 
 //Crear nuevo anuncio
 router.post("/anuncio", (req, res) => {
@@ -32,6 +32,21 @@ router.get("/anuncio", (req, res) => {
     })
 });
 
+//Obtener puntuacion
+router.get("/anuncio/puntuacion/:id" , (req, res) => {
+    const {id} = req.params
+    anuncioSchema
+    .findById(id)
+    .then((data) => {
+        res.json(data.puntuacion)
+        console.log("get puntuacion anuncio " + data.puntuacion)
+    })
+    .catch((err) => {
+        res.json({message:err})
+        console.log("Error get /api/anuncio/puntuacion")
+    })
+});
+
 //Obtener anuncio específico
 router.get("/anuncio/:id", (req, res) => {
     const {id} = req.params;
@@ -47,8 +62,9 @@ router.get("/anuncio/:id", (req, res) => {
         })
 })
 
-//Obterner anuncios de un usuario
+//Obtener anuncios de un usuario
 router.get("/anuncio/usuario/:id", (req, res) => {
+    console.log("entra")
     const {id} = req.params;
     anuncioSchema
         .find({id_user : id})
@@ -66,9 +82,9 @@ router.get("/anuncio/usuario/:id", (req, res) => {
 //Actualizar anuncio
 router.put("/anuncio/:id", (req, res) => {
     const {id} = req.params;
-    const {id_user,categoria,nombre,descripcion,votos} = req.body;
+    const {id_user,categoria,nombre,descripcion,precio,precioPorHora,numVecesVisto,numVotos,puntuacion} = req.body;
     anuncioSchema
-    .updateOne({_id: id},{$set:{id_user,categoria,nombre,descripcion,votos}})
+    .updateOne({_id: id},{$set:{id_user,categoria,nombre,descripcion,precio,precioPorHora,numVecesVisto,numVotos,puntuacion}})
     .then((data) => {
         res.json(data);
         console.log("\nAnuncio actualizado\n" + data);
@@ -91,6 +107,69 @@ router.delete("/anuncio/:id", (req, res) => {
     .catch((err) =>{
         res.json
     })
+});
+
+
+//Buscar anuncios
+router.get("/anuncio/buscar/:campo",(req,res) => {
+const {campo} = req.params
+const campoSlit = campo.includes(" ") ? campo.split(" ").join("|") : null
+console.log(campoSlit)
+anuncioSchema
+.find({
+    $or: [
+        {nombre : {$regex: '.*' + campo + ".*"}},
+        {categoria : {$regex: '.*' + campo + ".*"}},
+        {descripcion : {$regex: '.*' + campo + ".*"}}
+    ]
+})
+.then((data) => {
+    if (data.length != []) {
+        res.json(data)
+        console.log("Anuncios Buscados\n" +data);   
+    }else if(data.length == [] && campoSlit == null) {
+        res.json(data)
+        console.log("Anuncios Buscados\n" +data);   
+    }else {
+        console.log("asdasd")
+        anuncioSchema
+        .find({
+            $or : [
+                {
+                    nombre: {
+                        $regex : campoSlit,
+                        $options : "i"
+                    }
+                },
+                {
+                    categoria: {
+                        $regex : campoSlit,
+                        $options : "i"
+                    }
+                },
+                {
+                    descripcion : {
+                        $regex : campoSlit,
+                        $options : "i" 
+                    }
+                }
+            ]
+        })
+        .then((data) => {
+            res.json(data)
+            console.log("Anuncios Buscados\n" +data);   
+        })
+        .catch((err) => {
+            res.json({message : err})
+            console.log("Error get /anuncio/buscar/:campo")
+        })
+    }
+})
+.catch((err) => {
+    res.json({message:err})
+    console.log("Error get /anuncio/buscar/:campo")
+})
+
 });
 
 module.exports = router;

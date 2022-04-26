@@ -1,5 +1,4 @@
 const express = require('express');
-const cv = require('../controllers/cv');
 const router = express.Router();
 const ofertaSchema = require('../controllers/oferta');
 

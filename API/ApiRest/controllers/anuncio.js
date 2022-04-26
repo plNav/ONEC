@@ -32,10 +32,23 @@ const anuncioSchema = mongoose.Schema({
         required: true
     },
 
-    votos: {
-        type: Array,
+    numVecesVisto: {
+        type : Number,
+        required: false,
+        default: 0
+    },
+
+    numVotos: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+
+    puntuacion: {
+        type: Number,
         required : false,
-        default: []
+        default: 0
     }
+
 });
 module.exports = mongoose.model('Anuncio',anuncioSchema);

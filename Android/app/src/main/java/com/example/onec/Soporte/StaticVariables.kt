@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.runtime.mutableStateListOf
 import com.example.onec.Models.AnuncioModel
+import com.example.onec.Models.AnunciosGuardadosModel
 import com.example.onec.Models.CvModel
 import com.example.onec.Models.UsuarioModel
 import java.io.File
@@ -59,10 +60,11 @@ class StaticVariables {
         * */
 
 
-        /*
+        /**
         * imageUri : Uri?   -> Contiene el Uri de la Imagen que ha seleccionado de la galeria el Usuario tipo Estandar en su CV para no perderla al cambiar de Composable
         * */
         var imagen : File? = null
+        var img : Bitmap? = null
         var imageUri : Uri? = null
         var pasoRegistro: String = "1"
         var nombreCv : String = ""
@@ -72,6 +74,7 @@ class StaticVariables {
         var titulo : String = ""
         var especialidad : String? = null
         var habilidades : MutableList<String> = mutableStateListOf()
+        var habilidadesLow : MutableList<String> = mutableStateListOf()
 
 
         /**
@@ -80,5 +83,24 @@ class StaticVariables {
 
         var anunciosUsuario : MutableList<AnuncioModel> = mutableStateListOf()
         var anunciosBuscados = false
+        var anunincioSeleccionado : AnuncioModel? = null
+
+
+        /**
+         *  Anuncios Favoritos
+         * */
+        var anunciosFavoritos : MutableList<AnunciosGuardadosModel> = mutableStateListOf()
+        var anuncioFavSelect : AnuncioModel? = null
+        var correoAnuncioFavSelect : String? = null
+        var anunciosFavBuscados = false
+
+
+        /**
+         * Anuncios Buscados Empresario
+         */
+        var anunciosBuscadosEmpre: MutableList<AnuncioModel> = mutableStateListOf()
+        var anuncioBuscadoSelect: AnuncioModel? = null
+        var correoAnuncioBuscadoSelect : String? = null
+        var anuncioEmpreBuscado = false
     }
 }

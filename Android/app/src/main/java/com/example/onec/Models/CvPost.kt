@@ -10,5 +10,6 @@ data class CvPost(
     val experiencia : Int,
     val titulo: String,
     val especialidad : String?,
-    val habilidades: MutableList<String>
+    val habilidades: MutableList<String>,
+    val habilidadesLow: MutableList<String>
 )

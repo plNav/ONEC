@@ -13,21 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.anunciosMainEmpresario
+import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.buscarAnuncio
 import com.example.onec.ui.theme.OnecTheme
 
 @Composable
 fun anunciosEmpresario(selected: MutableState<Boolean>, navController: NavController) {
     if(selected.value) {
-        OnecTheme() {
-            Box(modifier = Modifier.fillMaxSize().background(Color(0xFF2E3F32))) {
-                Text(
-                    text = "Anuncios",
-                    textAlign = TextAlign.Center,
-                    fontSize = 20.sp,
-                    color = Color.White,
-                    modifier = Modifier.fillMaxWidth().align(Alignment.Center)
-                )
-            }
+        OnecTheme {
+            anunciosMainEmpresario(navController = navController)
         }
     }
 }

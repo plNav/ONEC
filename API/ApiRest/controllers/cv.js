@@ -41,6 +41,10 @@ const cvSchema = mongoose.Schema({
     habilidades: {
         type: Array,
         required: false
+    },
+    habilidadesLow: {
+        type: Array,
+        required: false
     }
 });
 module.exports = mongoose.model('CV',cvSchema)

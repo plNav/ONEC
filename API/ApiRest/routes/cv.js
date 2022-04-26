@@ -1,26 +1,18 @@
 const express = require('express');
-const cv = require('../controllers/cv');
 const router = express.Router();
 const cvSchema = require('../controllers/cv');
 const ofertaSchema = require('../controllers/oferta');
-const path = require('path');
 const multer = require('multer');
-var crypto;
-var storage = multer.diskStorage({
-    destination: './images/',
+const storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, 'images')
+    },
     filename: (req, file, cb) => {
-      return crypto.pseudoRandomBytes(16, function(err, raw) {
-        if (err) {
-          console.log(`Error in diskStorage ${err}`)
-          return cb(err);
-        }
-      //return cb(null, "" + (raw.toString('hex')) + ( pathD.extname(file.originalname)));
-        return cb(null, file.originalname);
-  
-      });
+      cb(null, file.originalname)
     }
 });
 
+const upload = multer({storage: storage})
 
 //Crear nuevo CV
 router.post("/cv", (req, res) => {
@@ -83,9 +75,9 @@ router.get("/cv/usuario/:id", (req, res) => {
 //Actualizar CV
 router.put("/cv/:id", (req, res) => {
     const {id} = req.params;
-    const {id_user, foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades} = req.body;
+    const {id_user, foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow} = req.body;
     cvSchema
-    .updateOne({_id: id},{$set:{id_user,foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades}})
+    .updateOne({_id: id},{$set:{id_user,foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow}})
     .then((data) => {
         res.json(data);
         console.log("\nCV actualizado\n" + data);
@@ -111,10 +103,9 @@ router.delete("/cv/:id", (req, res) => {
 });
 
 //Subir imagen
-router.post( "/cv/upload/", multer({storage: storage}).single('upload'),(req, res) => {
+router.post( "/cv/upload/", upload.single("upload"),(req, res) => {
       console.log(req.file);
       console.log(req.body);
-      res.redirect("./images" + req.file.filename);
       return res.status(200).end();
     }
   );

@@ -82,3 +82,23 @@ GET http://localhost:8081/api/cv/usuario/6220b0aa8197a378ac0f9dab HTTP/1.1
 
 ### Borrar CV de un usuario
 DELETE http://localhost:8081/api/cv/625bf37392ca75023c8385d5 HTTP/1.1
+
+###
+GET http://localhost:8081/api/anuncio HTTP/1.1
+
+###
+POST http://localhost:8081/api/anunciosGuardados HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_anuncio" : "626521f0b3aecb972d6ec515",
+    "id_user" : "6264793e944cac962015f120",
+    "categoria" : "asdasd",
+    "nombre" : "asdasdg",
+    "descripcion" : "asdljkg",
+    "precio" : 100,
+    "precioPorHora" : true
+}
+
+###
+GET http://localhost:8081/api/anuncio/buscar/desarrollo web HTTP/1.1

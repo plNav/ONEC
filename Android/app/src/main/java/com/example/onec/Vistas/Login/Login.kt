@@ -307,6 +307,7 @@ fun dialogLoading(show : MutableState<Boolean>) {
                 CircularProgressIndicator(color = Color(0xfffcffff), modifier = Modifier
                     .height(30.dp)
                     .width(30.dp))
+                Spacer(modifier = Modifier.height(3.dp))
                 Text(text = "Cargando...", fontSize = 16.sp, color = Color(0xfffcffff))
             }
         }

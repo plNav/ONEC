@@ -11,5 +11,6 @@ data class CvModel(
     var experiencia : Int,
     var titulo: String,
     var especialidad : String?,
-    var habilidades: MutableList<String>
+    var habilidades: MutableList<String>,
+    var habilidadesLow: MutableList<String>
 )

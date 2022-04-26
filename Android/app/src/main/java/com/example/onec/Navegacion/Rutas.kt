@@ -25,4 +25,8 @@ sealed class Rutas(
     object Configuracion : Rutas(route = "Vistas.Main.Perfil.Configuracion")
     object CrearAnuncio : Rutas(route = "CrearAnuncio")
     object AnuncioDetalles : Rutas(route = "AnuncioDetalle")
+    object EditarAnuncio : Rutas(route = "EditarAnuncio")
+    object BuscarAnuncio : Rutas(route = "BuscarAnuncio")
+    object AnuncioBuscadoDetalles : Rutas(route = "AnuncioBuscadoDetalle")
+    object AnuncioFavDetalles : Rutas(route = "AnunciosFavDetalles")
 }

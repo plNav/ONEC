@@ -3,12 +3,13 @@ package com.example.onec.Servicios
 import android.util.Log
 import com.example.onec.Models.*
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+
 
 interface ApiServices {
 
@@ -21,7 +22,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.15:8081/api/")
+                        .baseUrl("http://192.168.0.24:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -50,6 +51,11 @@ interface ApiServices {
         suspend fun checkEmail(
             @Path("email") email : String
         ) : Response<Boolean>
+
+        @GET("usuario/{id}")
+        suspend fun obtenerUsuario(
+            @Path("id") id : String
+        ) : Response<UsuarioModel>
 
         @GET("usuario/resetPass/{email}")
         suspend fun resetPass(
@@ -88,8 +94,7 @@ interface ApiServices {
         @Multipart
         @POST("cv/upload/")
         fun postImage(
-            @Part imagen:MultipartBody.Part?,
-            @Part("upload") name : RequestBody?
+            @Part filePart: MultipartBody.Part?
         ): Call<Any>
 
 
@@ -111,6 +116,16 @@ interface ApiServices {
             @Path("id") id : String
         ) : Response<List<AnuncioModel>>
 
+        @GET("anuncio/buscar/{campo}")
+        suspend fun buscarAnuncio(
+          @Path("campo") campo : String
+        ) :Response<MutableList<AnuncioModel>>
+
+        @GET("anuncio/puntuacion/{id}")
+        suspend fun obtenerPuntuacionAnuncio(
+           @Path("id") id : String
+        ) : Response<Int>
+
         @PUT("anuncio/{id}")
         suspend fun actualizarAnuncio(
             @Path("id") id : String,
@@ -122,5 +137,86 @@ interface ApiServices {
             @Path("id") id: String
         ): Response<AnuncioModel>
 
+
+
+
+        /****************Reseñas********************/
+        @POST("review")
+        suspend fun crearResenya(@Body resenya : ResenyaPost) : Response<ResenyaModel>
+
+        @GET("review")
+        suspend fun obtenerResenyas() : Response<List<ResenyaModel>>
+
+        @GET("review/{id}")
+        suspend fun obtenerResenya(
+            @Path("id") id : String
+        ): Response<ResenyaModel>
+
+        @GET("review/anuncio/{id}")
+        suspend fun obtenerResenyasAnuncio(
+            @Path("id") id : String
+        ): Response<List<ResenyaModel>>
+
+        @GET("review/usuario/{id}")
+        suspend fun obtenerResenyasUsuario(
+            @Path("id") id : String
+        ) : Response<List<ResenyaModel>>
+
+        @GET("review/{id}/{id_user}")
+        suspend fun obtenerResenyasAnuncioUsuario(
+            @Path("id") id : String,
+            @Path("id_user") id_user : String
+        ) : Response<List<ResenyaModel>>
+
+        @PUT("review/{id}")
+        suspend fun actualizarResenya(
+            @Path("id") id : String,
+            @Body resenya: ResenyaPost
+        ) : Response<ResenyaModel>
+
+        @DELETE("review/{id}")
+        suspend fun borrarResenya(
+            @Path("id") id: String
+        ): Response<ResenyaModel>
+
+        @DELETE("review/usuario/{id}")
+        suspend fun borrarResenyasAnuncio(
+            @Path("id") id: String
+        ): Response<Any>
+
+
+        /**************Anuncios Guardados*******************/
+        @POST("anunciosGuardados")
+        suspend fun agregarAnuncioFavorito(
+            @Body anuncio : AnunciosGuardadosPost
+        ) : Response<AnunciosGuardadosModel>
+
+        @GET("anunciosGuardados/usuario/{id}")
+        suspend fun obtenerAnunciosFavUsuario(
+            @Path("id") id : String
+        ) : Response<MutableList<AnunciosGuardadosModel>>
+
+        @GET("anunciosGuardados/{id}")
+        suspend fun obtenerAnuncioFav(
+            @Path("id") id :  String
+        ) : Response<AnunciosGuardadosModel>
+
+       @DELETE("anunciosGuardados/{id}")
+       suspend fun borrarAnuncioFavoritos(
+           @Path("id") id : String
+       ) : Response<Any>
+
+
+        /**************Visualizaciones*******************/
+        @POST("visualizacion")
+        suspend fun crearVisualizacion(
+            @Body visualizacion : VisualizacionesPost
+        ) : Response<VisualizacionesModel>
+
+        @GET("visualizacion/UsuarioEnAnuncio/{id_anuncio}/{id_usuario}")
+        suspend fun obtenerVisualizacionesUsuarioAnuncio(
+            @Path("id_anuncio") id_anuncio : String,
+            @Path("id_usuario") id_usuario : String
+        ) : Response<MutableList<VisualizacionesModel>>
     }
 }

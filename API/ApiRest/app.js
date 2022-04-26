@@ -8,6 +8,9 @@ const rutaUsuarios = require('./routes/usuario');
 const rutaCV = require('./routes/cv');
 const rutaOferta = require('./routes/oferta');
 const rutaAnuncio = require('./routes/anuncio');
+const rutaResenya = require('./routes/resenya');
+const rutaAnunciosGuardados = require('./routes/anunciosGuardados');
+const rutaVisualizaciones = require('./routes/visualizaciones');
 const app = express();
 require('dotenv').config();
 
@@ -18,6 +21,9 @@ app.use('/api',rutaUsuarios);
 app.use('/api',rutaCV);
 app.use('/api',rutaOferta);
 app.use('/api',rutaAnuncio);
+app.use('/api',rutaResenya);
+app.use('/api',rutaAnunciosGuardados);
+app.use('/api',rutaVisualizaciones);
 
 
 //Conexión DB

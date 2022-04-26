@@ -49,6 +49,22 @@ class LoginRegistroViewModel : ViewModel() {
         }
     }
 
+    fun obtenerUsuario(id: String, onSucces: (UsuarioModel?) -> Unit) {
+        viewModelScope.launch {
+            val api = ApiServices.ApiServices.getInstance()
+            try {
+                val respuesta = api.obtenerUsuario(id)
+                if (respuesta.isSuccessful) {
+                    onSucces(respuesta.body())
+                }else {
+                    onSucces(null)
+                }
+            }catch (e: Exception) {
+                onSucces(null)
+            }
+        }
+    }
+
     //Función para registrar a un usuario con email y password
     fun registrar(email:String,password: String,onSucces: (did: Boolean,cause :String) -> Unit) {
         viewModelScope.launch {

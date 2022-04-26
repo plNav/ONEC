@@ -227,109 +227,100 @@ fun listAnuncios(show: MutableState<Boolean>, navController: NavController, elim
                             AnimatedVisibility(
                                 visible = !listaItemsEliminados.value.contains(item),
                                 enter = expandVertically(),
-                                exit = shrinkVertically(animationSpec = tween(durationMillis = 7000))
+                                exit = shrinkVertically(animationSpec = tween(durationMillis = 700))
                             ) {
                                 Surface(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .clickable {
+                                            StaticVariables.anunincioSeleccionado = item
                                             navController.navigate(Rutas.AnuncioDetalles.route)
                                         },
                                     shape = RoundedCornerShape(7.dp),
-                                    color = Color(0xfffcffff)
+                                    color = Color.Transparent
                                 ) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(5.dp)
-                                    ) {
-                                        Row(
-                                            modifier = Modifier.fillMaxWidth(),
-                                            horizontalArrangement = Arrangement.Start,
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Column(modifier = Modifier.fillMaxWidth(0.9f)) {
-                                                Row() {
-                                                    Text(
-                                                        text = "Nombre",
-                                                        fontSize = 16.sp,
-                                                        color = Color(
-                                                            0xFF272727
-                                                        )
-                                                    )
-                                                    Spacer(modifier = Modifier.width(3.dp))
-                                                    Text(
-                                                        text = item.nombre,
-                                                        maxLines = 1,
-                                                        fontSize = 16.sp,
-                                                        overflow = TextOverflow.Ellipsis,
-                                                        color = Color(
-                                                            0xFF22596B
-                                                        )
-                                                    )
-                                                }
-                                                Row() {
-                                                    Text(
-                                                        text = "Categoría",
-                                                        fontSize = 16.sp,
-                                                        color = Color(
-                                                            0xFF272727
-                                                        )
-                                                    )
-                                                    Spacer(modifier = Modifier.width(3.dp))
-                                                    Text(
-                                                        text = item.categoria,
-                                                        fontSize = 16.sp,
-                                                        overflow = TextOverflow.Ellipsis,
-                                                        color = Color(
-                                                            0xFF22596B
-                                                        )
-                                                    )
-                                                }
-                                                Row() {
-                                                    Text(
-                                                        text = "Precio",
-                                                        fontSize = 16.sp,
-                                                        color = Color(
-                                                            0xFF272727
-                                                        )
-                                                    )
-                                                    Spacer(modifier = Modifier.width(3.dp))
-                                                    val precio = remember {
-                                                        if (item.precioPorHora) "${item.precio}€ Hora" else item.precio.toString()
-                                                    }
-                                                    Text(
-                                                        text = precio,
-                                                        fontSize = 16.sp,
-                                                        overflow = TextOverflow.Ellipsis,
-                                                        color = Color(
-                                                            0xFF22596B
-                                                        )
-                                                    )
+                                    Box(modifier = Modifier.fillMaxWidth().background(Color.Transparent)) {
+                                        Column(Modifier.fillMaxWidth()) {
+                                            Surface(modifier = Modifier.fillMaxWidth(), color = Color( 0xFF141624), shape = RoundedCornerShape(7.dp,7.dp,0.dp,0.dp)) {
+                                                Column(modifier = Modifier.padding(vertical = 5.dp, horizontal = 3.dp).background(Color.Transparent).fillMaxWidth()) {
+                                                    Text(text = item.nombre, fontSize = 16.sp, textAlign = TextAlign.Center, color = Color(0xfffcffff))
                                                 }
                                             }
-                                            IconButton(onClick = {
-                                                eliminando.value = true
-                                                anuncioViewModel.eliminarAnuncio(item._id) { did ->
-                                                    if (did) {
-                                                        eliminando.value = false
-                                                        StaticVariables.anunciosUsuario.remove(item)
-                                                        listaItemsEliminados.value.add(item)
-                                                    } else {
-                                                        errorMsj.value = "Error al eliminar el anuncio"
-                                                        showDialogError.value = true
-                                                        eliminando.value = false
+                                            Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xfffcffff), shape = RoundedCornerShape(0.dp,0.dp,7.dp,7.dp)) {
+                                                Row(modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(3.dp,5.dp,3.dp,0.dp)
+                                                    ) {
+                                                    Column(modifier = Modifier.fillMaxWidth(0.9f)) {
+                                                        Row() {
+                                                            Text(
+                                                                text = "Categoría",
+                                                                fontSize = 16.sp,
+                                                                color = Color(
+                                                                    0xFF272727
+                                                                )
+                                                            )
+                                                            Spacer(modifier = Modifier.width(3.dp))
+                                                            Text(
+                                                                text = item.categoria,
+                                                                fontSize = 16.sp,
+                                                                overflow = TextOverflow.Ellipsis,
+                                                                color = Color(
+                                                                    0xFF22596B
+                                                                )
+                                                            )
+                                                        }
+                                                        Row() {
+                                                            Text(
+                                                                text = "Precio",
+                                                                fontSize = 16.sp,
+                                                                color = Color(
+                                                                    0xFF272727
+                                                                )
+                                                            )
+                                                            Spacer(modifier = Modifier.width(3.dp))
+                                                            val precio = remember {
+                                                                if (item.precioPorHora) "${item.precio}€ Hora" else item.precio.toString()
+                                                            }
+                                                            Text(
+                                                                text = precio,
+                                                                fontSize = 16.sp,
+                                                                overflow = TextOverflow.Ellipsis,
+                                                                color = Color(
+                                                                    0xFF22596B
+                                                                )
+                                                            )
+                                                        }
+                                                    }
+                                                    IconButton(onClick = {
+                                                        eliminando.value = true
+                                                        anuncioViewModel.eliminarAnuncio(item._id) { did ->
+                                                            if (did) {
+                                                                eliminando.value = false
+                                                                StaticVariables.anunciosUsuario.remove(
+                                                                    item
+                                                                )
+                                                                listaItemsEliminados.value.add(item)
+                                                            } else {
+                                                                errorMsj.value =
+                                                                    "Error al eliminar el anuncio"
+                                                                showDialogError.value = true
+                                                                eliminando.value = false
+                                                            }
+                                                        }
+                                                    }) {
+                                                        Icon(
+                                                            imageVector = Icons.Filled.Delete,
+                                                            contentDescription = "Borra",
+                                                            tint = Color(0xFF1783A7)
+                                                        )
                                                     }
                                                 }
-                                            }) {
-                                                Icon(
-                                                    imageVector = Icons.Filled.Delete,
-                                                    contentDescription = "Borra",
-                                                    tint = Color(0xFF1783A7)
-                                                )
                                             }
                                         }
+
                                     }
+
                                 }
                             }
                         }

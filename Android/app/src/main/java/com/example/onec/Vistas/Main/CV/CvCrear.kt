@@ -1,19 +1,15 @@
 package com.example.onec.Vistas.Main.CV
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
-import android.view.MenuItem
-import android.widget.Space
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.expandVertically
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -21,45 +17,34 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.toSize
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.window.Dialog
-import coil.Coil
-import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import com.example.onec.Models.CvModel
 import com.example.onec.Models.CvPost
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
@@ -68,14 +53,8 @@ import com.example.onec.ui.theme.OnecTheme
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
 import com.google.accompanist.flowlayout.SizeMode
-import kotlinx.coroutines.launch
-import org.w3c.dom.Text
 import java.io.File
-import java.lang.Exception
-import java.util.regex.Pattern
-import kotlin.math.ceil
-import kotlin.math.floor
-import kotlin.math.round
+import java.util.*
 
 
 @Composable
@@ -98,10 +77,10 @@ fun creaCV(resultState: MutableState<String>) {
     }
 
     when (valor.value) {
-        "1" -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj,)
+        "1" -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj)
         "2" -> creaCvTitulos(valor = valor)
         "3" -> creaCvHabilidades(valor = valor , resultState)
-        else -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj,)
+        else -> creaCvDatos(valor = valor, error = showError, mensaje = errorMsj)
     }
     if (showError.value) {
         dialogoError(showDialog = showError, error = errorMsj)
@@ -113,8 +92,13 @@ fun creaCV(resultState: MutableState<String>) {
 fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensaje : MutableState<String>) {
     OnecTheme {
 
+
         val cvViewModel = remember{
             CvViewModel()
+        }
+
+        val bitmap = remember {
+            mutableStateOf<Bitmap?>(null)
         }
 
         /** scrollState -> Almacena el estado del scroll*/
@@ -138,6 +122,8 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
             mutableStateOf("")
         }
 
+
+
         /** launcher -> Sirve para poder abrir la galeria y seleccionar una imagen*/
         val launcher =
             rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
@@ -145,18 +131,14 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                     selectedImage.value = uri
                     StaticVariables.imageUri = uri
                     //Creamos un archivo que apunta al uri que hemos sacado antes
-                    StaticVariables.imagen = File(uri.path)
-                    cvViewModel.subirImagen(imagen = StaticVariables.imagen!!) { did ->
-                        if (did) {
-                            //TODO
-                        }else {
-                            //TODO
-                        }
-                    }
+                    //StaticVariables.imagen = File(uri.toString())
+                    //Guardar imagen como bitmap
+                    //Log.d("imagen",StaticVariables!!.imagen!!.absolutePath)
                 }
                 StaticVariables.fragmento = 3
                 Log.e("Uri",selectedImage.value.toString())
             }
+
 
         Box(
             modifier = Modifier
@@ -185,6 +167,7 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                                 .build(), loading = { CircularProgressIndicator()}, contentDescription = "Imagen",modifier = Modifier
                                 .clickable {
                                     launcher.launch("image/*")
+
                                 }
                                 .fillMaxHeight(0.3f)
                                 .fillMaxWidth(0.3f),
@@ -414,6 +397,9 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                                         listHabilidades.value.map { it.lowercase() }
                                     if (!habilidadesLow.contains(habilidadCreada.value.lowercase())) {
                                         StaticVariables.habilidades.add(habilidadCreada.value)
+                                        StaticVariables.habilidadesLow.add(habilidadCreada.value.lowercase(
+                                            Locale.getDefault()
+                                        ))
                                         habilidadCreada.value = ""
                                     } else {
                                         habilidadCreada.value = ""
@@ -484,6 +470,9 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                                             )
                                             IconButton(onClick = {
                                                 listHabilidades.value.remove(habilidad)
+                                                StaticVariables.habilidadesLow.remove(habilidad.lowercase(
+                                                    Locale.getDefault()
+                                                ))
                                             }) {
                                                 Icon(
                                                     imageVector = Icons.Filled.Delete,
@@ -746,7 +735,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
 
     dialogoError(showDialog = isDialogOpen, error = dialogError )
     when(titulo.value) {
-        "ESO","Bachiller", -> {
+        "ESO", "Bachiller" -> {
             muestraBtnSiguiente.value = true
         }
         "Postgrado","Máster","Otros títulos, certificaciones y carnés","Otros cursos y certificación no reglada" -> {
@@ -1175,7 +1164,8 @@ fun guardandoPerfil(resultState: MutableState<String>) {
                 StaticVariables.experiencia,
                 StaticVariables.titulo,
                 StaticVariables.especialidad,
-                StaticVariables.habilidades
+                StaticVariables.habilidades,
+                StaticVariables.habilidadesLow
             ) //No está mal, la imagen tiene que ser Uri, pero primero hay que subirla a un servidor y después guardarla como String
                 viewModelCv.crearCv(cv.value!!) { cvModel ->
                     if (cvModel != null) {
