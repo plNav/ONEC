@@ -15,9 +15,9 @@ import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.LoginRegistroViewModel
 import com.example.onec.Vistas.Login.Login
 import com.example.onec.Vistas.Main.*
-import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.anuncioBuscadoDetalles
-import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.buscarAnuncio
+import com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario.*
 import com.example.onec.Vistas.Main.Anuncios.anuncioDetalle
+import com.example.onec.Vistas.Main.Anuncios.anuncioReviews
 import com.example.onec.Vistas.Main.Anuncios.crearAnuncio
 import com.example.onec.Vistas.Main.Anuncios.editarAnuncio
 import com.example.onec.Vistas.Main.Ofertas.crearOferta
@@ -121,6 +121,28 @@ fun navHost(context: Context) {
        }
 
        //Ruta Detalles Anuncio Favorito
+       composable(route = Rutas.AnuncioFavDetalles.route) {
+           anuncioFavoritoDetalles(navController = navController)
+       }
+       
+       //Ruta Puntuar Anuncio
+       composable(route = Rutas.AnuncioPuntuar.route) {
+           anuncioPuntuar(navController = navController)
+       }
+       
+       //Ruta revies Anuncios Favoritos
+       composable(route = Rutas.AnuncioFavReviews.route) {
+           anuncioFavReviews(navController = navController)
+       }
 
+       //Ruta reviews anuncio Buscado seleccionado
+       composable(route = Rutas.AnunciosBuscadosReviews.route) {
+           anunciosBuscadosReviews(navController = navController)
+       }
+       
+       //Ruta reviews anuncio Subido por usuario
+       composable(route = Rutas.AnuncioReviews.route) {
+           anuncioReviews(navController = navController)
+       }
    }
 }

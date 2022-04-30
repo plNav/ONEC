@@ -47,12 +47,33 @@ class AnunciosGuardadosViewModel : ViewModel() {
         }
     }
 
-    fun eliminarAnuncioFavoritos(id: String, onComplete: (did: Boolean) -> Unit) {
+    fun borrarAnunciosGuardadosIdAnuncio(id : String, onComplete: (did: Boolean) -> Unit) {
+       viewModelScope.launch {
+           try {
+               val api = ApiServices.ApiServices.getInstance()
+               val respuesta = api.borrarAnunciosGuardadosIdAnuncio(id)
+               if (respuesta.isSuccessful) {
+                   onComplete(true)
+               }else {
+                   onComplete(false)
+               }
+           }catch (e: Exception) {
+               onComplete(false)
+           }
+       }
+    }
+
+    fun borrarAnuncioFavoritos(id : String, onComplete: (did: Boolean) -> Unit) {
         viewModelScope.launch {
             try {
                 val api = ApiServices.ApiServices.getInstance()
-                val repuesta = api.borrarAnuncioFavoritos(id)
-            } catch (e: Exception) {
+                val respuesta = api.borrarAnuncioFavoritos(id)
+                if (respuesta.isSuccessful) {
+                    onComplete(true)
+                }else {
+                    onComplete(false)
+                }
+            }catch (e: Exception) {
                 onComplete(false)
             }
         }

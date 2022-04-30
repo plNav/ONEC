@@ -41,4 +41,20 @@ class VisualizacionesViewModel : ViewModel() {
             }
         }
     }
+
+    fun eliminarVisualizacionesAnuncio(id : String, onComplete: (did : Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.eliminarVisualizacionesAnuncio(id)
+                if (respuesta.isSuccessful) {
+                    onComplete(true)
+                }else {
+                    onComplete(false)
+                }
+            }catch (e: Exception) {
+                onComplete(false)
+            }
+        }
+    }
 }

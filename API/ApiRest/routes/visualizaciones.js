@@ -38,4 +38,19 @@ router.get("/visualizacion/UsuarioEnAnuncio/:id_anuncio/:id_usuario", (req, res)
 })
 
 
+//Eliminar todas las visualizaciones de un anuncio
+router.delete("/visualizacion/anuncios/:id",(req, res) => {
+    const {id} = req.params;
+    visualizacionesSchema
+    .deleteMany({id_anuncio : id})
+    .then((data) => {
+        res.json(data);
+        console.log("Visualizaciones eliminadas " +data)
+    })
+    .catch((err) => {
+        res.json({message : err});
+        console.log("Error delete /visualizacion/anuncios/:id");
+    })
+});
+
 module.exports = router;

@@ -110,21 +110,6 @@ class AnuncioViewModel : ViewModel() {
         }
     }
 
-    fun obtenerPuntuacionAnuncio(id: String, onComplete: (puntuacion : Int?) -> Unit) {
-        viewModelScope.launch {
-            try {
-                val api = ApiServices.ApiServices.getInstance()
-                val respuesta = api.obtenerPuntuacionAnuncio(id)
-                if (respuesta.isSuccessful) {
-                    onComplete(respuesta.body())
-                }else {
-                    onComplete(null)
-                }
-            }catch (e: Exception) {
-                onComplete(null)
-            }
-        }
-    }
 
     fun buscarAnuncios(campo : String, onComplete: (anuncios : MutableList<AnuncioModel>?) -> Unit) {
         viewModelScope.launch {

@@ -34,6 +34,7 @@ import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
 import com.example.onec.ViewModels.AnunciosGuardadosViewModel
 import com.example.onec.ViewModels.LoginRegistroViewModel
+import com.example.onec.ViewModels.ResenyaViewModel
 import com.example.onec.Vistas.Main.Anuncios.loadingAnuncio
 import com.example.onec.ui.theme.OnecTheme
 import kotlin.math.absoluteValue
@@ -105,6 +106,10 @@ fun listaAnunciosFav(show : MutableState<Boolean>, navController: NavController,
         AnuncioViewModel()
     }
 
+    val resenyaViewModel = remember {
+        ResenyaViewModel()
+    }
+
 
     if (show.value) {
         OnecTheme() {
@@ -131,6 +136,10 @@ fun listaAnunciosFav(show : MutableState<Boolean>, navController: NavController,
                                 mutableStateOf<AnuncioModel?>(null)
                             }
 
+                            val puntuacion = remember {
+                                mutableStateOf<Float?>(null)
+                            }
+
                             if (loading.value) {
                                 //cargamos los anuncios
                                 anuncioViewModel.obtenerAnuncio(anuncio.id_anuncio) { modeloAnuncio ->
@@ -139,7 +148,13 @@ fun listaAnunciosFav(show : MutableState<Boolean>, navController: NavController,
                                             if (usuario != null) {
                                                 correo.value = usuario.email
                                                 anuncioModel.value = modeloAnuncio
-                                                loading.value = false
+                                                resenyaViewModel.calcularPuntuacionAnuncio(modeloAnuncio._id) { punt ->
+                                                   if (punt != null) {
+                                                       puntuacion.value = punt
+                                                       loading.value = false
+                                                   }
+                                                }
+
                                             } else {
                                                 show.value = false
                                                 errorCarga.value = true
@@ -155,9 +170,11 @@ fun listaAnunciosFav(show : MutableState<Boolean>, navController: NavController,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .clickable {
+                                            StaticVariables.anuncioGuardadoSelect = anuncio
                                             StaticVariables.anuncioFavSelect = anuncioModel.value
                                             StaticVariables.correoAnuncioFavSelect = correo.value
-                                            navController.navigate(Rutas.AnuncioBuscadoDetalles.route)
+                                            StaticVariables.puntuacionAnuncioFavSelect = puntuacion.value
+                                            navController.navigate(Rutas.AnuncioFavDetalles.route)
                                         }, backgroundColor = Color(
                                         0xFF266E86
                                     )
@@ -252,7 +269,7 @@ fun listaAnunciosFav(show : MutableState<Boolean>, navController: NavController,
                                                 )
                                                 Spacer(modifier = Modifier.height(7.dp))
                                                 Text(
-                                                    text = anuncioModel.value!!.puntuacion.toInt()
+                                                    text = puntuacion.value
                                                         .toString(),
                                                     fontSize = 13.sp,
                                                     color = Color.White
@@ -383,21 +400,18 @@ fun cargando(loading : MutableState<Boolean>, showListaEmpty : MutableState<Bool
                 }
                 anuncioFavViewModel.obtenerAnunciosFavoritosUsuario { anunciosFav ->
                     if (anunciosFav != null && anunciosFav.isNotEmpty()) {
-                        //Se cargan los anuncios y la lista no está vacía
-                        anuncioFavViewModel.obtenerAnunciosFavoritosUsuario { anuncios ->
-                            if (anuncios == null) {
-                                showError.value = true
-                            }else if(anuncios.isEmpty()) {
-                                showListaEmpty.value = true
-                                loading.value = true
-                            }else if(anuncios.isNotEmpty()) {
-                                showListaFav.value = true
-                                StaticVariables.anunciosFavoritos = anunciosFav
-                            }else {
-                                showError.value = true
-                            }
-                            loading.value = false
+                        if (anunciosFav == null) {
+                            showError.value = true
+                        } else if (anunciosFav.isEmpty()) {
+                            showListaEmpty.value = true
+                            loading.value = true
+                        } else if (anunciosFav.isNotEmpty()) {
+                            showListaFav.value = true
+                            StaticVariables.anunciosFavoritos = anunciosFav
+                        } else {
+                            showError.value = true
                         }
+                        loading.value = false
                     } else if (anunciosFav != null && anunciosFav.isEmpty()) {
                         Log.d("Entra", "ernkjl")
                         //Se cargan los anuncios pero el usuario no tiene ninguno en favoritos

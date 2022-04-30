@@ -10,10 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +34,7 @@ import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
 import com.example.onec.ViewModels.AnunciosGuardadosViewModel
 import com.example.onec.ViewModels.LoginRegistroViewModel
+import com.example.onec.ViewModels.ResenyaViewModel
 import com.example.onec.Vistas.Perfil.dialogError
 import com.example.onec.ui.theme.OnecTheme
 
@@ -104,12 +102,36 @@ fun buscarAnuncio(navController: NavController) {
                             .verticalScroll(scrollState),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Spacer(modifier = Modifier.height(15.dp))
-                        Text(
-                            text = "Buscar anuncios",
-                            fontSize = 19.sp,
-                            color = Color(0xfffcffff),
-                            textAlign = TextAlign.Center
+                        TopAppBar(
+                            navigationIcon = {
+                                IconButton(onClick = { navController.navigate(Rutas.Main.route) {popUpTo(0)} }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.ArrowBack,
+                                        contentDescription = "Volver atrás",
+                                        tint = Color(0xfffcffff)
+                                    )
+                                }
+                            },
+                            title = {
+                                Text(
+                                    text = "Buscar Anuncios",
+                                    fontSize = 19.sp,
+                                    color = Color(0xfffcffff),
+                                    fontFamily = FontFamily(
+                                        Font(R.font.comforta)
+                                    ),
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            },
+                            backgroundColor = Color.Transparent,
+                            elevation = 0.dp,
+                            actions = {
+                                IconButton(
+                                    onClick = { /*TODO*/ },
+                                    enabled = false,
+                                    content = {}) //Lo hacemos sin contenido, solo servirá para hacer que el titulo se quede centrado
+                            }
                         )
                         Spacer(modifier = Modifier.height(15.dp))
                         TextField(
@@ -134,6 +156,7 @@ fun buscarAnuncio(navController: NavController) {
                                     contentDescription = "Add",
                                     tint = Color(0xFF388BA7),
                                     modifier = Modifier.clickable {
+                                        listaAnuncios.value.clear()
                                         if (busquedaAnuncio.value.isNullOrEmpty() ||busquedaAnuncio.value.isNullOrBlank() || busquedaAnuncio.value == "") {
                                             showDialogError.value = true
                                             dialogMsj.value = "De introducir un campo"
@@ -171,6 +194,7 @@ fun buscarAnuncio(navController: NavController) {
                                                         }else if (anunciosEncontrados.isEmpty()) {
                                                             showAnuncioNoEncontrado.value = true
                                                         }else if (anunciosEncontrados.isNotEmpty()) {
+                                                            Log.d("AnunciosEncontrados", anunciosEncontrados.size.toString())
                                                             anunciosEncontrados.forEach { anuncio ->
                                                                 if (!idAnunciosFav.contains(anuncio._id)) {
                                                                     StaticVariables.anunciosBuscadosEmpre.add(anuncio)
@@ -258,6 +282,10 @@ fun listaAnunciosBuscados(show: MutableState<Boolean>, anuncios : MutableList<An
            LazyColumn(modifier = Modifier.fillMaxSize()) {
                items(anuncios) { anuncio ->
 
+                   val resenyaViewModel = remember {
+                       ResenyaViewModel()
+                   }
+
                    val loginRegistroViewModel = remember {
                        LoginRegistroViewModel()
                    }
@@ -270,117 +298,134 @@ fun listaAnunciosBuscados(show: MutableState<Boolean>, anuncios : MutableList<An
                        mutableStateOf<String?>(null)
                    }
 
+                   val puntuacion = remember {
+                       mutableStateOf<Float?>(null)
+                   }
+
                    if (loading.value) {
                        //Si está en true el loading, cargamos el correo del propietario del anuncio
-                       loginRegistroViewModel.obtenerUsuario(anuncio.id_user) { usuario ->
-                           if (usuario != null) {
-                               correo.value = usuario.email
+                           LaunchedEffect(key1 = "empty") {
+                               loginRegistroViewModel.obtenerUsuario(anuncio.id_user) { usuario ->
+                                   if (usuario != null) {
+                                       correo.value = usuario.email
+                                       resenyaViewModel.calcularPuntuacionAnuncio(anuncio._id) { punt ->
+                                           if (punt != null) {
+                                               puntuacion.value = punt
+                                               loading.value = false
+                                           }
+                                       }
+                                   }
+
+                               }
                            }
-                           loading.value = false
-                       }
 
                    }else {
-                        //El correo ya está cargado, por lo tanto mostrar el anuncio en forma de card
-                            Spacer(modifier = Modifier.height(5.dp))
-                       Card(modifier = Modifier
-                           .fillMaxWidth()
-                           .clickable {
-                                StaticVariables.anuncioBuscadoSelect = anuncio
-                                StaticVariables.correoAnuncioBuscadoSelect = correo.value
-                                navController.navigate(Rutas.AnuncioBuscadoDetalles.route)
-                           }, backgroundColor = Color(
-                           0xFF266E86
-                       )) {
-                           Column(modifier = Modifier
+                           //El correo ya está cargado, por lo tanto mostrar el anuncio en forma de card
+                           Spacer(modifier = Modifier.height(5.dp))
+                           Card(modifier = Modifier
                                .fillMaxWidth()
-                           ) {
-                               Box(Modifier.background(color = Color(0xFF999dba))) {
-                                   Column(Modifier.padding(5.dp)) {
-                                       Text(
-                                           text = anuncio.categoria,
-                                           fontSize = 23.sp,
-                                           color = Color(0xFF202020),
-                                           fontWeight = FontWeight.Bold,
-                                           maxLines = 1,
-                                           overflow = TextOverflow.Ellipsis
-                                       )
-                                       Spacer(modifier = Modifier.height(2.dp))
-                                       Divider(thickness = 1.dp)
-                                       Spacer(modifier = Modifier.height(2.dp))
-                                       Text(
-                                           text = anuncio.nombre,
-                                           fontSize = 16.sp,
-                                           color = Color(0xFF202020),
-                                           fontWeight = FontWeight.Bold,
-                                           maxLines = 1,
-                                           overflow = TextOverflow.Ellipsis
-                                       )
-                                       Spacer(modifier = Modifier.height(10.dp))
-                                       Text(
-                                           text = anuncio.descripcion,
-                                           fontSize = 14.sp,
-                                           color = Color(0xFF202020),
-                                           maxLines = 2,
-                                           overflow = TextOverflow.Ellipsis
-                                       )
-                                       Spacer(modifier = Modifier.height(3.dp))
-                                       Text(
-                                           text = "50€ Hora",
-                                           fontSize = 15.sp,
-                                           color = Color(0xFF202020),
-                                           fontWeight = FontWeight.Bold
-                                       )
-                                       Spacer(modifier = Modifier.height(10.dp))
-                                   }
-                               }
-                               Row(
-                                   modifier = Modifier
-                                       .fillMaxWidth()
-                                       .padding(5.dp),
-                                   horizontalArrangement = Arrangement.SpaceEvenly
+                               .clickable {
+                                   StaticVariables.anuncioBuscadoSelect = anuncio
+                                   StaticVariables.correoAnuncioBuscadoSelect = correo.value
+                                   StaticVariables.puntuacionAnuncioBuscado = puntuacion.value
+                                   navController.navigate(Rutas.AnuncioBuscadoDetalles.route)
+                               }, backgroundColor = Color(
+                               0xFF266E86
+                           )) {
+                               Column(modifier = Modifier
+                                   .fillMaxWidth()
                                ) {
-                                   Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                       Icon(
-                                           imageVector = Icons.Filled.ThumbUp,
-                                           contentDescription = "Num veces visto",
-                                           tint = Color.White,
-                                           modifier =  Modifier.height(25.dp).width(25.dp)
-                                       )
-                                       Text(
-                                           text = "Visualizaciones",
-                                           fontSize = 12.sp,
-                                           fontWeight = FontWeight.Bold,
-                                           color = Color.White
-                                       )
-                                       Spacer(modifier = Modifier.height(7.dp))
-                                       Text(
-                                           text = anuncio.numVecesVisto.toString(), fontSize = 13.sp, color = Color.White
-                                       )
-
+                                   Box(Modifier.background(color = Color(0xFF999dba))) {
+                                       Column(Modifier.padding(5.dp)) {
+                                           Text(
+                                               text = anuncio.categoria,
+                                               fontSize = 23.sp,
+                                               color = Color(0xFF202020),
+                                               fontWeight = FontWeight.Bold,
+                                               maxLines = 1,
+                                               overflow = TextOverflow.Ellipsis
+                                           )
+                                           Spacer(modifier = Modifier.height(2.dp))
+                                           Divider(thickness = 1.dp)
+                                           Spacer(modifier = Modifier.height(2.dp))
+                                           Text(
+                                               text = anuncio.nombre,
+                                               fontSize = 16.sp,
+                                               color = Color(0xFF202020),
+                                               fontWeight = FontWeight.Bold,
+                                               maxLines = 1,
+                                               overflow = TextOverflow.Ellipsis
+                                           )
+                                           Spacer(modifier = Modifier.height(10.dp))
+                                           Text(
+                                               text = anuncio.descripcion,
+                                               fontSize = 14.sp,
+                                               color = Color(0xFF202020),
+                                               maxLines = 2,
+                                               overflow = TextOverflow.Ellipsis
+                                           )
+                                           Spacer(modifier = Modifier.height(3.dp))
+                                           Text(
+                                               text = anuncio.precio.toString(),
+                                               fontSize = 15.sp,
+                                               color = Color(0xFF202020),
+                                               fontWeight = FontWeight.Bold
+                                           )
+                                           Spacer(modifier = Modifier.height(10.dp))
+                                       }
                                    }
-                                   Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                   Row(
+                                       modifier = Modifier
+                                           .fillMaxWidth()
+                                           .padding(5.dp),
+                                       horizontalArrangement = Arrangement.SpaceEvenly
+                                   ) {
+                                       Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                           Icon(
+                                               painter = painterResource(id = R.drawable.numvistas),
+                                               contentDescription = "Num veces visto",
+                                               tint = Color.White,
+                                               modifier = Modifier
+                                                   .height(25.dp)
+                                                   .width(25.dp)
+                                           )
+                                           Text(
+                                               text = "Visualizaciones",
+                                               fontSize = 12.sp,
+                                               fontWeight = FontWeight.Bold,
+                                               color = Color.White
+                                           )
+                                           Spacer(modifier = Modifier.height(7.dp))
+                                           Text(
+                                               text = anuncio.numVecesVisto.toString(), fontSize = 13.sp, color = Color.White
+                                           )
 
-                                       Icon(
-                                           imageVector = Icons.Filled.Star,
-                                           contentDescription = "valoracion",
-                                           tint = Color.White,
-                                           modifier =  Modifier.height(25.dp).width(25.dp)
-                                       )
-                                       Text(
-                                           text = "Valoración",
-                                           fontSize = 12.sp,
-                                           fontWeight = FontWeight.Bold,
-                                           color = Color.White
-                                       )
-                                       Spacer(modifier = Modifier.height(7.dp))
-                                       Text(
-                                           text = anuncio.puntuacion.toInt().toString(), fontSize = 13.sp, color = Color.White
-                                       )
+                                       }
+                                       Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+                                           Icon(
+                                               imageVector = Icons.Filled.Star,
+                                               contentDescription = "valoracion",
+                                               tint = Color.White,
+                                               modifier = Modifier
+                                                   .height(25.dp)
+                                                   .width(25.dp)
+                                           )
+                                           Text(
+                                               text = "Valoración",
+                                               fontSize = 12.sp,
+                                               fontWeight = FontWeight.Bold,
+                                               color = Color.White
+                                           )
+                                           Spacer(modifier = Modifier.height(7.dp))
+                                           Text(
+                                               text = puntuacion.value.toString(), fontSize = 13.sp, color = Color.White
+                                           )
+                                       }
                                    }
                                }
                            }
-                       }
-                       Spacer(modifier = Modifier.height(5.dp))
+                           Spacer(modifier = Modifier.height(5.dp))
                    }
                }
            }

@@ -29,4 +29,8 @@ sealed class Rutas(
     object BuscarAnuncio : Rutas(route = "BuscarAnuncio")
     object AnuncioBuscadoDetalles : Rutas(route = "AnuncioBuscadoDetalle")
     object AnuncioFavDetalles : Rutas(route = "AnunciosFavDetalles")
+    object AnuncioPuntuar : Rutas(route = "AnuncioPuntuar")
+    object AnuncioFavReviews : Rutas(route = "AnuncioFavReviews")
+    object AnunciosBuscadosReviews : Rutas(route  = "AnunciosBuscadosReviews")
+    object AnuncioReviews: Rutas(route  = "AnuncioSelecViews")
 }

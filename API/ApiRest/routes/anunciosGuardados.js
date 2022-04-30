@@ -64,4 +64,18 @@ router.delete("/anunciosGuardados/:id", (req, res) => {
     })
 });
 
+//Eliminar todos los anuncios Guardados que contengan el mismo id de anuncio
+router.delete("/anunciosGuardados/deleteAll/:id", (req, res) => {
+    const {id} = req.params;
+    anunciosGuardadosSchema
+    .deleteMany({id_anuncio : id})
+    .then((data) => {
+        res.json(data);
+        console.log("\nAnuncios favoritos eliminados\n"+data)
+    })
+    .catch((err) =>{
+        res.json({message : err})
+    })
+});
+
 module.exports = router;

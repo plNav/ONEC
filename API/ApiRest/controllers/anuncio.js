@@ -36,18 +36,6 @@ const anuncioSchema = mongoose.Schema({
         type : Number,
         required: false,
         default: 0
-    },
-
-    numVotos: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-
-    puntuacion: {
-        type: Number,
-        required : false,
-        default: 0
     }
 
 });

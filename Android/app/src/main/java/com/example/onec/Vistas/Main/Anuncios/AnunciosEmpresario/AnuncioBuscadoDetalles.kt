@@ -36,6 +36,7 @@ import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
 import com.example.onec.ViewModels.AnunciosGuardadosViewModel
+import com.example.onec.ViewModels.ResenyaViewModel
 import com.example.onec.ViewModels.VisualizacionesViewModel
 import com.example.onec.Vistas.Login.dialogLoading
 import com.example.onec.Vistas.Perfil.dialogError
@@ -44,6 +45,10 @@ import com.example.onec.ui.theme.OnecTheme
 @Composable
 fun anuncioBuscadoDetalles(navController: NavController){
     OnecTheme {
+
+        val resenyaViewModel = remember {
+            ResenyaViewModel()
+        }
 
         val visualizacionesViewModel = remember {
             VisualizacionesViewModel()
@@ -78,31 +83,59 @@ fun anuncioBuscadoDetalles(navController: NavController){
         }
 
         if (loadingAnuncioVista.value) {
+            loadingAnuncioVista.value = false
             loading.value = true
-            //Primero obtenemos las visualizaciones del usuario para dicho anuncio
-            visualizacionesViewModel.obtenerVisualizacionesUsuarioAnuncio(StaticVariables.usuario!!._id, StaticVariables.anuncioBuscadoSelect!!._id) { visualizaciones ->
-                if(visualizaciones == null) {
-                  errorCarga.value = true
-                }else if (visualizaciones.isEmpty()) {
-                    //Hacemos un Post de la visualizacion
-                    val visualizacion = VisualizacionesPost(StaticVariables.anuncioBuscadoSelect!!._id, StaticVariables.usuario!!._id)
-                    visualizacionesViewModel.crearVisualizacion(visualizacion = visualizacion) { visualizacion ->
-                        if (visualizacion != null) {
-                            val anuncio = AnuncioPost(StaticVariables.anuncioBuscadoSelect!!.id_user,StaticVariables.anuncioBuscadoSelect!!.categoria,StaticVariables.anuncioBuscadoSelect!!.nombre,StaticVariables.anuncioBuscadoSelect!!.descripcion,StaticVariables.anuncioBuscadoSelect!!.precio,StaticVariables.anuncioBuscadoSelect!!.precioPorHora,StaticVariables.anuncioBuscadoSelect!!.numVecesVisto + 1, StaticVariables.anuncioBuscadoSelect!!.numVotos, StaticVariables.anuncioBuscadoSelect!!.puntuacion)
-                            anuncioViewModel.actualizarAnuncio(StaticVariables.anuncioBuscadoSelect!!._id, anuncio = anuncio) { did ->
-                                if (did) {
-                                    StaticVariables.anuncioBuscadoSelect!!.numVecesVisto = anuncio.numVecesVisto
-                                }else {
+            //Primero obtenemos las visualizaciones del usuario para dicho anuncio y la puntuacion
+            resenyaViewModel.calcularPuntuacionAnuncio(StaticVariables.anuncioBuscadoSelect!!._id) { puntuacion ->
+                if (puntuacion != null) {
+                    StaticVariables.puntuacionAnuncioBuscado = puntuacion
+                    visualizacionesViewModel.obtenerVisualizacionesUsuarioAnuncio(
+                        StaticVariables.usuario!!._id,
+                        StaticVariables.anuncioBuscadoSelect!!._id
+                    ) { visualizaciones ->
+                        if (visualizaciones == null) {
+                            errorCarga.value = true
+                        } else if (visualizaciones.isEmpty()) {
+                            //Hacemos un Post de la visualizacion
+                            val visualizacion = VisualizacionesPost(
+                                StaticVariables.anuncioBuscadoSelect!!._id,
+                                StaticVariables.usuario!!._id
+                            )
+                            visualizacionesViewModel.crearVisualizacion(visualizacion = visualizacion) { visualizacion ->
+                                if (visualizacion != null) {
+                                    val anuncio = AnuncioPost(
+                                        StaticVariables.anuncioBuscadoSelect!!.id_user,
+                                        StaticVariables.anuncioBuscadoSelect!!.categoria,
+                                        StaticVariables.anuncioBuscadoSelect!!.nombre,
+                                        StaticVariables.anuncioBuscadoSelect!!.descripcion,
+                                        StaticVariables.anuncioBuscadoSelect!!.precio,
+                                        StaticVariables.anuncioBuscadoSelect!!.precioPorHora,
+                                        StaticVariables.anuncioBuscadoSelect!!.numVecesVisto + 1
+                                    )
+                                    anuncioViewModel.actualizarAnuncio(
+                                        StaticVariables.anuncioBuscadoSelect!!._id,
+                                        anuncio = anuncio
+                                    ) { did ->
+                                        if (did) {
+                                            StaticVariables.anuncioBuscadoSelect!!.numVecesVisto =
+                                                anuncio.numVecesVisto
+                                        } else {
+                                            errorCarga.value = true
+                                        }
+                                        loading.value = false
+                                        loadingAnuncioVista.value = false
+                                    }
+                                } else {
                                     errorCarga.value = true
                                 }
-                                loading.value = false
-                                loadingAnuncioVista.value = false
                             }
-                        }else {
-                            errorCarga.value = true
+                        } else {
+                            loading.value = false
+                            loadingAnuncioVista.value = false
                         }
                     }
                 }else {
+                    errorCarga.value = true
                     loading.value = false
                     loadingAnuncioVista.value = false
                 }
@@ -246,7 +279,9 @@ fun anuncioBuscadoDetalles(navController: NavController){
                                             painter = painterResource(id = R.drawable.numvistas),
                                             contentDescription = "Num veces visto",
                                             tint = Color.White,
-                                            modifier = Modifier.height(30.dp).width(30.dp)
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp)
                                         )
                                         Text(
                                             text = "Visualizaciones",
@@ -268,7 +303,9 @@ fun anuncioBuscadoDetalles(navController: NavController){
                                             imageVector = Icons.Filled.Star,
                                             contentDescription = "valoracion",
                                             tint = Color.White,
-                                            modifier =  Modifier.height(30.dp).width(30.dp)
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp)
                                         )
                                         Text(
                                             text = "Valoración",
@@ -278,7 +315,7 @@ fun anuncioBuscadoDetalles(navController: NavController){
                                         )
                                         Spacer(modifier = Modifier.height(7.dp))
                                         Text(
-                                            text = StaticVariables.anuncioBuscadoSelect!!.puntuacion.toInt()
+                                            text = StaticVariables.puntuacionAnuncioBuscado
                                                 .toString(), fontSize = 13.sp, color = Color.White
                                         )
                                     }
@@ -288,9 +325,44 @@ fun anuncioBuscadoDetalles(navController: NavController){
                         Spacer(modifier = Modifier.height(15.dp))
                         Button(
                             onClick = {
+                                   navController.navigate(Rutas.AnunciosBuscadosReviews.route)
+                            },
+                            Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(7.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFFD5CC21)
+                            )
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "Revisar",
+                                    color = Color.White,
+                                    fontSize = 19.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(0.dp, 7.dp),
+                                    fontFamily = FontFamily(Font(R.font.comforta))
+                                )
+                                Spacer(modifier = Modifier.width(5.dp))
+                                Icon(
+                                    painter = painterResource(id = R.drawable.reviews),
+                                    contentDescription = "Reseñas",
+                                    tint = Color(0xfffcffff),
+                                    modifier = Modifier
+                                        .height(30.dp)
+                                        .width(30.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Button(
+                            onClick = {
                                 val anuncioFavorito = AnunciosGuardadosPost(
                                     StaticVariables.anuncioBuscadoSelect!!._id,
-                                    StaticVariables.anuncioBuscadoSelect!!.id_user
+                                    StaticVariables.usuario!!._id
                                 )
                                 loading.value = true
                                 anunciosGuardadosViewModel.agregarAnuncioFavoritos(anuncioFavorito) { anuncio ->
@@ -369,7 +441,7 @@ fun errorCargarAnuncio(show: MutableState<Boolean>, loading: MutableState<Boolea
                 ) {
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = "Error al cargar Anuncios",
+                        text = "Error al cargar Anuncio",
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )

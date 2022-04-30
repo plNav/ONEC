@@ -32,20 +32,6 @@ router.get("/anuncio", (req, res) => {
     })
 });
 
-//Obtener puntuacion
-router.get("/anuncio/puntuacion/:id" , (req, res) => {
-    const {id} = req.params
-    anuncioSchema
-    .findById(id)
-    .then((data) => {
-        res.json(data.puntuacion)
-        console.log("get puntuacion anuncio " + data.puntuacion)
-    })
-    .catch((err) => {
-        res.json({message:err})
-        console.log("Error get /api/anuncio/puntuacion")
-    })
-});
 
 //Obtener anuncio específico
 router.get("/anuncio/:id", (req, res) => {
@@ -77,6 +63,7 @@ router.get("/anuncio/usuario/:id", (req, res) => {
             console.log(`Error get /api/anuncio/usuario/${id} : ${err}`);
         })
 })
+
 
 
 //Actualizar anuncio
@@ -113,14 +100,15 @@ router.delete("/anuncio/:id", (req, res) => {
 //Buscar anuncios
 router.get("/anuncio/buscar/:campo",(req,res) => {
 const {campo} = req.params
-const campoSlit = campo.includes(" ") ? campo.split(" ").join("|") : null
+const campoTrim = campo.trim();
+const campoSlit = campo.trim().includes(" ") ? campo.split(" ").join("|") : null
 console.log(campoSlit)
 anuncioSchema
 .find({
     $or: [
-        {nombre : {$regex: '.*' + campo + ".*"}},
-        {categoria : {$regex: '.*' + campo + ".*"}},
-        {descripcion : {$regex: '.*' + campo + ".*"}}
+        {nombre : {$regex: '.*' + campoTrim + ".*", $options: "i"}},
+        {categoria : {$regex: '.*' + campoTrim + ".*", $options: "i"}},
+        {descripcion : {$regex: '.*' + campoTrim + ".*", $options: "i"}}
     ]
 })
 .then((data) => {
@@ -137,19 +125,19 @@ anuncioSchema
             $or : [
                 {
                     nombre: {
-                        $regex : campoSlit,
+                        $regex : ".*"+campoSlit+".*",
                         $options : "i"
                     }
                 },
                 {
                     categoria: {
-                        $regex : campoSlit,
+                        $regex : ".*"+campoSlit+".*",
                         $options : "i"
                     }
                 },
                 {
                     descripcion : {
-                        $regex : campoSlit,
+                        $regex : ".*"+campoSlit+".*",
                         $options : "i" 
                     }
                 }

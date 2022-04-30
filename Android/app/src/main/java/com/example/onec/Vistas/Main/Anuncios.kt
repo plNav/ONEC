@@ -36,6 +36,9 @@ import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
+import com.example.onec.ViewModels.AnunciosGuardadosViewModel
+import com.example.onec.ViewModels.ResenyaViewModel
+import com.example.onec.ViewModels.VisualizacionesViewModel
 import com.example.onec.Vistas.Perfil.dialogError
 import com.example.onec.ui.theme.OnecTheme
 
@@ -43,8 +46,16 @@ import com.example.onec.ui.theme.OnecTheme
 fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
     if(selected.value) {
 
+        val anuncioModel = remember {
+            mutableStateOf<AnuncioModel?>(null)
+        }
+
         val eliminando = remember {
             mutableStateOf(false)
+        }
+
+        val errorMsj = remember {
+            mutableStateOf("Error al realizar la operación")
         }
 
         val isLoading = remember {
@@ -66,6 +77,10 @@ fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
 
         val anuncioViewModel = remember {
             AnuncioViewModel()
+        }
+
+        val listaItemsEliminados = remember {
+            mutableStateOf<MutableList<AnuncioModel>>(mutableStateListOf())
         }
 
         OnecTheme() {
@@ -141,10 +156,11 @@ fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
                         }
                     }
                 }else {
-                    listAnuncios(showList, navController, eliminando)
+                    listAnuncios(showList, navController, eliminando, anuncioModel, listaItemsEliminados)
                     listAnunciosEmpty(showlistEmpty)
                     errorCarga(isLoading,showError)
-                    dialogEliminando(show = eliminando)
+                    dialogEliminando(show = eliminando, showError, anuncioModel.value, listaItemsEliminados, errorMsj)
+                    dialogError(show = showError , msj = errorMsj )
                 }
             }
         }
@@ -158,9 +174,28 @@ fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
 
 
 @Composable
-fun dialogEliminando(show: MutableState<Boolean>) {
+fun dialogEliminando(show: MutableState<Boolean>, showDialogError : MutableState<Boolean>, anuncio : AnuncioModel?, listaItemsEliminados : MutableState<MutableList<AnuncioModel>>, errorMsj : MutableState<String>) {
     if (show.value) {
         OnecTheme() {
+            val errorMsj = remember {
+                mutableStateOf("Error al eliminar el anuncio")
+            }
+            val resenyaViewModel = remember {
+                ResenyaViewModel()
+            }
+
+            val anunciosGuardadosViewModel = remember {
+                AnunciosGuardadosViewModel()
+            }
+
+            val visualizacionesViewModel = remember {
+                VisualizacionesViewModel()
+            }
+
+            val anuncioViewModel = remember {
+                AnuncioViewModel()
+            }
+
             Dialog(onDismissRequest = { /*TODO*/ }) {
                 Column(
                     Modifier.fillMaxSize(),
@@ -180,6 +215,46 @@ fun dialogEliminando(show: MutableState<Boolean>) {
                     )
                 }
             }
+            LaunchedEffect(key1 = "empty") {
+                resenyaViewModel.eliminarReviewsAnuncio(
+                    anuncio!!._id
+                ) { did ->
+                    if (did) {
+                        anunciosGuardadosViewModel.borrarAnunciosGuardadosIdAnuncio(anuncio!!._id) { didFav ->
+                            if (didFav) {
+                                visualizacionesViewModel.eliminarVisualizacionesAnuncio(anuncio!!._id) { didVi ->
+                                    if (didVi) {
+                                        //Todo lo anterior se ha eliminado, ya podemos eliminar el anuncio
+                                        anuncioViewModel.eliminarAnuncio(anuncio!!._id) { borrado ->
+                                            if (borrado) {
+                                                show.value = false
+                                                listaItemsEliminados.value.add(anuncio)
+                                                StaticVariables.anunciosUsuario.remove(anuncio)
+                                            }else {
+                                                showDialogError.value = true
+                                                show.value = false
+                                                errorMsj.value = "Error al eliminar el anuncio\ninténtelo más tarde"
+                                            }
+                                        }
+                                    }else {
+                                        showDialogError.value = true
+                                        show.value = false
+                                        errorMsj.value = "Error al eliminar el anuncio\ninténtelo más tarde"
+                                    }
+                                }
+                            }else {
+                                showDialogError.value = true
+                                show.value = false
+                                errorMsj.value = "Error al eliminar el anuncio\ninténtelo más tarde"
+                            }
+                        }
+                    } else {
+                        showDialogError.value = true
+                        show.value = false
+                        errorMsj.value = "Error al eliminar el anuncio\ninténtelo más tarde"
+                    }
+                }
+            }
         }
     }
 }
@@ -188,11 +263,7 @@ fun dialogEliminando(show: MutableState<Boolean>) {
  * listAnuncios -> mostrará la vista de los anuncios que tiene el usuario
  * */
 @Composable
-fun listAnuncios(show: MutableState<Boolean>, navController: NavController, eliminando : MutableState<Boolean>) {
-
-    val listaItemsEliminados = remember {
-        mutableStateOf<MutableList<AnuncioModel>>(mutableStateListOf())
-    }
+fun listAnuncios(show: MutableState<Boolean>, navController: NavController, eliminando : MutableState<Boolean> , anuncio: MutableState<AnuncioModel?>, listaItemsEliminados : MutableState<MutableList<AnuncioModel>>) {
 
     val showListEmpty = remember {
         mutableStateOf(false)
@@ -233,23 +304,28 @@ fun listAnuncios(show: MutableState<Boolean>, navController: NavController, elim
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .clickable {
-                                            StaticVariables.anunincioSeleccionado = item
+                                            StaticVariables.anuncioSeleccionado = item
                                             navController.navigate(Rutas.AnuncioDetalles.route)
                                         },
                                     shape = RoundedCornerShape(7.dp),
                                     color = Color.Transparent
                                 ) {
-                                    Box(modifier = Modifier.fillMaxWidth().background(Color.Transparent)) {
+                                    Box(modifier = Modifier
+                                        .fillMaxWidth()
+                                        .background(Color.Transparent)) {
                                         Column(Modifier.fillMaxWidth()) {
                                             Surface(modifier = Modifier.fillMaxWidth(), color = Color( 0xFF141624), shape = RoundedCornerShape(7.dp,7.dp,0.dp,0.dp)) {
-                                                Column(modifier = Modifier.padding(vertical = 5.dp, horizontal = 3.dp).background(Color.Transparent).fillMaxWidth()) {
+                                                Column(modifier = Modifier
+                                                    .padding(vertical = 5.dp, horizontal = 3.dp)
+                                                    .background(Color.Transparent)
+                                                    .fillMaxWidth()) {
                                                     Text(text = item.nombre, fontSize = 16.sp, textAlign = TextAlign.Center, color = Color(0xfffcffff))
                                                 }
                                             }
                                             Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xfffcffff), shape = RoundedCornerShape(0.dp,0.dp,7.dp,7.dp)) {
                                                 Row(modifier = Modifier
                                                     .fillMaxWidth()
-                                                    .padding(3.dp,5.dp,3.dp,0.dp)
+                                                    .padding(3.dp, 5.dp, 3.dp, 0.dp)
                                                     ) {
                                                     Column(modifier = Modifier.fillMaxWidth(0.9f)) {
                                                         Row() {
@@ -280,7 +356,7 @@ fun listAnuncios(show: MutableState<Boolean>, navController: NavController, elim
                                                             )
                                                             Spacer(modifier = Modifier.width(3.dp))
                                                             val precio = remember {
-                                                                if (item.precioPorHora) "${item.precio}€ Hora" else item.precio.toString()
+                                                                if (item.precioPorHora) "${item.precio}€ Hora" else "${item.precio}€"
                                                             }
                                                             Text(
                                                                 text = precio,
@@ -293,21 +369,8 @@ fun listAnuncios(show: MutableState<Boolean>, navController: NavController, elim
                                                         }
                                                     }
                                                     IconButton(onClick = {
+                                                        anuncio.value = item
                                                         eliminando.value = true
-                                                        anuncioViewModel.eliminarAnuncio(item._id) { did ->
-                                                            if (did) {
-                                                                eliminando.value = false
-                                                                StaticVariables.anunciosUsuario.remove(
-                                                                    item
-                                                                )
-                                                                listaItemsEliminados.value.add(item)
-                                                            } else {
-                                                                errorMsj.value =
-                                                                    "Error al eliminar el anuncio"
-                                                                showDialogError.value = true
-                                                                eliminando.value = false
-                                                            }
-                                                        }
                                                     }) {
                                                         Icon(
                                                             imageVector = Icons.Filled.Delete,
@@ -329,13 +392,11 @@ fun listAnuncios(show: MutableState<Boolean>, navController: NavController, elim
                         showListEmpty.value = true
                     }
                 }
-                dialogError(show = showDialogError , msj = errorMsj)
                 listAnunciosEmpty(show = showListEmpty)
             }
         }
     }
 }
-
 
 
 
@@ -413,30 +474,6 @@ fun errorCarga(show: MutableState<Boolean>, isLoading : MutableState<Boolean>) {
                     )
                 }
             }
-        }
-    }
-}
-
-@Preview
-@Composable
-fun previ() {
-    Dialog(onDismissRequest = { /*TODO*/ }) {
-        Column(
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .height(50.dp)
-                    .width(50.dp), color = Color(0xfffcffff)
-            )
-            Text(
-                text = "Eliminando...",
-                fontSize = 16.sp,
-                color = Color(0xfffcffff),
-                textAlign = TextAlign.Center
-            )
         }
     }
 }

@@ -79,7 +79,7 @@ fun tipoUsuario(navController: NavController) {
                                 Spacer(modifier = Modifier.fillMaxHeight(0.35f))
                                 Button(onClick = {
                                     StaticVariables.appModo = true // Esto quiere decir que El modo de app es Empresario
-                                    navController.navigate(Rutas.Main.route)
+                                    navController.navigate(Rutas.Main.route) { popUpTo(0) }
                                 },Modifier.fillMaxWidth(0.6f), shape = RoundedCornerShape(30.dp), colors = ButtonDefaults.buttonColors(backgroundColor = Color(
                                     0xFF2F9234
                                 )
@@ -87,7 +87,7 @@ fun tipoUsuario(navController: NavController) {
                                     Text(text = "Buscador", fontSize = 19.sp, fontWeight = FontWeight.W300, color = Color(0xfffcffff))
                                 }
                                 Spacer(modifier = Modifier.fillMaxHeight(0.15f))
-                                Button(onClick = {navController.navigate(Rutas.Main.route)},Modifier.fillMaxWidth(0.6f), shape = RoundedCornerShape(30.dp), colors = ButtonDefaults.buttonColors(backgroundColor = Color(
+                                Button(onClick = {navController.navigate(Rutas.Main.route) { popUpTo(0) } },Modifier.fillMaxWidth(0.6f), shape = RoundedCornerShape(30.dp), colors = ButtonDefaults.buttonColors(backgroundColor = Color(
                                     0xFF2E7F9B
                                 )
                                 )) {

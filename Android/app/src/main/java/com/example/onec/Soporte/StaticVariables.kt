@@ -3,10 +3,7 @@ package com.example.onec.Soporte
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.runtime.mutableStateListOf
-import com.example.onec.Models.AnuncioModel
-import com.example.onec.Models.AnunciosGuardadosModel
-import com.example.onec.Models.CvModel
-import com.example.onec.Models.UsuarioModel
+import com.example.onec.Models.*
 import java.io.File
 
 
@@ -83,15 +80,18 @@ class StaticVariables {
 
         var anunciosUsuario : MutableList<AnuncioModel> = mutableStateListOf()
         var anunciosBuscados = false
-        var anunincioSeleccionado : AnuncioModel? = null
+        var anuncioSeleccionado : AnuncioModel? = null
+        var puntuacionAnuncioSelect : Float? = null
 
 
         /**
          *  Anuncios Favoritos
          * */
         var anunciosFavoritos : MutableList<AnunciosGuardadosModel> = mutableStateListOf()
+        var anuncioGuardadoSelect : AnunciosGuardadosModel? = null
         var anuncioFavSelect : AnuncioModel? = null
         var correoAnuncioFavSelect : String? = null
+        var puntuacionAnuncioFavSelect : Float? = null
         var anunciosFavBuscados = false
 
 
@@ -101,6 +101,13 @@ class StaticVariables {
         var anunciosBuscadosEmpre: MutableList<AnuncioModel> = mutableStateListOf()
         var anuncioBuscadoSelect: AnuncioModel? = null
         var correoAnuncioBuscadoSelect : String? = null
+        var puntuacionAnuncioBuscado : Float? = null
         var anuncioEmpreBuscado = false
+
+
+        /**
+         * Revisiones
+         * */
+        var revisionesAnuncioSelecc : MutableList<ResenyaModel> = mutableStateListOf()
     }
 }

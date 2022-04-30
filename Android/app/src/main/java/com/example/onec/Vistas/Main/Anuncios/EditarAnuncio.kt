@@ -63,19 +63,19 @@ fun editarAnuncio(navController: NavController) {
             val scrollState = rememberScrollState(0)
 
             val nombre = remember {
-                mutableStateOf(StaticVariables.anunincioSeleccionado!!.nombre)
+                mutableStateOf(StaticVariables.anuncioSeleccionado!!.nombre)
             }
 
             val categoria = remember {
-                mutableStateOf(StaticVariables.anunincioSeleccionado!!.categoria)
+                mutableStateOf(StaticVariables.anuncioSeleccionado!!.categoria)
             }
 
             val descripcion = remember {
-                mutableStateOf(StaticVariables.anunincioSeleccionado!!.descripcion)
+                mutableStateOf(StaticVariables.anuncioSeleccionado!!.descripcion)
             }
 
             val precio = remember {
-                mutableStateOf(StaticVariables.anunincioSeleccionado!!.precio.toString())
+                mutableStateOf(StaticVariables.anuncioSeleccionado!!.precio.toString())
             }
 
             val isPrecioPorHora = remember {
@@ -298,31 +298,27 @@ fun editarAnuncio(navController: NavController) {
                                             descripcion.value,
                                             precioF,
                                             isPrecioPorHora.value,
-                                            numVotos = StaticVariables!!.anunincioSeleccionado!!.numVotos,
-                                            numVecesVisto = StaticVariables!!.anunincioSeleccionado!!.numVecesVisto,
-                                            puntuacion = StaticVariables!!.anunincioSeleccionado!!.puntuacion
+                                            numVecesVisto = StaticVariables!!.anuncioSeleccionado!!.numVecesVisto
                                         )
                                         anuncioViewModel.actualizarAnuncio(
-                                            StaticVariables.anunincioSeleccionado!!._id,
+                                            StaticVariables.anuncioSeleccionado!!._id,
                                             anuncioActualizado
                                         ) { did ->
                                             if (did) {
 
                                                 //Antes de actualizar el anuncio seleccionado, obtenemos el indice del anuncio para posteriormente remplazar dicho anuncio por el anuncio actualizado
-                                                val index = StaticVariables.anunciosUsuario.indexOf(StaticVariables.anunincioSeleccionado)
+                                                val index = StaticVariables.anunciosUsuario.indexOf(StaticVariables.anuncioSeleccionado)
 
                                                 //Actualizamos el anuncio
-                                                StaticVariables!!.anunincioSeleccionado!!.categoria = anuncioActualizado.categoria
-                                                StaticVariables!!.anunincioSeleccionado!!.nombre = anuncioActualizado.nombre
-                                                StaticVariables!!.anunincioSeleccionado!!.descripcion = anuncioActualizado.descripcion
-                                                StaticVariables!!.anunincioSeleccionado!!.precio = precioF
-                                                StaticVariables!!.anunincioSeleccionado!!.precioPorHora = anuncioActualizado.precioPorHora
-                                                StaticVariables!!.anunincioSeleccionado!!.numVotos = anuncioActualizado.numVotos
-                                                StaticVariables!!.anunincioSeleccionado!!.numVecesVisto = anuncioActualizado.numVecesVisto
-                                                StaticVariables!!.anunincioSeleccionado!!.puntuacion = anuncioActualizado.puntuacion
+                                                StaticVariables!!.anuncioSeleccionado!!.categoria = anuncioActualizado.categoria
+                                                StaticVariables!!.anuncioSeleccionado!!.nombre = anuncioActualizado.nombre
+                                                StaticVariables!!.anuncioSeleccionado!!.descripcion = anuncioActualizado.descripcion
+                                                StaticVariables!!.anuncioSeleccionado!!.precio = precioF
+                                                StaticVariables!!.anuncioSeleccionado!!.precioPorHora = anuncioActualizado.precioPorHora
+                                                StaticVariables!!.anuncioSeleccionado!!.numVecesVisto = anuncioActualizado.numVecesVisto
 
                                                 //Reemplazamos el AnuncioModel almacenado en dicho indice, por el anuncio actualizado
-                                                StaticVariables.anunciosUsuario.set(index = index, StaticVariables.anunincioSeleccionado!!)
+                                                StaticVariables.anunciosUsuario.set(index = index, StaticVariables.anuncioSeleccionado!!)
 
                                                 //Mostramos que el anuncio ha sido actualizado
                                                 showUpdated.value = true

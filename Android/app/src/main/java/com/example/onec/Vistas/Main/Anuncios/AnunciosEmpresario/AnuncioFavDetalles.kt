@@ -1,5 +1,7 @@
 package com.example.onec.Vistas.Main.Anuncios.AnunciosEmpresario
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -8,11 +10,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.example.onec.Models.AnuncioPost
 import com.example.onec.Models.AnunciosGuardadosPost
@@ -31,19 +33,32 @@ import com.example.onec.Models.VisualizacionesPost
 import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
-import com.example.onec.ViewModels.AnuncioViewModel
-import com.example.onec.ViewModels.AnunciosGuardadosViewModel
-import com.example.onec.ViewModels.VisualizacionesViewModel
+import com.example.onec.ViewModels.*
 import com.example.onec.Vistas.Login.dialogLoading
+import com.example.onec.Vistas.Main.Anuncios.anuncioCreado
+import com.example.onec.Vistas.Main.Anuncios.dialogEliminando
+import com.example.onec.Vistas.Main.Anuncios.loadingAnuncio
 import com.example.onec.Vistas.Perfil.dialogError
 import com.example.onec.ui.theme.OnecTheme
 
 @Composable
 fun anuncioFavoritoDetalles(navController: NavController) {
     OnecTheme() {
+        
+        val eliminandoAnuncio  = remember {
+            mutableStateOf(false)
+        } 
 
-        val visualizacionesViewModel = remember {
-            VisualizacionesViewModel()
+        val showAnuncioEliminado = remember {
+            mutableStateOf(false)
+        }
+
+        val loginregVM = remember {
+            LoginRegistroViewModel()
+        }
+
+        val resenyaViewModel = remember {
+            ResenyaViewModel()
         }
 
         val errorCarga = remember {
@@ -52,6 +67,10 @@ fun anuncioFavoritoDetalles(navController: NavController) {
 
         val loading = remember {
             mutableStateOf(false)
+        }
+
+        val yaPuntuado = remember {
+            mutableStateOf<Boolean?>(null)
         }
 
         val loadingAnuncioVista = remember {
@@ -66,49 +85,44 @@ fun anuncioFavoritoDetalles(navController: NavController) {
         }
         val scrollState = rememberScrollState(0)
 
-        val anunciosGuardadosViewModel = remember {
-            AnunciosGuardadosViewModel()
-        }
-
-        val anuncioViewModel = remember {
-            AnuncioViewModel()
-        }
 
         if (loadingAnuncioVista.value) {
             loading.value = true
-            //Primero obtenemos las visualizaciones del usuario para dicho anuncio
-            visualizacionesViewModel.obtenerVisualizacionesUsuarioAnuncio(StaticVariables.usuario!!._id, StaticVariables.anuncioBuscadoSelect!!._id) { visualizaciones ->
-                if(visualizaciones == null) {
+            //Primero consultamos si el usuario ha realizado alguna reseña de el anuncio
+            resenyaViewModel.calcularPuntuacionAnuncio(StaticVariables.anuncioFavSelect!!._id) { puntuacion ->
+                if (puntuacion == null) {
                     errorCarga.value = true
-                }else if (visualizaciones.isEmpty()) {
-                    //Hacemos un Post de la visualizacion
-                    val visualizacion = VisualizacionesPost(StaticVariables.anuncioBuscadoSelect!!._id, StaticVariables.usuario!!._id)
-                    visualizacionesViewModel.crearVisualizacion(visualizacion = visualizacion) { visualizacion ->
-                        if (visualizacion != null) {
-                            val anuncio = AnuncioPost(
-                                StaticVariables.anuncioBuscadoSelect!!.id_user,
-                                StaticVariables.anuncioBuscadoSelect!!.categoria,
-                                StaticVariables.anuncioBuscadoSelect!!.nombre,
-                                StaticVariables.anuncioBuscadoSelect!!.descripcion,
-                                StaticVariables.anuncioBuscadoSelect!!.precio,
-                                StaticVariables.anuncioBuscadoSelect!!.precioPorHora,
-                                StaticVariables.anuncioBuscadoSelect!!.numVecesVisto + 1, StaticVariables.anuncioBuscadoSelect!!.numVotos, StaticVariables.anuncioBuscadoSelect!!.puntuacion)
-                            anuncioViewModel.actualizarAnuncio(StaticVariables.anuncioBuscadoSelect!!._id, anuncio = anuncio) { did ->
-                                if (did) {
-                                    StaticVariables.anuncioBuscadoSelect!!.numVecesVisto = anuncio.numVecesVisto
-                                }else {
+                }else {
+                    loginregVM.obtenerUsuario(StaticVariables.anuncioFavSelect!!.id_user) { userAnuncio ->
+                        if (userAnuncio == null) {
+                            errorCarga.value = true
+                        }else {
+                            resenyaViewModel.obtenerResenyasUsuarioAnuncio(
+                                StaticVariables.anuncioFavSelect!!._id,
+                                StaticVariables.usuario!!._id
+                            ) { reviews ->
+                                if (reviews == null) {
+                                    errorCarga.value = true
+                                } else if (reviews.isEmpty()) {
+                                    yaPuntuado.value = false
+                                    loading.value = false
+                                    loadingAnuncioVista.value = false
+                                    StaticVariables.correoAnuncioFavSelect = userAnuncio.email
+                                    StaticVariables.puntuacionAnuncioFavSelect = puntuacion
+
+                                } else if (reviews.isNotEmpty()) {
+                                    yaPuntuado.value = true
+                                    loading.value = false
+                                    loadingAnuncioVista.value = false
+                                    StaticVariables.correoAnuncioFavSelect = userAnuncio.email
+                                    StaticVariables.puntuacionAnuncioFavSelect = puntuacion
+                                } else {
                                     errorCarga.value = true
                                 }
-                                loading.value = false
-                                loadingAnuncioVista.value = false
+
                             }
-                        }else {
-                            errorCarga.value = true
                         }
                     }
-                }else {
-                    loading.value = false
-                    loadingAnuncioVista.value = false
                 }
             }
         }else {
@@ -117,7 +131,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                 topBar = {
                     TopAppBar(
                         navigationIcon = {
-                            IconButton(onClick = { navController.navigate(Rutas.BuscarAnuncio.route) }) {
+                            IconButton(onClick = { navController.navigate(Rutas.Main.route) {popUpTo(0)} }) {
                                 Icon(
                                     imageVector = Icons.Filled.ArrowBack,
                                     contentDescription = "Volver atrás",
@@ -171,7 +185,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                 Box(Modifier.background(color = Color(0xFF999dba))) {
                                     Column(Modifier.padding(5.dp)) {
                                         Text(
-                                            text = StaticVariables.anuncioBuscadoSelect!!.categoria,
+                                            text = StaticVariables.anuncioFavSelect!!.categoria,
                                             fontSize = 23.sp,
                                             color = Color(0xFF202020),
                                             fontWeight = FontWeight.Bold,
@@ -181,7 +195,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                         Divider(thickness = 1.dp)
                                         Spacer(modifier = Modifier.height(2.dp))
                                         Text(
-                                            text = StaticVariables.anuncioBuscadoSelect!!.nombre,
+                                            text = StaticVariables.anuncioFavSelect!!.nombre,
                                             fontSize = 16.sp,
                                             color = Color(0xFF202020),
                                             fontWeight = FontWeight.Bold,
@@ -197,7 +211,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                         Row(Modifier.fillMaxWidth()) {
                                             Spacer(modifier = Modifier.width(5.dp))
                                             Text(
-                                                text = StaticVariables.anuncioBuscadoSelect!!.descripcion,
+                                                text = StaticVariables.anuncioFavSelect!!.descripcion,
                                                 fontSize = 14.sp,
                                                 color = Color(0xFF202020),
                                                 overflow = TextOverflow.Ellipsis
@@ -205,7 +219,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                         }
                                         Spacer(modifier = Modifier.height(10.dp))
                                         val precio = remember {
-                                            if (StaticVariables.anuncioBuscadoSelect!!.precioPorHora) "${StaticVariables.anuncioBuscadoSelect!!.precio}€ Hora" else "${StaticVariables.anuncioBuscadoSelect!!.precio}"
+                                            if (StaticVariables.anuncioFavSelect!!.precioPorHora) "${StaticVariables.anuncioFavSelect!!.precio}€ Hora" else "${StaticVariables.anuncioFavSelect!!.precio}"
                                         }
                                         Text(
                                             text = "Precio", fontSize = 13.sp, color = Color(
@@ -231,7 +245,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                         Row(Modifier.fillMaxWidth()) {
                                             Spacer(modifier = Modifier.width(5.dp))
                                             Text(
-                                                text = StaticVariables.correoAnuncioBuscadoSelect!!,
+                                                text = StaticVariables.correoAnuncioFavSelect!!,
                                                 fontSize = 14.sp,
                                                 color = Color(0xFF202020),
                                             )
@@ -250,7 +264,9 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                             painter = painterResource(id = R.drawable.numvistas),
                                             contentDescription = "Num veces visto",
                                             tint = Color.White,
-                                            modifier = Modifier.height(30.dp).width(30.dp)
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp)
                                         )
                                         Text(
                                             text = "Visualizaciones",
@@ -260,7 +276,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                         )
                                         Spacer(modifier = Modifier.height(7.dp))
                                         Text(
-                                            text = StaticVariables.anuncioBuscadoSelect!!.numVecesVisto.toString(),
+                                            text = StaticVariables.anuncioFavSelect!!.numVecesVisto.toString(),
                                             fontSize = 13.sp,
                                             color = Color.White
                                         )
@@ -272,7 +288,9 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                             imageVector = Icons.Filled.Star,
                                             contentDescription = "valoracion",
                                             tint = Color.White,
-                                            modifier =  Modifier.height(30.dp).width(30.dp)
+                                            modifier = Modifier
+                                                .height(30.dp)
+                                                .width(30.dp)
                                         )
                                         Text(
                                             text = "Valoración",
@@ -282,7 +300,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                         )
                                         Spacer(modifier = Modifier.height(7.dp))
                                         Text(
-                                            text = StaticVariables.anuncioBuscadoSelect!!.puntuacion.toInt()
+                                            text = StaticVariables.puntuacionAnuncioFavSelect
                                                 .toString(), fontSize = 13.sp, color = Color.White
                                         )
                                     }
@@ -292,33 +310,12 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                         Spacer(modifier = Modifier.height(15.dp))
                         Button(
                             onClick = {
-                                val anuncioFavorito = AnunciosGuardadosPost(
-                                    StaticVariables.anuncioBuscadoSelect!!._id,
-                                    StaticVariables.anuncioBuscadoSelect!!.id_user
-                                )
-                                loading.value = true
-                                anunciosGuardadosViewModel.agregarAnuncioFavoritos(anuncioFavorito) { anuncio ->
-                                    if (anuncio == null) {
-                                        errorMsj.value =
-                                            "Error al guardar el anuncio\ninténtelo más tarde"
-                                        showDialogError.value = true
-                                    } else {
-                                        StaticVariables.anunciosFavoritos.add(anuncio)
-                                        StaticVariables.anunciosBuscadosEmpre.remove(StaticVariables.anuncioBuscadoSelect)
-                                        StaticVariables.anuncioBuscadoSelect = null
-                                        navController.navigate(Rutas.BuscarAnuncio.route) {
-                                            popUpTo(
-                                                Rutas.Main.route
-                                            )
-                                        }
-                                    }
-                                    loading.value = false
-                                }
+                                navController.navigate(Rutas.AnuncioFavReviews.route)
                             },
                             Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(7.dp),
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(0xFF209956)
+                                backgroundColor = Color(0xFFD5CC21)
                             )
                         ) {
                             Row(
@@ -327,7 +324,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Text(
-                                    text = "Archivar",
+                                    text = "Revisar",
                                     color = Color.White,
                                     fontSize = 19.sp,
                                     fontWeight = FontWeight.Bold,
@@ -336,9 +333,84 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                 )
                                 Spacer(modifier = Modifier.width(5.dp))
                                 Icon(
-                                    imageVector = Icons.Filled.Favorite,
+                                    painter = painterResource(id = R.drawable.reviews),
                                     contentDescription = "Reseñas",
-                                    tint = Color(0xfffcffff)
+                                    tint = Color(0xfffcffff),
+                                    modifier = Modifier
+                                        .height(30.dp)
+                                        .width(30.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(15.dp))
+                        if (yaPuntuado.value == false) {
+                            Button(
+                                onClick = {
+                                    navController.navigate(Rutas.AnuncioPuntuar.route)
+                                },
+                                Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(7.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color(0xFF209956)
+                                )
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.Center
+                                ) {
+                                    Text(
+                                        text = "Puntuar",
+                                        color = Color.White,
+                                        fontSize = 19.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(0.dp, 7.dp),
+                                        fontFamily = FontFamily(Font(R.font.comforta))
+                                    )
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    Icon(
+                                        imageVector = Icons.Filled.Star,
+                                        contentDescription = "Reseñas",
+                                        tint = Color(0xfffcffff),
+                                        modifier = Modifier
+                                            .height(30.dp)
+                                            .width(30.dp)
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.height(15.dp))
+                        }
+                        Button(
+                            onClick = {
+                                      eliminandoAnuncio.value = true
+                            },
+                            Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(7.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFFAD3B3F)
+                            )
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "Eliminar",
+                                    color = Color.White,
+                                    fontSize = 19.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(0.dp, 7.dp),
+                                    fontFamily = FontFamily(Font(R.font.comforta))
+                                )
+                                Spacer(modifier = Modifier.width(5.dp))
+                                Icon(
+                                    imageVector = Icons.Filled.Delete,
+                                    contentDescription = "Reseñas",
+                                    tint = Color(0xfffcffff),
+                                    modifier = Modifier
+                                        .height(30.dp)
+                                        .width(30.dp)
                                 )
                             }
                         }
@@ -348,7 +420,56 @@ fun anuncioFavoritoDetalles(navController: NavController) {
             }
         }
         dialogError(show = showDialogError, msj = errorMsj)
-        dialogLoading(show = loading)
+        loadingAnuncio(show = loading)
         errorCargarAnuncio(show = errorCarga, loading = loading)
+        eliminandoAnuncioFav(show = eliminandoAnuncio, showDialogError = showDialogError, errorMsj = errorMsj, navController = navController )
+
+    }
+}
+
+
+
+@Composable
+fun eliminandoAnuncioFav(show: MutableState<Boolean>, showDialogError : MutableState<Boolean> , errorMsj : MutableState<String>, navController: NavController) {
+    if (show.value) {
+        OnecTheme() {
+
+            val anunciosGuardadosViewModel = remember {
+                AnunciosGuardadosViewModel()
+            }
+
+            Dialog(onDismissRequest = { /*TODO*/ }) {
+                Column(
+                    Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .height(50.dp)
+                            .width(50.dp), color = Color(0xfffcffff)
+                    )
+                    Text(
+                        text = "Eliminando...",
+                        fontSize = 16.sp,
+                        color = Color(0xfffcffff),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            LaunchedEffect(key1 = "Nothing") {
+                anunciosGuardadosViewModel.borrarAnuncioFavoritos(StaticVariables.anuncioGuardadoSelect!!._id) { borrado ->
+                    if (borrado) {
+                        StaticVariables.anunciosFavoritos.remove(StaticVariables.anuncioGuardadoSelect)
+                        StaticVariables.anuncioFavSelect = null
+                        navController.navigate(Rutas.Main.route) { popUpTo(0) }
+                    }else {
+                        show.value = false
+                        showDialogError.value = true
+                        errorMsj.value = "Error al eliminar el anuncio"
+                    }
+                }
+            }
+        }
     }
 }

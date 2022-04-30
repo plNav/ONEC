@@ -310,9 +310,7 @@ fun crearAnuncioMain(show: MutableState<Boolean>, isLoading: MutableState<Boolea
                                     id_user = StaticVariables.usuario!!._id,
                                     precio = precioFloat,
                                     precioPorHora = isPrecioPorHora.value,
-                                    numVecesVisto = 0,
-                                    numVotos = 0,
-                                    puntuacion = 0
+                                    numVecesVisto = 0
                                 )
                                 isLoading.value = true
                                 anuncioViewModel.crearAnuncio(anuncio = anuncio) { anuncioModel ->

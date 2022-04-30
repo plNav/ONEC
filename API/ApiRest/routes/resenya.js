@@ -82,7 +82,7 @@ router.get("/review/:id/:id_user", (req, res) => {
     const {id} = req.params;
     const {id_user} = req.params;
     resenyaSchema
-    .find({id: id, id_user : id_user})
+    .find({id_anuncio : id, id_user : id_user})
     .then((data) => {
         res.json(data);
         console.log(`\nReseñas de un usuario en un anuncio: \n ${data}`)
@@ -134,25 +134,31 @@ router.delete("/review/anuncio/:id", (req, res) => {
         console.log("\nReseña eliminada\n"+data)
     })
     .catch((err) =>{
-        res.json
+        res.json({message:err})
+        console.log("Error delete /review/anuncio/:id");
     })
 });
 
-//Obtener la media de puntuación de un anuncio redondeada hacia arriba
-router.get("/review/puntuación/:id_anuncio", (req, res) => {
-    const {id_anuncio} = req.params
+//Obtener puntuación de reseñas
+router.get("/review/anuncio/puntuacion/:id", (req, res) => {
+    const {id} = req.params;
     resenyaSchema
-    .find({id_anuncio : id_anuncio})
+    .find({id_anuncio : id})
     .then((data) => {
-        const puntuacion = Math.ceil(
-        data
-        .map(review => review.puntuacion)
-        .reduce((a,b) => {
-            a + b
-        }) / data.length
-        )
+        if (data.length != []) {
+            const puntuacion = data.map(review => review.puntuacion).reduce((a,b) => a + b, 0) / data.length
+            console.log(puntuacion)
+            res.json(puntuacion);
+            console.log("Media " + puntuacion)
+        }else {
+            res.json(0);
+            console.log("Media 0")
+        }
     })
-    
+    .catch((err) => {
+       res.json({message : err});
+       console.log("Error /review/puntuacion")
+    })
 });
 
 module.exports = router;

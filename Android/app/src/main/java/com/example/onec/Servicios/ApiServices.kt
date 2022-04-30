@@ -121,10 +121,10 @@ interface ApiServices {
           @Path("campo") campo : String
         ) :Response<MutableList<AnuncioModel>>
 
-        @GET("anuncio/puntuacion/{id}")
-        suspend fun obtenerPuntuacionAnuncio(
+        @GET("review/anuncio/puntuacion/{id}")
+        suspend fun calcularPuntuacionAnuncio(
            @Path("id") id : String
-        ) : Response<Int>
+        ) : Response<Float>
 
         @PUT("anuncio/{id}")
         suspend fun actualizarAnuncio(
@@ -155,7 +155,7 @@ interface ApiServices {
         @GET("review/anuncio/{id}")
         suspend fun obtenerResenyasAnuncio(
             @Path("id") id : String
-        ): Response<List<ResenyaModel>>
+        ): Response<MutableList<ResenyaModel>>
 
         @GET("review/usuario/{id}")
         suspend fun obtenerResenyasUsuario(
@@ -168,6 +168,11 @@ interface ApiServices {
             @Path("id_user") id_user : String
         ) : Response<List<ResenyaModel>>
 
+        @GET("review/anuncio/puntuacion/{id}")
+        suspend fun obtenerPuntuacionAnuncio(
+            @Path("id") id : String
+        ) : Response<Float>
+
         @PUT("review/{id}")
         suspend fun actualizarResenya(
             @Path("id") id : String,
@@ -179,7 +184,7 @@ interface ApiServices {
             @Path("id") id: String
         ): Response<ResenyaModel>
 
-        @DELETE("review/usuario/{id}")
+        @DELETE("review/anuncio/{id}")
         suspend fun borrarResenyasAnuncio(
             @Path("id") id: String
         ): Response<Any>
@@ -206,6 +211,11 @@ interface ApiServices {
            @Path("id") id : String
        ) : Response<Any>
 
+       @DELETE("anunciosGuardados/deleteAll/{id}")
+       suspend fun borrarAnunciosGuardadosIdAnuncio(
+           @Path("id") id : String
+       ) : Response<Any>
+
 
         /**************Visualizaciones*******************/
         @POST("visualizacion")
@@ -218,5 +228,10 @@ interface ApiServices {
             @Path("id_anuncio") id_anuncio : String,
             @Path("id_usuario") id_usuario : String
         ) : Response<MutableList<VisualizacionesModel>>
+
+        @DELETE("visualizacion/anuncios/{id}")
+        suspend fun eliminarVisualizacionesAnuncio(
+            @Path("id") id : String
+        ) : Response<Any>
     }
 }
