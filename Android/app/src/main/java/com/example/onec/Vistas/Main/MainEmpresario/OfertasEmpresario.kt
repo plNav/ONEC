@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.onec.Models.ModelOferta
 import com.example.onec.R
-import com.example.onec.Soporte.FireAuth
 import com.example.onec.ViewModels.OfertaViewModel
 import com.example.onec.ui.theme.OnecTheme
 
@@ -58,10 +57,10 @@ fun ofertaEmpresario(selected: MutableState<Boolean>, navController: NavControll
                             ) },
                         actions = {
                             IconButton(onClick = {
-                                val oferta = ModelOferta(id_usuario = FireAuth.user!!.uid,"Prueba","Descripcion")
+                                //val oferta = ModelOferta(id_usuario = FireAuth.user!!.uid,"Prueba","Descripcion")
                                 isLoading.value = true
                                 hasResult.value = false
-                                viewModelOferta.crearOferta(ModelOferta(FireAuth.user!!.uid,"Titulo","asdgkj")) {
+                                viewModelOferta.crearOferta(ModelOferta("asxggsdfd","Titulo","asdgkj")) {
                                     if (it != null) {
                                         viewModelOferta.ofertaCreada = it
                                         isLoading.value = false

@@ -1,0 +1,104 @@
+###
+POST http://localhost:8081/api/usuario HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "yeray1dam@gmail.com",
+    "password" : "1234"
+}
+
+###
+GET http://localhost:8081/api/usuario HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv/6220b0aa8197a378ac0f9dab HTTP/1.1
+
+
+###
+GET http://localhost:8081/api/usuario/email/:email HTTP/1.1
+
+###
+PUT http://localhost:8081/api/usuario/621f90705e83904d12fdc58c HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "asd@gmail.com",
+    "password": "4321"
+}
+
+###
+POST  http://localhost:8081/api/cv/621f90705e83904d12fdc58c/https://upload.wikimedia.org/wikipedia/commons/6/63/Logo_La_Linea_100x100.png HTTP/1.1
+
+###
+DELETE http://localhost:8081/api/usuario/621f90705e83904d12fdc58c HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv/busquedaAvanzada?titulo=Técnico superior en desarrollo de aplicaciones multiplataforma HTTP/1.1
+
+
+###
+POST http://localhost:8081/api/oferta HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_user" : "userYeray",
+    "nombre" : "Programador multiplaforma, Java, Mysql 2 años experienca",
+    "experiencia" : 1,
+    "titulo" : "Ciclo formativo grado superior",
+    "especialidad" : "Técnico superior en desarrollo de aplicaciones multiplataforma",
+    "habilidades": ["Kotlin","Java","C#","random"]
+}
+
+###
+POST http://localhost:8081/api/oferta HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_user" : "userYeray",
+    "nombre" : "Programador multiplaforma, Java, Mysql 2 años experienca",
+    "experiencia" : 0,
+    "titulo" : "Ciclo formativo grado superior",
+    "especialidad" : "Técnico superior en desarrollo de aplicaciones multiplataforma",
+    "habilidades": ["Kotlin","Java","C#","random"]
+}
+
+###
+GET http://localhost:8081/api/oferta HTTP/1.1
+
+###
+GET http://localhost:8081/api/oferta/625aa8e14ed3824e1a650807 HTTP/1.1
+
+### Obtener Ofertas de un usuario
+GET http://localhost:8081/api/oferta/usuario/userYeray HTTP/1.1
+
+### Obtener CVs Filtrados por oferta
+GET http://localhost:8081/api/cv/oferta/625ae566603b0ae842d8f828/N HTTP/1.1
+
+### Obtener CV de un usuario
+GET http://localhost:8081/api/cv/usuario/6220b0aa8197a378ac0f9dab HTTP/1.1
+
+### Borrar CV de un usuario
+DELETE http://localhost:8081/api/cv/625bf37392ca75023c8385d5 HTTP/1.1
+
+###
+GET http://localhost:8081/api/anuncio HTTP/1.1
+
+###
+POST http://localhost:8081/api/anunciosGuardados HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_anuncio" : "626521f0b3aecb972d6ec515",
+    "id_user" : "6264793e944cac962015f120",
+    "categoria" : "asdasd",
+    "nombre" : "asdasdg",
+    "descripcion" : "asdljkg",
+    "precio" : 100,
+    "precioPorHora" : true
+}
+
+###
+GET http://localhost:8081/api/anuncio/buscar/desarrollo web HTTP/1.1

@@ -1,0 +1,21 @@
+﻿<Window x:Class="ONEC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ONEC"
+        mc:Ignorable="d"
+        Title="ONEC" 
+        Height="600" 
+        Width="800"
+        MinHeight="650"
+        MinWidth="700"
+        WindowStartupLocation="CenterScreen" 
+        SizeToContent="Manual" 
+        FontFamily="/ONEC;component/Resources/#Comfortaa">
+    <Grid Background="#333542">
+        <Frame x:Name="frameContent" NavigationUIVisibility="Hidden">
+            
+        </Frame>
+    </Grid>
+</Window>

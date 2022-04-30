@@ -205,41 +205,42 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                     }else {
                                       //Comprobamos cada campo y registramos al usuario
                                         //Comprobamos que el valor de email sea un email válido
-                                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.value).matches()) {
+                                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.value.trim()).matches()) {
                                             isDialogOpen.value = true
                                             dialogError.value = "El campo de email\ncontiene un formato no válido."
 
                                         }else {
                                             //Comprobamos que el email no esté en uso
-                                            loginRegistroViewModel.comprobarEmailExistente(email = email.value){ existe ->
-                                                if (existe) {
+                                            loginRegistroViewModel.comprobarEmailExistente(email = email.value){ existe,cause ->
+                                                if (existe && cause == "existe") {
                                                     //El correo ya existe, mostramos un error
                                                     isDialogOpen.value = true
                                                     dialogError.value = "El correo introducido\nya pertenece a un usuario."
-                                                }else {
-                                                    //Comprobamos la longitud de la contraseña
-                                                    if (password.value.length < 6) {
-                                                        //Mostramos un error, la longitud debe ser mayor o igual a 6 (Firebase)
-                                                        isDialogOpen.value = true
-                                                        dialogError.value = "La contraseña introducida\ndebe tener almenos 6 carácteres."
-                                                    }else if(password.value.contains(' ')) {
-                                                        isDialogOpen.value = true
-                                                        dialogError.value = "La contraseña introducida\nno puede contener espacios."
-                                                    }else {
-                                                        //Todos los campos son válidos, registrar usuario
-                                                        loginRegistroViewModel.registrar(email = email.value.trim(), password = password.value) { registrado ->
-                                                            if (registrado) {
+                                                }else if (!existe && cause == "no existe"){
+                                                        //Todos los campos son válidos, comprobar que las contraseñas coinciden
+                                                            if (password.value.contains(" ") || repass.value.contains(" ")) {
+                                                                isDialogOpen.value = true
+                                                                dialogError.value = "La contraseña\nno puede contener espacios."
+                                                            }else if (password.value == repass.value) {
+                                                                loginRegistroViewModel.registrar(email = email.value.trim(), password = password.value) { registrado, cause ->
+                                                                    if (registrado && cause == "good") {
                                                                 //El usuario se ha registrado, navegar hacia la vista de Main
-                                                                navController.navigate(Rutas.Main.route) {
-                                                                    popUpTo(0)
+                                                                        navController.navigate(Rutas.TipoCuenta.route) {
+                                                                            popUpTo(0)
+                                                                        }
+                                                                    } else {
+                                                                        //Ha ocurrido un error al registrar el usuario, mostrar el dialog.
+                                                                        isDialogOpen.value = true
+                                                                        dialogError.value = "Ha ocurrido un error\npor favor, intentelo más tarde."
+                                                                    }
                                                                 }
                                                             }else {
-                                                                //Ha ocurrido un error al registrar el usuario, mostrar el dialog.
                                                                 isDialogOpen.value = true
-                                                                dialogError.value = "Ha ocurrido un error\npor favor, intentelo más tarde."
+                                                                dialogError.value = "Las contraseñas introducidas\ndeben coincidir"
                                                             }
-                                                        }
-                                                    }
+                                                }else {
+                                                    isDialogOpen.value = true
+                                                    dialogError.value = "Ha ocurrido un error\npor favor, intentelo más tarde."
                                                 }
                                             }
                                         }
