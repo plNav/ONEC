@@ -97,9 +97,6 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
             CvViewModel()
         }
 
-        val bitmap = remember {
-            mutableStateOf<Bitmap?>(null)
-        }
 
         /** scrollState -> Almacena el estado del scroll*/
         val scrollState = rememberScrollState(0)
@@ -124,20 +121,6 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
 
 
 
-        /** launcher -> Sirve para poder abrir la galeria y seleccionar una imagen*/
-        val launcher =
-            rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
-                if (uri != null) {
-                    selectedImage.value = uri
-                    StaticVariables.imageUri = uri
-                    //Creamos un archivo que apunta al uri que hemos sacado antes
-                    //StaticVariables.imagen = File(uri.toString())
-                    //Guardar imagen como bitmap
-                    //Log.d("imagen",StaticVariables!!.imagen!!.absolutePath)
-                }
-                StaticVariables.fragmento = 3
-                Log.e("Uri",selectedImage.value.toString())
-            }
 
 
         Box(
@@ -158,31 +141,7 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                         .padding(horizontal = 20.dp)
                         .fillMaxSize()
                         .verticalScroll(scrollState, enabled = true), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceEvenly) {
-                        Text(text = "Seleccione una imagen", fontSize = 19.sp, color = Color(0xffbfc9c9))
-                        Spacer(modifier = Modifier.height(10.dp))
-                            SubcomposeAsyncImage(model = ImageRequest.Builder(LocalContext.current)
-                                .data(selectedImage.value)
-                                .crossfade(true)
-                                .transformations(CircleCropTransformation())
-                                .build(), loading = { CircularProgressIndicator()}, contentDescription = "Imagen",modifier = Modifier
-                                .clickable {
-                                    launcher.launch("image/*")
-
-                                }
-                                .fillMaxHeight(0.3f)
-                                .fillMaxWidth(0.3f),
-                                error = {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.foto),
-                                        contentDescription = "Default",
-                                        modifier = Modifier
-                                            .fillMaxHeight(0.3f)
-                                            .fillMaxWidth(0.3f)
-                                    )
-                                },
-                                contentScale = ContentScale.Crop
-                               )
-
+                        Text(text = "Datos Personales", fontSize = 19.sp, color = Color(0xffbfc9c9))
                         //Mostramos el resto de la vista de crear CV
                         //Nombre
                         Spacer(modifier = Modifier.height(10.dp))
@@ -274,7 +233,7 @@ fun creaCvDatos(valor : MutableState<String>,error: MutableState<Boolean>, mensa
                         Spacer(modifier = Modifier.height(30.dp))
                         Button(
                             onClick = {
-                                if(nombre.value.isNotBlank() && nombre.value.isNotEmpty() && telefono.value.isNotBlank() && telefono.value.isNotEmpty() && ubicacion.value.isNotBlank() && ubicacion.value.isNotEmpty() && selectedImage.value != null) {
+                                if(nombre.value.isNotBlank() && nombre.value.isNotEmpty() && telefono.value.isNotBlank() && telefono.value.isNotEmpty() && ubicacion.value.isNotBlank() && ubicacion.value.isNotEmpty()) {
                                     StaticVariables.pasoRegistro = "2"
                                     StaticVariables.nombreCv = nombre.value
                                     StaticVariables.telefono = telefono.value
@@ -340,10 +299,6 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
             mutableStateOf("")
         }
 
-        /**showPopUp -> Booleano que controla si se muestra o no el dialogo para crear una nueva habilidad*/
-        val showPopUp = remember {
-            mutableStateOf(false)
-        }
 
         /** scrollState -> Almacena el estado del scroll*/
         val scrollState = rememberScrollState(0)
@@ -749,7 +704,7 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                 "Enseñanzas artísticas(regladas)" -> especialidad.value = stringArrayResource(R.array.artisticas)
                 "Enseñanzas deportivas(regladas)" ->  especialidad.value = stringArrayResource(R.array.deportivas)
                 "Grado" -> especialidad.value = stringArrayResource(R.array.grado)
-                "Licencitura" -> especialidad.value = stringArrayResource(R.array.licenciatura)
+                "Licenciatura" -> especialidad.value = stringArrayResource(R.array.licenciatura)
                 "Diplomatura" -> especialidad.value = stringArrayResource(R.array.diplomatura)
                 "Ingeniería técnica" -> especialidad.value = stringArrayResource(R.array.ing_tec)
                 "Ingeniería superior" -> especialidad.value = stringArrayResource(R.array.ing_sup)
@@ -1156,7 +1111,6 @@ fun guardandoPerfil(resultState: MutableState<String>) {
             }
              cv.value = CvPost(
                 StaticVariables.usuario!!._id,
-                "Prueba",
                 StaticVariables.nombreCv,
                 StaticVariables.telefono,
                 StaticVariables.ubicacion,

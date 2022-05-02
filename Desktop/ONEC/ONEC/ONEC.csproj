@@ -91,6 +91,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API_MODELS\CV.cs" />
     <Compile Include="SUPPORT\Encrypt.cs" />
     <Compile Include="SUPPORT\StaticResources.cs" />
     <Compile Include="SUPPORT\Titulos.cs" />
@@ -102,6 +103,18 @@
     </Compile>
     <Compile Include="VIEWS\Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\CrearCV.xaml.cs">
+      <DependentUpon>CrearCV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\CVLoader.xaml.cs">
+      <DependentUpon>CVLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\EditarCV.xaml.cs">
+      <DependentUpon>EditarCV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\ErrorCargaCV.xaml.cs">
+      <DependentUpon>ErrorCargaCV.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
@@ -131,6 +144,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\StylishScrollbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Error\ErrorPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -140,6 +157,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEWS\Login\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\CrearCV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\CVLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\EditarCV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\ErrorCargaCV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,6 +211,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\delete.png" />
+    <Resource Include="IMAGES\location.png" />
+    <Resource Include="IMAGES\phone.png" />
+    <Resource Include="IMAGES\user.png" />
     <Resource Include="IMAGES\errorlog.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -225,7 +262,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="VIEWS\Main\Anuncios\" />
-    <Folder Include="VIEWS\Main\CV\" />
     <Folder Include="VIEWS\Main\Ofertas\" />
     <Folder Include="VIEWS\Main\Perfil\" />
   </ItemGroup>

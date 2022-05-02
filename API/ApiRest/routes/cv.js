@@ -24,7 +24,7 @@ router.post("/cv", (req, res) => {
         console.log("\nNuevo CV: \n"+data);
     })
     .catch((err) => {
-        res.json({message:err});
+        res.status(500).json({message : err});
         console.error("Error post /api/cv: "+err);
     })
 });
@@ -75,9 +75,9 @@ router.get("/cv/usuario/:id", (req, res) => {
 //Actualizar CV
 router.put("/cv/:id", (req, res) => {
     const {id} = req.params;
-    const {id_user, foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow} = req.body;
+    const {id_user, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow} = req.body;
     cvSchema
-    .updateOne({_id: id},{$set:{id_user,foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow}})
+    .updateOne({_id: id},{$set:{id_user, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow}})
     .then((data) => {
         res.json(data);
         console.log("\nCV actualizado\n" + data);

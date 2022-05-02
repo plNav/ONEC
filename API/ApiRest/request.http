@@ -101,4 +101,16 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/anuncio/buscar/desarrollo web HTTP/1.1
+GET http://localhost:8081/api/anuncio/buscar/progra HTTP/1.1
+
+###
+GET http://localhost:8081/api/review/anuncio/puntuacion/62699857ca3318b5f5b16e65 HTTP/1.1
+
+###
+GET http://localhost:8081/api/anunciosGuardados/usuario/626af4631f1b55214dd28678 HTTP/1.1
+
+###
+GET http://localhost:8081/api/usuario HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv/dgdfg HTTP/1.1
