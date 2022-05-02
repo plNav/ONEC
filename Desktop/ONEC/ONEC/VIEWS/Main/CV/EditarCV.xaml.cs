@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ONEC.SUPPORT;
+using ONEC.VIEWS.Error;
+using ONEC.VIEWS.Loading;
+using ONEC.VIEWS.Did;
 
 namespace ONEC.VIEWS
 {
@@ -100,6 +103,7 @@ namespace ONEC.VIEWS
 
         private void cmbTitulos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             string titulo = cmbTitulos.SelectedItem.ToString();
             switch (titulo)
             {
@@ -381,7 +385,6 @@ namespace ONEC.VIEWS
                 {
                     wrapHabilidades.Children.Remove(border);
                     habilidades.Remove(habilidad);
-                    MessageBox.Show(habilidades.Count().ToString());
                 };
 
                 Grid.SetColumn(borrar, 1);
@@ -390,6 +393,87 @@ namespace ONEC.VIEWS
                 border.Child = grid;
                 wrapHabilidades.Children.Add(border);
             }
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtNombre.Text) || String.IsNullOrWhiteSpace(txtNombre.Text) || String.IsNullOrEmpty(txtTelefono.Text) || String.IsNullOrWhiteSpace(txtTelefono.Text) || String.IsNullOrEmpty(txtUbicacion.Text) || String.IsNullOrWhiteSpace(txtUbicacion.Text))
+            {
+                ErrorPopUp err = new ErrorPopUp("Faltan campos por introducir");
+                err.Show();
+            }else if(cmbEspecialidad.Visibility == Visibility.Visible && cmbEspecialidad.SelectedIndex == -1 || txtEspecialidad.Visibility == Visibility.Visible && String.IsNullOrEmpty(txtEspecialidad.Text) || txtEspecialidad.Visibility == Visibility.Visible && String.IsNullOrWhiteSpace(txtEspecialidad.Text))
+            {
+                ErrorPopUp err = new ErrorPopUp("Debe introducir una especialidad");
+                err.Show();
+            }else if (txtExperiencia.Text.Contains(" "))
+            {
+                ErrorPopUp err = new ErrorPopUp("La experiencia introducida\ntiene un formato no válido");
+                err.Show();
+            }else
+            {
+                int experiencia = txtExperiencia.Text.Equals("") ? 0 : int.Parse(txtExperiencia.Text);
+                string especialidad = !String.IsNullOrEmpty(txtEspecialidad.Text)  && gridEspecialidad.Visibility == Visibility.Visible|| !String.IsNullOrWhiteSpace(txtEspecialidad.Text) && gridEspecialidad.Visibility == Visibility.Visible ? txtEspecialidad.Text : cmbEspecialidad.SelectedIndex != -1 && gridEspecialidad.Visibility == Visibility.Visible ? cmbEspecialidad.SelectedItem.ToString() : "";
+                List<string> listLower = habilidades.Select(x => x.ToLower()).ToList();
+                CV cv = new CV(Usuario.usuarioActual._id, txtNombre.Text, txtTelefono.Text, txtUbicacion.Text, Usuario.usuarioActual.email, experiencia,cmbTitulos.SelectedItem.ToString(), especialidad, habilidades, listLower);
+                Loading.Loading loading = new Loading.Loading();
+                loading.Show();
+                if (!CV.cvActual.titulo.Equals(cv.titulo) || !CV.cvActual.especialidad.Equals(cv.especialidad))
+                {
+                    if (await CandidatosOfertas.eliminarOfertasCandidato(CV.cvActual._id))
+                    {
+                        if (await CV.actualizarCV(CV.cvActual._id, cv))
+                        {
+                            loading.Close();
+                            CV.cvActual.nombre = cv.nombre;
+                            CV.cvActual.telefono = cv.telefono;
+                            CV.cvActual.ubicacion = cv.ubicacion;
+                            CV.cvActual.experiencia = cv.experiencia;
+                            CV.cvActual.titulo = cv.titulo;
+                            CV.cvActual.especialidad = cv.especialidad;
+                            CV.cvActual.habilidades = cv.habilidades;
+                            CV.cvActual.habilidadesLow = cv.habilidadesLow;
+                            Did.Did did = new Did.Did("Curriculum actualizado", "El curriculum\nha sido actualizado.");
+                            did.ShowDialog();
+                        }
+                        else
+                        {
+                            loading.Close();
+                            ErrorPopUp err = new ErrorPopUp("Error al actualizar CV");
+                            err.Show();
+                        }
+                    }
+                    else
+                    {
+                        loading.Close();
+                        ErrorPopUp err = new ErrorPopUp("Error al actualizar CV");
+                        err.Show();
+                    }
+                }
+                else
+                {
+                    if (await CV.actualizarCV(CV.cvActual._id, cv))
+                    {
+                        loading.Close();
+                        CV.cvActual.nombre = cv.nombre;
+                        CV.cvActual.telefono = cv.telefono;
+                        CV.cvActual.ubicacion = cv.ubicacion;
+                        CV.cvActual.experiencia = cv.experiencia;
+                        CV.cvActual.titulo = cv.titulo;
+                        CV.cvActual.especialidad = cv.especialidad;
+                        CV.cvActual.habilidades = cv.habilidades;
+                        CV.cvActual.habilidadesLow = cv.habilidadesLow;
+                        Did.Did did = new Did.Did("Curriculum actualizado", "El curriculum\nha sido actualizado.");
+                        did.ShowDialog();
+                    }
+                    else
+                    {
+                        loading.Close();
+                        ErrorPopUp err = new ErrorPopUp("Error al actualizar CV");
+                        err.Show();
+                    }
+                }
+            }
+            
         }
     }
 }

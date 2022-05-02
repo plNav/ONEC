@@ -187,7 +187,7 @@
                     </ScrollViewer>
                 </Border>
             </Grid>
-            <Button Content="Guardar Cambios" FontSize="19" Foreground="White" Background="#277a96" Grid.Column="1" Grid.Row="17" Height="50" Width="250" Style="{StaticResource ResourceKey=EstiloAceptar}" Margin="0,0,0,10"/>
+            <Button Content="Guardar Cambios" FontSize="19" Foreground="White" Background="#277a96" Grid.Column="1" Grid.Row="17" Height="50" Width="250" Style="{StaticResource ResourceKey=EstiloAceptar}" Margin="0,0,0,10" Click="Button_Click"/>
         </Grid>
     </ScrollViewer>
 </Page>

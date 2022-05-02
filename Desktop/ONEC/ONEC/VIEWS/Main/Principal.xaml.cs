@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ONEC.API_MODELS;
+using ONEC.VIEWS.Main.Anuncios;
 
 namespace ONEC.VIEWS.Main
 {
@@ -51,6 +52,7 @@ namespace ONEC.VIEWS.Main
                         cleanElements();
                         imgAnuncios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\anuncios_b.png");
                         txtAnuncios.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                        mainFrame.Content = new AnunciosLoader(this);
                         selectedPage = "anuncios";
                     }
                     break;

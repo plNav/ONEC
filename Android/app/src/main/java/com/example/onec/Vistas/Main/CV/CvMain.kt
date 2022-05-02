@@ -825,7 +825,7 @@ fun muestraCv() {
                                       }else {
                                           loading.value = true
                                           val exp = if (experiencia.value == "") 0 else experiencia.value.toInt()
-                                          val esp = if (especialidad.value == "") null else especialidad.value
+                                          val esp = if (!mostrarEspecialidad) "" else especialidad.value
                                           val habilidadesLow = listHabilidades.value.map { it.lowercase() }
                                           val cv = CvPost(StaticVariables.usuario!!._id,nombre.value,telefono.value,ubicacion.value,StaticVariables.usuario!!.email,exp,titulo.value,esp,listHabilidades.value,habilidadesLow.toMutableList())
                                           if (titulo.value != StaticVariables.cv!!.titulo || especialidad.value != StaticVariables.cv!!.especialidad) {

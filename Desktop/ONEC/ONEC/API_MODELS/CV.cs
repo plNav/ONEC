@@ -107,8 +107,47 @@ namespace ONEC.API_MODELS
             if (httpResponse.IsSuccessStatusCode)
             {
                 string content = await httpResponse.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<CV>(content);
+                CV cv = JsonSerializer.Deserialize<CV>(content);
+                cvActual = cv;
+                return cv;
             }else throw new HttpRequestException("Respuesta fallida en comprobarMail");
+        }
+
+        public static async Task<bool> actualizarCV(string id, CV cv)
+        {
+            string url = $"{StaticResources.urlHead}cv/{id}";
+
+            JObject habilidades = new JObject();
+            habilidades["habilidades"] = JToken.FromObject(cv.habilidades);
+
+
+            JObject jsonHabilidadesLow = new JObject();
+            jsonHabilidadesLow["habilidadesLow"] = JToken.FromObject(cv.habilidadesLow);
+
+            JObject values = new JObject
+            {
+                {"id_user", cv.id_user},
+                {"nombre", cv.nombre },
+                {"telefono", cv.telefono },
+                {"ubicacion",cv.ubicacion },
+                {"correo",cv.correo },
+                {"experiencia",cv.experiencia },
+                {"titulo",cv.titulo },
+                {"especialidad", cv.especialidad },
+                {"habilidades", habilidades["habilidades"] },
+                {"habilidadesLow", jsonHabilidadesLow["habilidadesLow"] }
+            };
+
+            HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.PutAsync(url, content);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string result = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else return false;
         }
     }
 }

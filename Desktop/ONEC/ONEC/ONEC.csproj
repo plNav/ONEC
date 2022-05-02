@@ -91,10 +91,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API_MODELS\Anuncio.cs" />
+    <Compile Include="API_MODELS\CandidatosOfertas.cs" />
     <Compile Include="API_MODELS\CV.cs" />
     <Compile Include="SUPPORT\Encrypt.cs" />
     <Compile Include="SUPPORT\StaticResources.cs" />
     <Compile Include="SUPPORT\Titulos.cs" />
+    <Compile Include="VIEWS\Did\Did.xaml.cs">
+      <DependentUpon>Did.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEWS\Error\ErrorPopUp.xaml.cs">
       <DependentUpon>ErrorPopUp.xaml</DependentUpon>
     </Compile>
@@ -103,6 +108,15 @@
     </Compile>
     <Compile Include="VIEWS\Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosLoader.xaml.cs">
+      <DependentUpon>AnunciosLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosMain.xaml.cs">
+      <DependentUpon>AnunciosMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\ErrorCargaAnuncios.xaml.cs">
+      <DependentUpon>ErrorCargaAnuncios.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\CV\CrearCV.xaml.cs">
       <DependentUpon>CrearCV.xaml</DependentUpon>
@@ -148,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Did\Did.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Error\ErrorPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +175,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEWS\Login\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\ErrorCargaAnuncios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,6 +241,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\good.png" />
     <Resource Include="IMAGES\delete.png" />
     <Resource Include="IMAGES\location.png" />
     <Resource Include="IMAGES\phone.png" />
@@ -261,7 +292,7 @@
     <Resource Include="IMAGES\revemail.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="VIEWS\Main\Anuncios\" />
+    <Folder Include="VIEWS\Main\Anuncios\AnunciosEmpresario\" />
     <Folder Include="VIEWS\Main\Ofertas\" />
     <Folder Include="VIEWS\Main\Perfil\" />
   </ItemGroup>
