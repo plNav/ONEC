@@ -92,8 +92,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API_MODELS\Anuncio.cs" />
+    <Compile Include="API_MODELS\AnunciosGuardados.cs" />
     <Compile Include="API_MODELS\CandidatosOfertas.cs" />
     <Compile Include="API_MODELS\CV.cs" />
+    <Compile Include="API_MODELS\Resenyas.cs" />
+    <Compile Include="API_MODELS\Visualizaciones.cs" />
     <Compile Include="SUPPORT\Encrypt.cs" />
     <Compile Include="SUPPORT\StaticResources.cs" />
     <Compile Include="SUPPORT\Titulos.cs" />
@@ -114,6 +117,12 @@
     </Compile>
     <Compile Include="VIEWS\Main\Anuncios\AnunciosMain.xaml.cs">
       <DependentUpon>AnunciosMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\CrearAnuncio.xaml.cs">
+      <DependentUpon>CrearAnuncio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\EditarAnuncio.xaml.cs">
+      <DependentUpon>EditarAnuncio.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\Anuncios\ErrorCargaAnuncios.xaml.cs">
       <DependentUpon>ErrorCargaAnuncios.xaml</DependentUpon>
@@ -186,6 +195,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Main\Anuncios\CrearAnuncio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\EditarAnuncio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Main\Anuncios\ErrorCargaAnuncios.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -241,6 +258,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\deleteB.png" />
+    <Resource Include="IMAGES\pencilB.png" />
+    <Resource Include="IMAGES\fullstar.png" />
+    <Resource Include="IMAGES\numvistas.png" />
+    <Resource Include="IMAGES\euro.png" />
+    <Resource Include="IMAGES\categoria.png" />
+    <Resource Include="IMAGES\descripcion.png" />
+    <Resource Include="IMAGES\pencil.png" />
+    <Resource Include="IMAGES\agregar.png" />
     <Resource Include="IMAGES\good.png" />
     <Resource Include="IMAGES\delete.png" />
     <Resource Include="IMAGES\location.png" />

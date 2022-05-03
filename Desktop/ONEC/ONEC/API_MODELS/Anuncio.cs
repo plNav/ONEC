@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace ONEC.API_MODELS
 {
-    class Anuncio
+    public class Anuncio
     {
+        public string _id { get; set; }
         public string id_user { get; set; }
         public string categoria { get; set; }
         public string nombre { get; set; }
@@ -21,13 +22,14 @@ namespace ONEC.API_MODELS
 
         public static Anuncio anuncioCreado;
         public static Anuncio anuncioBuscado;
+        public static List<Anuncio> anunciosUsuario;
 
         public Anuncio()
         {
 
         }
 
-        public Anuncio(string id_user, string categoria, string nombre, string descripcion, float precio, bool precioPorHora, int numVecesVisto)
+        public Anuncio(string id_user, string categoria, string nombre, string descripcion, float precio, bool precioPorHora)
         {
             this.id_user = id_user;
             this.categoria = categoria;
@@ -102,9 +104,27 @@ namespace ONEC.API_MODELS
             {
                 string content = await httpResponse.Content.ReadAsStringAsync();
                 List<Anuncio> Lan = JsonSerializer.Deserialize<List<Anuncio>>(content);
+                anunciosUsuario = Lan;
                 return Lan;
             }
             else throw new HttpRequestException("Respuesta fallida en comprobarMail");
+        }
+
+        //Eliminar anuncio
+        public static async Task<bool> eliminarAnuncio(string id)
+        {
+            string url = $"{StaticResources.urlHead}anuncio/{id}";
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.DeleteAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ namespace ONEC.VIEWS.Main.Anuncios
     /// </summary>
     public partial class AnunciosLoader : Page
     {
+       
         public AnunciosLoader(Principal principal)
         {
             InitializeComponent();
@@ -37,8 +38,9 @@ namespace ONEC.VIEWS.Main.Anuncios
                 //Cargamos los anuncios del usuario
                 try
                 {
-                    List<Anuncio> anuncios = await Anuncio.obtenerAnunciosUsuario(Usuario.usuarioActual._id);
+                      List<Anuncio> anuncios = await Anuncio.obtenerAnunciosUsuario(Usuario.usuarioActual._id);
                     //los anuncios se cargan y los pasamos a otra ventana, en la que gestionamos si la lista está vacía o no
+                    principal.mainFrame.Content = new AnunciosMain(principal, anuncios);
                 }catch(Exception ex)
                 {
                     //Mostramos el error
