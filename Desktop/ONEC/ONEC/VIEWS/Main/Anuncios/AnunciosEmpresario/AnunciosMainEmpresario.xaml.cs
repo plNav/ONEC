@@ -21,13 +21,13 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
     /// </summary>
     public partial class AnunciosMainEmpresario : Page
     {
-        public AnunciosMainEmpresario(Principal principal, List<Anuncio> anuncios, List<Usuario> usuarios, List<float> puntuaciones)
+        public AnunciosMainEmpresario(List<Anuncio> anuncios, List<Usuario> usuarios, List<float> puntuaciones)
         {
             InitializeComponent();
-            cargarAnunciosFav(principal, anuncios, usuarios, puntuaciones);
+            cargarAnunciosFav(anuncios, usuarios, puntuaciones);
         }
 
-        private void cargarAnunciosFav(Principal principal, List<Anuncio> anuncios, List<Usuario> usuarios, List<float> puntuaciones)
+        private void cargarAnunciosFav(List<Anuncio> anuncios, List<Usuario> usuarios, List<float> puntuaciones)
         {
             for(int x = 0; x < anuncios.Count(); x++)
             {
@@ -122,6 +122,13 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
                     FontSize = 15,
                     Margin = new Thickness(5, 0, 0, 10)
                 };
+                stackPanel.Children.Add(txtCorreo);
+                border.Child = stackPanel;
+                grid.RowDefinitions.Add(row);
+                grid.RowDefinitions.Add(row2);
+                Grid.SetRow(stackPanel, 0);
+                grid.Children.Add(border);
+                panelAnuncios.Children.Add(grid);
             }
         }
     }

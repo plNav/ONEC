@@ -22,11 +22,12 @@ namespace ONEC.VIEWS.Main.Anuncios
     /// </summary>
     public partial class AnunciosLoader : Page
     {
-       
+        Principal prin;
         public AnunciosLoader(Principal principal)
         {
             InitializeComponent();
-            cargarAnuncios(principal);
+            this.prin = principal;
+            cargarAnuncios(prin);
         }
 
         public async void cargarAnuncios(Principal principal)
@@ -36,21 +37,18 @@ namespace ONEC.VIEWS.Main.Anuncios
                 //Cargamos Anuncios Guardados
                 try
                 {
+
                     List<AnunciosGuardados> anunciosG = await AnunciosGuardados.obtenerAnunciosGuardadosUsuarioID(Usuario.usuarioActual._id);
-                    List<Anuncio> anuncios = new List<Anuncio>();
-                    List<Usuario> usuarios = new List<Usuario>();
-                    List<float> puntuaciones = new List<float>();
-                    foreach(AnunciosGuardados anuncio in anunciosG)
-                    {
-                       anuncios.Add(await Anuncio.obtenerAnuncioId(anuncio.id_anuncio));
-                       usuarios.Add(await Usuario.obtenerUsuarioId(anuncio.id_user));
-                       puntuaciones.Add(await Resenyas.obtenerPuntuacionAnuncio(anuncio.id_anuncio));
-                    }
-                    principal.mainFrame.Content = new AnunciosMainEmpresario(principal, anuncios, usuarios, puntuaciones);
+                    List<Anuncio> anuncios = await obtenerAnuncios(anunciosG);
+                    List<Usuario> usuarios = await obtenerUsuarios(anunciosG);
+                    List<float> puntuaciones = await obtenerPuntuaciones(anunciosG);
+                    principal.mainFrame.Content = new AnunciosMainEmpresario(anuncios, usuarios, puntuaciones);
+                    //principal.mainFrame.Content = new AnunciosMain(principal, anuncios);
                 }
                 catch (Exception ex)
                 {
                     principal.mainFrame.Content = new ErrorCargaAnuncios(principal);
+                    MessageBox.Show(ex.Message);
                 }
             }else
             {
@@ -66,6 +64,38 @@ namespace ONEC.VIEWS.Main.Anuncios
                     principal.mainFrame.Content = new ErrorCargaAnuncios(principal);
                 }
             }
+        }
+
+
+        //Funciones asíncronas que recorren los anuncios y nos devuelven las listas necesarias
+        private async Task<List<Anuncio>> obtenerAnuncios(List<AnunciosGuardados> anuncios)
+        {
+            List<Anuncio> lista = new List<Anuncio>();
+            foreach(AnunciosGuardados an in anuncios)
+            {
+                lista.Add(await Anuncio.obtenerAnuncioId(an.id_anuncio));
+            }
+            return lista;
+        }
+
+        private async Task<List<Usuario>> obtenerUsuarios(List<AnunciosGuardados> anuncios)
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            foreach (AnunciosGuardados an in anuncios)
+            {
+                usuarios.Add(await Usuario.obtenerUsuarioId(an.id_user));
+            }
+            return usuarios;
+        }
+
+        private async Task<List<float>> obtenerPuntuaciones(List<AnunciosGuardados> anuncios)
+        {
+            List<float> puntuaciones = new List<float>();
+            foreach (AnunciosGuardados an in anuncios)
+            {
+                puntuaciones.Add(await Resenyas.obtenerPuntuacionAnuncio(an.id_anuncio));
+            }
+            return puntuaciones;
         }
     }
 }
