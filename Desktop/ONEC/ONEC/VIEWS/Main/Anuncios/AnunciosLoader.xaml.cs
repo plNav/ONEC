@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ONEC.API_MODELS;
+using ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario;
 
 namespace ONEC.VIEWS.Main.Anuncios
 {
@@ -33,6 +34,24 @@ namespace ONEC.VIEWS.Main.Anuncios
             if(StaticResources.modoEmpresario)
             {
                 //Cargamos Anuncios Guardados
+                try
+                {
+                    List<AnunciosGuardados> anunciosG = await AnunciosGuardados.obtenerAnunciosGuardadosUsuarioID(Usuario.usuarioActual._id);
+                    List<Anuncio> anuncios = new List<Anuncio>();
+                    List<Usuario> usuarios = new List<Usuario>();
+                    List<float> puntuaciones = new List<float>();
+                    foreach(AnunciosGuardados anuncio in anunciosG)
+                    {
+                       anuncios.Add(await Anuncio.obtenerAnuncioId(anuncio.id_anuncio));
+                       usuarios.Add(await Usuario.obtenerUsuarioId(anuncio.id_user));
+                       puntuaciones.Add(await Resenyas.obtenerPuntuacionAnuncio(anuncio.id_anuncio));
+                    }
+                    principal.mainFrame.Content = new AnunciosMainEmpresario(principal, anuncios, usuarios, puntuaciones);
+                }
+                catch (Exception ex)
+                {
+                    principal.mainFrame.Content = new ErrorCargaAnuncios(principal);
+                }
             }else
             {
                 //Cargamos los anuncios del usuario

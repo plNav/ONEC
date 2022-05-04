@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ONEC.API_MODELS
 {
-    class Usuario
+    public class Usuario
     {
          /********************************
          *          Variables            *

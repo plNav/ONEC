@@ -22,6 +22,7 @@ namespace ONEC.VIEWS.Did
         public Did(string tituloVentana, string msg)
         {
             InitializeComponent();
+            Owner = StaticResources.main;
             tituloV.Content = tituloVentana;
             txtMsg.Text = msg;
             StaticResources.main.Opacity = 0.5;

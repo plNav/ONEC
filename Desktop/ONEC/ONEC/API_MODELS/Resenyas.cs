@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ONEC.API_MODELS
 {
-    class Resenyas
+    public class Resenyas
     {
         public string id_user { get; set; }
         public string id_anuncio { get; set; }

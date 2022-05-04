@@ -106,11 +106,20 @@
     <Compile Include="VIEWS\Error\ErrorPopUp.xaml.cs">
       <DependentUpon>ErrorPopUp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VIEWS\Info\Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEWS\Loading\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnuncioDetallesError.xaml.cs">
+      <DependentUpon>AnuncioDetallesError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnunciosMainEmpresario.xaml.cs">
+      <DependentUpon>AnunciosMainEmpresario.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\Anuncios\AnunciosLoader.xaml.cs">
       <DependentUpon>AnunciosLoader.xaml</DependentUpon>
@@ -118,8 +127,14 @@
     <Compile Include="VIEWS\Main\Anuncios\AnunciosMain.xaml.cs">
       <DependentUpon>AnunciosMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnuncioValoraciones.xaml.cs">
+      <DependentUpon>AnuncioValoraciones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEWS\Main\Anuncios\CrearAnuncio.xaml.cs">
       <DependentUpon>CrearAnuncio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnuncioDetalles.xaml.cs">
+      <DependentUpon>AnuncioDetalles.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\Anuncios\EditarAnuncio.xaml.cs">
       <DependentUpon>EditarAnuncio.xaml</DependentUpon>
@@ -179,11 +194,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Info\Info.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Loading\Loading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEWS\Login\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnuncioDetallesError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnunciosMainEmpresario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,7 +222,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnuncioValoraciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Main\Anuncios\CrearAnuncio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnuncioDetalles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,6 +293,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\buscar.png" />
+    <Resource Include="IMAGES\fullstarY.png" />
+    <Resource Include="IMAGES\emptystar.png" />
+    <Resource Include="IMAGES\info.png" />
     <Resource Include="IMAGES\deleteB.png" />
     <Resource Include="IMAGES\pencilB.png" />
     <Resource Include="IMAGES\fullstar.png" />
@@ -318,7 +357,6 @@
     <Resource Include="IMAGES\revemail.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="VIEWS\Main\Anuncios\AnunciosEmpresario\" />
     <Folder Include="VIEWS\Main\Ofertas\" />
     <Folder Include="VIEWS\Main\Perfil\" />
   </ItemGroup>

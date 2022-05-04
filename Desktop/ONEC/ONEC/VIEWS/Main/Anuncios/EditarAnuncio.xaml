@@ -7,8 +7,8 @@
       mc:Ignorable="d"
       Height="Auto"
       Width="Auto"
-      d:DesignHeight="600" d:DesignWidth="800"
-      Title="EditarAnuncio">
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="CrearAnuncio">
     <Page.Resources>
         <Style x:Key="MyButtonStyle" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -17,7 +17,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Name="border" 
-                        CornerRadius="7" 
+                        CornerRadius="2" 
                         Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
@@ -41,113 +41,108 @@
             </Setter>
         </Style>
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Column="1" Height="50" Background="#FF12141D">
+    <ScrollViewer>
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
+                <ColumnDefinition  Width="5*"/>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <Image Height="30" Width="30" VerticalAlignment="Center" Source="/ONEC;component/IMAGES/back.png" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="20,0,0,0"/>
-            <Label FontSize="25" Foreground="#fcffff" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Content="Publicar anuncio"  Margin="0,0,20,0"/>
-        </Grid>
-        <ScrollViewer Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="80*"/>
-                    <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Border  Margin="0,5,0,0" Background="#999dba" CornerRadius="5,5,0,0" Padding="5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <TextBlock x:Name="txtCategoria" TextWrapping="Wrap" Foreground="#202020" Text="Prueba" FontWeight="Bold" FontSize="17" Margin="0,0,0,3"/>
-                                <Border Grid.Row="1" Height="1" Background="#FF646464" CornerRadius="2"/>
-                                <TextBlock x:Name="txtNombre" TextWrapping="Wrap" Foreground="#202020" Text="Nombre Anuncio" FontWeight="SemiBold" FontSize="15" Margin="0,0,0,10" Grid.Row="2"/>
-                                <TextBlock Foreground="#E0E3EB" Text="Descripción"  FontSize="14" Grid.Row="3" Margin="0,0,0,3"/>
-                                <TextBlock x:Name="txtDescripcion" Foreground="#202020" Text="Descripción"  FontSize="15" Grid.Row="4" Margin="5,0,0,10" TextWrapping="Wrap"/>
-                                <TextBlock Foreground="#E0E3EB" Text="Precio"  FontSize="14" Grid.Row="5" Margin="0,0,0,3"/>
-                                <TextBlock x:Name="txtPrecio" Foreground="#202020" Text="60€ Hora"  FontSize="15" Grid.Row="6" Margin="5,0,0,10" TextWrapping="Wrap"/>
-                                <TextBlock Foreground="#E0E3EB" Text="Correo"  FontSize="14" Grid.Row="7" Margin="0,0,0,3"/>
-                                <TextBlock x:Name="txtCorreo" Foreground="#202020" Text="u@gmail.com"  FontSize="15" Grid.Row="8" Margin="5,0,0,10" TextWrapping="Wrap"/>
-                            </Grid>
-                        </Border>
-                        <Border Grid.Row="1" Padding="10" Background="#266E86" CornerRadius="0,0,5,5" Margin="0,0,0,10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/numvistas.png"/>
-                                    <TextBlock Text="Visualizaciones" Foreground="White" Grid.Row="1" FontSize="12"/>
-                                    <TextBlock x:Name="txtVisualizaciones" Text="0" Grid.Row="2" Foreground="White" TextAlignment="Center"/>
-                                </Grid>
-                                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/fullstar.png"/>
-                                    <TextBlock Text="Valoración" Foreground="White" Grid.Row="1" FontSize="12"/>
-                                    <TextBlock x:Name="txtPuntuacion" Text="0.0" Grid.Row="2" Foreground="White" TextAlignment="Center"/>
-                                </Grid>
-                            </Grid>
-
-                        </Border>
-                    </Grid>
-                    <Button x:Name="btnEditar" Background="#DF9234" Grid.Row="1" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Editar" Foreground="White" FontSize="15" FontWeight="Bold"/>
-                            <Image Height="15" Width="15" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/pencilB.png"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btnReviews" Background="#209956" Grid.Row="2" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Reseñas" Foreground="White" FontSize="15" FontWeight="Bold"/>
-                            <Image Height="15" Width="15" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/fullstar.png"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btnEliminar" Background="#A53535" Grid.Row="3" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Eliminar" Foreground="White" FontSize="15" FontWeight="Bold"/>
-                            <Image Height="15" Width="15" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/deleteB.png"/>
-                        </StackPanel>
-                    </Button>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label FontSize="30" Foreground="#fcffff" HorizontalAlignment="Center" Grid.Column="1" Content="Editar anuncio" Margin="0,15,0,0"/>
+            <Border Background="#3b3d4c" CornerRadius="7" Grid.Row="1" Height="50" Grid.Column="1" Margin="0,10,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border CornerRadius="7,0,0,7" Background="#26272e" Width="150" HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/categoria.png"/>
+                            <TextBlock Grid.Column="1" FontSize="14" Text="Categoria" VerticalAlignment="Center" Foreground="#999dba" Margin="0,0,10,0"/>
+                        </Grid>
+                    </Border>
+                    <TextBox x:Name="txtCategoria" VerticalContentAlignment="Center" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0"/>
                 </Grid>
-            </Grid>
-        </ScrollViewer>
-    </Grid>
+            </Border>
+
+            <Border Background="#3b3d4c" CornerRadius="7" Grid.Row="2" Height="50" Grid.Column="1" Margin="0,20,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border CornerRadius="7,0,0,7" Background="#26272e" Width="150" HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/pencil.png"/>
+                            <TextBlock Grid.Column="1" FontSize="14" Text="Nombre" VerticalAlignment="Center" Foreground="#999dba" Margin="0,0,10,0"/>
+                        </Grid>
+                    </Border>
+                    <TextBox x:Name="txtNombre" VerticalContentAlignment="Center" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0"/>
+                </Grid>
+            </Border>
+
+            <Border Background="#3b3d4c" CornerRadius="7" Grid.Row="3" Height="200" Grid.Column="1" Margin="0,20,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border CornerRadius="7,0,0,7" Background="#26272e" Width="150" HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/descripcion.png"/>
+                            <TextBlock Grid.Column="1" FontSize="14" Text="Descripcion" VerticalAlignment="Center" Foreground="#999dba" Margin="0,0,10,0"/>
+                        </Grid>
+                    </Border>
+                    <TextBox x:Name="txtDescripcion" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0" TextWrapping="Wrap" Padding="5"/>
+                </Grid>
+            </Border>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,20,0,0">
+                <Label FontSize="15" Foreground="#fcffff" Content="Establecer como precio por hora" VerticalAlignment="Center"/>
+                <CheckBox VerticalAlignment="Center" Margin="0,2,0,0" x:Name="precioHora"/>
+            </StackPanel>
+            <Border Background="#3b3d4c" CornerRadius="7" Grid.Row="5" Height="50" Grid.Column="1" Margin="0,5,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border CornerRadius="7,0,0,7" Background="#26272e" Width="150" HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/euro.png"/>
+                            <TextBlock Grid.Column="1" FontSize="14" Text="Precio" VerticalAlignment="Center" Foreground="#999dba" Margin="0,0,10,0"/>
+                        </Grid>
+                    </Border>
+                    <TextBox x:Name="txtPrecio" VerticalContentAlignment="Center" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0" PreviewTextInput="txtPrecio_PreviewTextInput"/>
+                </Grid>
+            </Border>
+            <Button x:Name="aceptar" Content="Guadar cambios" BorderThickness="0" Background="#277a96" Foreground="White" Grid.Column="1" Grid.Row="6" Height="60" FontSize="20" Margin="0,30,0,0" Style="{StaticResource EstiloAceptar}" Cursor="Hand" Click="aceptar_Click"/>
+            <Button x:Name="cancelar" Content="Cancelar" BorderThickness="0" Background="#FFBD3232" Foreground="White" Grid.Column="1" Grid.Row="7" Height="60" FontSize="20" Margin="0,30,0,10" Style="{StaticResource EstiloAceptar}" Click="cancelar_Click" Cursor="Hand"/>
+        </Grid>
+    </ScrollViewer>
 </Page>

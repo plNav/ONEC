@@ -110,6 +110,35 @@ namespace ONEC.API_MODELS
             else throw new HttpRequestException("Respuesta fallida en comprobarMail");
         }
 
+        //Actualizar anuncio
+
+        public static async Task<bool> actualizarAnuncio(string id, Anuncio anuncio)
+        {
+            string url = $"{StaticResources.urlHead}anuncio/{id}";
+
+            JObject values = new JObject
+            {
+                { "id_user" , anuncio.id_user  },
+                { "categoria" , anuncio.categoria },
+                { "nombre" , anuncio.nombre },
+                { "descripcion" , anuncio.descripcion },
+                { "precio" , anuncio.precio },
+                { "precioPorHora" , anuncio.precioPorHora },
+                { "numVecesVisto" , anuncio.numVecesVisto }
+            };
+
+            HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.PutAsync(url, content);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string result = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else return false;
+        }
+
         //Eliminar anuncio
         public static async Task<bool> eliminarAnuncio(string id)
         {

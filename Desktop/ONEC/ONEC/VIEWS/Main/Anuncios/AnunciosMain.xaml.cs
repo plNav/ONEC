@@ -182,7 +182,7 @@ namespace ONEC.VIEWS.Main.Anuncios
                     Height = 40,
                     Width = 40,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(0, 0, 2, 0),
+                    Margin = new Thickness(0, 0, 10, 0),
                     Cursor = Cursors.Hand
                 };
 
@@ -202,7 +202,7 @@ namespace ONEC.VIEWS.Main.Anuncios
 
                 detalles.MouseLeftButtonDown += (object senderMouseLegtButtonDown, MouseButtonEventArgs re) =>
                 {
-                    principal.mainFrame.Content = new EditarAnuncio(anuncio, principal);
+                    cargarDetalles(principal, anuncio); 
                 };
 
                 borrar.MouseLeftButtonDown += (object senderMouseLegtButtonDown, MouseButtonEventArgs re) =>
@@ -250,6 +250,25 @@ namespace ONEC.VIEWS.Main.Anuncios
                 grid.Children.Add(borderCuerpo);
                 border.Child = grid;
                 panelAnuncios.Children.Add(border);
+            }
+        }
+
+        private async void cargarDetalles(Principal principal, Anuncio anuncio)
+        {
+            Loading.Loading loading = new Loading.Loading();
+            try
+            {
+                loading.Show();
+                float puntuacion = await Resenyas.obtenerPuntuacionAnuncio(anuncio._id);
+                principal.mainFrame.Content = new AnuncioDetalles(anuncio, principal, puntuacion.ToString());
+                loading.Close();
+            }
+            catch (Exception ex)
+            {
+                loading.Close();
+                ErrorPopUp err = new ErrorPopUp("Error al cargar el anuncio\ninténtelo más tarde");
+                err.ShowDialog();
+
             }
         }
 
