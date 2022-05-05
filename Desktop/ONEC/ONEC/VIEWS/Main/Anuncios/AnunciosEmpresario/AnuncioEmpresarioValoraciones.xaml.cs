@@ -13,40 +13,43 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ONEC.API_MODELS;
-using ONEC.VIEWS.Error;
-using ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario;
 
-namespace ONEC.VIEWS.Main.Anuncios
+namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
 {
     /// <summary>
-    /// Lógica de interacción para AnuncioValoraciones.xaml
+    /// Lógica de interacción para AnuncioEmpresarioValoraciones.xaml
     /// </summary>
-    public partial class AnuncioValoraciones : Page
+    public partial class AnuncioEmpresarioValoraciones : Page
     {
         Principal principal;
-        Anuncio anuncio;
-        List<Resenyas> reviews;
-        public AnuncioValoraciones(Principal principal, Anuncio anuncio, List<Resenyas>reviews , List<string> emails)
+        AnunciosGuardados anuncioG;
+        List<AnunciosGuardados> anunciosGuardados;
+        public AnuncioEmpresarioValoraciones(Principal principal, List<Resenyas> reviews, AnunciosGuardados anuncioG, List<string> emails, List<AnunciosGuardados> anunciosGuardados)
         {
             InitializeComponent();
-            cargarReviews(reviews, emails);
             this.principal = principal;
-            this.anuncio = anuncio;
-            this.reviews = reviews;
+            this.anuncioG = anuncioG;
+            this.anunciosGuardados = anunciosGuardados;
+           
+            cargarReviews(reviews, emails);
+        }
 
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            principal.mainFrame.Content = new AnuncioEmpresarioLoader(principal, anuncioG, anunciosGuardados);
         }
 
         private async void cargarReviews(List<Resenyas> reviews, List<string> emails)
         {
-            for(int x = 0; x < reviews.Count; x++)
+            for (int x = 0; x < reviews.Count; x++)
             {
                 Border border = new Border
                 {
                     CornerRadius = new CornerRadius(5),
                     Background = (Brush)(new BrushConverter().ConvertFrom("#999dba")),
                     Padding = new Thickness(5),
-                    Margin = new Thickness(0,0,0,20)
-                    
+                    Margin = new Thickness(0, 0, 0, 20)
+
                 };
                 StackPanel stack = new StackPanel();
                 TextBlock email = new TextBlock
@@ -54,12 +57,12 @@ namespace ONEC.VIEWS.Main.Anuncios
                     Text = emails[x],
                     FontSize = 17,
                     Foreground = (Brush)(new BrushConverter().ConvertFrom("#202020")),
-                    Margin = new Thickness(3,0,0,0)
+                    Margin = new Thickness(3, 0, 0, 0)
                 };
                 stack.Children.Add(email);
                 StackPanel stackStars = new StackPanel
                 {
-                    Margin = new Thickness(3,3,0,0),
+                    Margin = new Thickness(3, 3, 0, 0),
                     Orientation = Orientation.Horizontal
                 };
                 Image star1 = new Image
@@ -127,7 +130,7 @@ namespace ONEC.VIEWS.Main.Anuncios
                 {
                     Text = reviews[x].descripcion,
                     TextWrapping = TextWrapping.Wrap,
-                    Margin = new Thickness(3,0,0,0),
+                    Margin = new Thickness(3, 0, 0, 0),
                     FontSize = 16,
                     Foreground = (Brush)(new BrushConverter().ConvertFrom("#202020"))
                 };
@@ -137,23 +140,6 @@ namespace ONEC.VIEWS.Main.Anuncios
                 border.Child = stack;
                 panelReviews.Children.Add(border);
             }
-        }
-
-        private async void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-                Loading.Loading loading = new Loading.Loading();
-                try
-                {
-                    loading.Show();
-                    float puntuacion = await Resenyas.obtenerPuntuacionAnuncio(anuncio._id);
-                    principal.mainFrame.Content = new AnuncioDetalles(anuncio, principal, puntuacion.ToString());
-                    loading.Close();
-                }
-                catch (Exception ex)
-                {
-                    loading.Close();
-                    principal.mainFrame.Content = new AnuncioDetallesError(principal, anuncio);
-                }
         }
     }
 }

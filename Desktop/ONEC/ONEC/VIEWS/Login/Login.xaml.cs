@@ -93,31 +93,34 @@ namespace ONEC.VIEWS
             //StaticResources.main.frameContent.Content = new ModoAppPage();
             string email = txtEmail.Text;
             string pass = verPass ? txtPrev.Text : txtPass.Password;
+            Loading.Loading loading = new Loading.Loading();
             try
             {
+                loading.Show();
                 if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
                 {
                     //mostramos error de campos vacíos
+                    loading.Close();
                     ErrorPopUp error = new ErrorPopUp("Hay campos sin introducir.");
                     error.ShowDialog();
                 }
                 else if (!IsValidEmailAddress(email))
                 {
                     //mostrar error de correo no valido (Formato)
+                    loading.Close();
                     ErrorPopUp error = new ErrorPopUp("El email introducido\nno tiene un formato válido.");
                     error.ShowDialog();
                 }
                 else if (!await Usuario.comprobarMail(email))
                 {
                     //El email introducido no pertenece a ningún usuario
+                    loading.Close();
                     ErrorPopUp error = new ErrorPopUp("No existe ningún usuario\ncon el email introducido.");
                     error.ShowDialog();
                 }
                 else
                 {
                     //abrir popUp de Loading y intentar conectarse
-                    Loading.Loading loading = new Loading.Loading();
-                    loading.Show();
                     if(await Usuario.loguear(email,pass))
                     {
                         loading.Close();
@@ -131,6 +134,7 @@ namespace ONEC.VIEWS
                 }
             }catch(Exception ex)
             {
+                loading.Close();
                 ErrorPopUp error = new ErrorPopUp("Ha ocurrido un error\nintentelo más tarde.");
                 error.ShowDialog();
             }

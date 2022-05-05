@@ -11,6 +11,7 @@ namespace ONEC.API_MODELS
 {
     public class AnunciosGuardados
     {
+        public string _id { get; set; }
         public string id_anuncio { get; set; }
         public string id_user { get; set; }
 
@@ -78,6 +79,23 @@ namespace ONEC.API_MODELS
         }
 
         //Eliminar Anuncio Guardado
+        public static async Task<bool> eliminarAnunciosGuardado(string id)
+        {
+            string url = $"{StaticResources.urlHead}anunciosGuardados/{id}";
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.DeleteAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //Eliminar Anuncios Guardados de un anuncio
         public static async Task<bool> eliminarAnunciosGuardadosDeUnAnuncio(string id)
         {
             string url = $"{StaticResources.urlHead}anunciosGuardados/deleteAll/{id}";
