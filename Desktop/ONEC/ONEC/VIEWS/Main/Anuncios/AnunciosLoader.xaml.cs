@@ -43,7 +43,6 @@ namespace ONEC.VIEWS.Main.Anuncios
                     List<Usuario> usuarios = await obtenerUsuarios(anunciosG);
                     List<float> puntuaciones = await obtenerPuntuaciones(anunciosG);
                     principal.mainFrame.Content = new AnunciosMainEmpresario(principal, anuncios, usuarios, puntuaciones, anunciosG);
-                    //principal.mainFrame.Content = new AnunciosMain(principal, anuncios);
                 }
                 catch (Exception ex)
                 {

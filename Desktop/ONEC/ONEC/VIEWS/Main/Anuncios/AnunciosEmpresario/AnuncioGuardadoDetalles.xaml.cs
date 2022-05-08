@@ -31,7 +31,7 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
             InitializeComponent();
             this.principal = principal;
             this.anuncio = anuncio;
-            this.anuncioGuardado = anuncioG;
+            anuncioGuardado = anuncioG;
             this.anunciosGuardados = anunciosGuardados;
 
             loadDeatails(anuncio, usuario.email, puntuacion, reviews.Count(), anuncioG);
@@ -106,6 +106,11 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
                 lista.Add(u.email);
             }
             return lista;
+        }
+
+        private void btnReviews_Click(object sender, RoutedEventArgs e)
+        {
+            principal.mainFrame.Content = new AnuncioCrearReview(principal, anuncioGuardado, anunciosGuardados);
         }
     }
 }

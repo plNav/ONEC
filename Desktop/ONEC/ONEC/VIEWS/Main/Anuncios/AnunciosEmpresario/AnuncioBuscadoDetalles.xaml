@@ -1,14 +1,12 @@
-﻿<Page x:Class="ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario.AnuncioGuardadoDetalles"
+﻿<Page x:Class="ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario.AnuncioBuscadoDetalles"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario"
       mc:Ignorable="d" 
-      Height="Auto"
-      Width="Auto"
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="AnuncioGuardadoDetalles">
+      Title="AnuncioBuscadoDetalles">
     <Page.Resources>
         <Style x:Key="MyButtonStyle" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -51,7 +49,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Image Height="30" Width="30" VerticalAlignment="Center" Source="/ONEC;component/IMAGES/back.png" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="20,0,0,0"/>
+            <Image Height="30" Width="30" VerticalAlignment="Center" Source="/ONEC;component/IMAGES/back.png" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" Margin="20,0,0,0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
             <Label FontSize="25" Foreground="#fcffff" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Content="Detalles anuncio"  Margin="0,0,20,0"/>
         </Grid>
         <ScrollViewer Grid.Row="1">
@@ -64,7 +62,6 @@
 
                 <Grid Grid.Column="1" Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -128,24 +125,19 @@
 
                         </Border>
                     </Grid>
-                    <Button x:Name="btnVerReviews" Background="#D5CC21" Grid.Row="1" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,15" Height="50" Cursor="Hand" Click="btnVerReviews_Click">
+                    <Button x:Name="btnVerReviews" Background="#D5CC21" Grid.Row="1" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,15" Height="50" Cursor="Hand" Click="btnVerReviews_Click" >
                         <StackPanel Orientation="Horizontal">
                             <Label Content="Revisar" Foreground="White" FontSize="19" FontWeight="Bold"/>
                             <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/revisar.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnReviews" Background="#209956" Grid.Row="2" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,15" Height="50" Cursor="Hand" Click="btnReviews_Click" >
+                    <Button x:Name="btnArchivar" Background="#209956" Grid.Row="2" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,15" Height="50" Cursor="Hand" Click="btnArchivar_Click"  >
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Puntuar" Foreground="White" FontSize="19" FontWeight="Bold"/>
-                            <Image Height="20" Width="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/fullstar.png"/>
+                            <Label Content="Archivar" Foreground="White" FontSize="19" FontWeight="Bold"/>
+                            <Image Height="20" Width="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/archivar.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnEliminar" Background="#A53535" Grid.Row="3" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,15" Height="50" Cursor="Hand" Click="btnEliminar_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Eliminar" Foreground="White" FontSize="19" FontWeight="Bold"/>
-                            <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/deleteB.png"/>
-                        </StackPanel>
-                    </Button>
+                    
                 </Grid>
             </Grid>
         </ScrollViewer>

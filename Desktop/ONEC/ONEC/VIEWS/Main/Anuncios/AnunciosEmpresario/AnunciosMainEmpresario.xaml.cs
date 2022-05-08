@@ -22,9 +22,13 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
     /// </summary>
     public partial class AnunciosMainEmpresario : Page
     {
+        Principal principal;
+        List<AnunciosGuardados> anunciosGuardados;
         public AnunciosMainEmpresario(Principal principal, List<Anuncio> anuncios, List<Usuario> usuarios, List<float> puntuaciones, List<AnunciosGuardados> anunciosG)
         {
             InitializeComponent();
+            this.principal = principal;
+            this.anunciosGuardados = anunciosG;
             cargarAnunciosFav(principal, anuncios, usuarios, puntuaciones, anunciosG);
         }
 
@@ -222,6 +226,12 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
                 panelAnuncios.Children.Add(grid);
 
             }
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            List<string> ids = anunciosGuardados.Select(an => an.id_anuncio).ToList();
+            principal.mainFrame.Content = new AnuncioEmpresarioBuscar(principal, ids, null);
         }
     }
 }

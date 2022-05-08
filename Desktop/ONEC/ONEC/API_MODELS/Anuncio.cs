@@ -23,6 +23,7 @@ namespace ONEC.API_MODELS
         public static Anuncio anuncioCreado;
         public static Anuncio anuncioBuscado;
         public static List<Anuncio> anunciosUsuario;
+        public static List<Anuncio> anunciosBuscados;
 
         public Anuncio()
         {
@@ -30,6 +31,17 @@ namespace ONEC.API_MODELS
         }
 
         public Anuncio(string id_user, string categoria, string nombre, string descripcion, float precio, bool precioPorHora)
+        {
+            this.id_user = id_user;
+            this.categoria = categoria;
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+            this.precio = precio;
+            this.precioPorHora = precioPorHora;
+            this.numVecesVisto = numVecesVisto;
+        }
+
+        public Anuncio(string id_user, string categoria, string nombre, string descripcion, float precio, bool precioPorHora, int numVecesVisto)
         {
             this.id_user = id_user;
             this.categoria = categoria;
@@ -154,6 +166,22 @@ namespace ONEC.API_MODELS
             {
                 return false;
             }
+        }
+
+        //Buscar AnunciosCampo
+        public static async Task<List<Anuncio>> buscarAnuncios(string campo)
+        {
+            string url = $"{StaticResources.urlHead}anuncio/buscar/{campo}";
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.GetAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                List<Anuncio> Lan = JsonSerializer.Deserialize<List<Anuncio>>(content);
+                anunciosBuscados = Lan;
+                return Lan;
+            }
+            else throw new HttpRequestException("Respuesta fallida en comprobarMail");
         }
     }
 }

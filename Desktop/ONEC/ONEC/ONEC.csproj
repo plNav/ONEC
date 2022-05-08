@@ -118,6 +118,18 @@
     <Compile Include="VIEWS\Main\Anuncios\AnuncioDetallesError.xaml.cs">
       <DependentUpon>AnuncioDetallesError.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioBuscadoDetalles.xaml.cs">
+      <DependentUpon>AnuncioBuscadoDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioCrearReview.xaml.cs">
+      <DependentUpon>AnuncioCrearReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscadoValoraciones.xaml.cs">
+      <DependentUpon>AnuncioEmpresarioBuscadoValoraciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscar.xaml.cs">
+      <DependentUpon>AnuncioEmpresarioBuscar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioLoader.xaml.cs">
       <DependentUpon>AnuncioEmpresarioLoader.xaml</DependentUpon>
     </Compile>
@@ -222,6 +234,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioBuscadoDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioCrearReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscadoValoraciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -321,6 +349,14 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\archivar.png" />
+    <Resource Include="IMAGES\buscarB.png" />
+    <Resource Include="IMAGES\enfadado.png" />
+    <Resource Include="IMAGES\feliz.png" />
+    <Resource Include="IMAGES\muyfeliz.png" />
+    <Resource Include="IMAGES\pocosatis.png" />
+    <Resource Include="IMAGES\pro.png" />
+    <Resource Include="IMAGES\satisfaccion.png" />
     <Resource Include="IMAGES\revisar.png" />
     <Resource Include="IMAGES\buscar.png" />
     <Resource Include="IMAGES\fullstarY.png" />
