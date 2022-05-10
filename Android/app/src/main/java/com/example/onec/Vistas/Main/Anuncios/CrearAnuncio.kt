@@ -38,7 +38,6 @@ import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
 import com.example.onec.Vistas.Login.dialogLoading
-import com.example.onec.Vistas.Main.circuloLoading
 import com.example.onec.Vistas.Perfil.dialogError
 import com.example.onec.Vistas.Perfil.loading
 import com.example.onec.ui.theme.OnecTheme

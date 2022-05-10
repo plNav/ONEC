@@ -35,55 +35,46 @@ fun ofertas(selected: MutableState<Boolean>,navController: NavController) {
             Box(
                 Modifier
                     .fillMaxSize()
-                    .background(color = Color(0xff3b3d4c))) {
-              Scaffold( topBar = {
-                  TopAppBar(
-                      backgroundColor = Color(0xFF1B1C29),
-                      title = {
-                          Text(
-                              text = "Mis ofertas", fontFamily = FontFamily(Font(R.font.comforta)), color = Color(0xfffcffff), fontWeight = FontWeight.W500
-                          ) },
-                      actions = {
-                          IconButton(onClick = {
-                            /*Abre las ofertas guardadas como que le gustan*/
-                          }) {
-                              Icon(painter = painterResource(id = R.drawable.ic_baseline_thumb_up_24), contentDescription = "Agregar oferta", tint = Color(0xfffcffff))
-                          }
-                      }, modifier = Modifier
-                          .shadow(elevation = 0.dp)
-                          .fillMaxHeight(0.08f)
-                  )
-              }) {
-                 Box(modifier = Modifier
-                     .background(Color(0xff3b3d4c))
-                     .fillMaxSize()
-                     .padding(0.dp, 5.dp, 0.dp, 0.dp)) {
+                    .background(color = Color(0xff3b3d4c))
+            ) {
+                Scaffold(modifier = Modifier.fillMaxSize(),topBar = {
+                    TopAppBar(
+                        backgroundColor = Color(0xFF1B1C29),
+                        title = {
+                            Text(
+                                text = "Mis ofertas",
+                                fontFamily = FontFamily(Font(R.font.comforta)),
+                                color = Color(0xfffcffff),
+                                fontWeight = FontWeight.W500
+                            )
+                        },
+                        actions = {
+                            IconButton(onClick = {
+                                /*Abre las ofertas guardadas como que le gustan*/
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_thumb_up_24),
+                                    contentDescription = "Agregar oferta",
+                                    tint = Color(0xfffcffff)
+                                )
+                            }
+                        }, modifier = Modifier
+                            .shadow(elevation = 0.dp)
+                            .fillMaxHeight(0.08f)
+                    )
+                }) {
+                    Box(
+                        modifier = Modifier
+                            .background(Color(0xff3b3d4c))
+                            .fillMaxSize()
+                            .padding(0.dp, 5.dp, 0.dp, 0.dp)
+                    ) {
 
-                 } 
-              }
+                    }
+                }
             }
         }
-    }
-}
 
-@Composable
-fun circuloLoading() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Text(text = "Cargando...", color = Color(0xfffcffff))
-            CircularProgressIndicator(color = Color(0xFF266E86), strokeWidth = 2.dp, modifier = Modifier
-                .height(30.dp)
-                .width(30.dp))
-        }
-    }
-
-
-}
-
-@Composable
-fun contenidoResult(viewModel: OfertaViewModel) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Oferta.id = "+viewModel.ofertaCreada!!.titulo, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
     }
 }
 

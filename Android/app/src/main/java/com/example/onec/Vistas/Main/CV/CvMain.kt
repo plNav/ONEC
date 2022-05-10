@@ -470,7 +470,7 @@ fun muestraCv() {
                     "Postgrado","Máster","Otros títulos, certificaciones y carnés","Otros cursos y certificación no reglada" -> {
                         mostrarEspecialidad = true
                         mostrarEspecialidadLista = false
-                        mostrarEspecialidadTxt = false
+                        mostrarEspecialidadTxt = true
                     }
                     else -> {
                         mostrarEspecialidad = true
@@ -495,6 +495,7 @@ fun muestraCv() {
                 
                 if (mostrarEspecialidad) {
                     if (mostrarEspecialidadTxt) {
+                        Spacer(modifier = Modifier.height(10.dp))
                         Text(text = "Especialidad", fontSize = 14.sp, color = Color(0xfffcffff))
                         Spacer(modifier = Modifier.height(3.dp))
                         TextField(

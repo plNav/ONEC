@@ -4,7 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onec.Models.ModelOferta
+import com.example.onec.Models.OfertaPost
+import com.example.onec.Servicios.ApiServices
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.protobuf.Api
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -15,21 +18,51 @@ class OfertaViewModel : ViewModel() {
 
     var ofertaCreada : ModelOferta? = null
 
-    fun crearOferta(oferta: ModelOferta, onComplete : (ModelOferta?) -> Unit) {
+    fun crearOferta(oferta: OfertaPost, onComplete : (ModelOferta?) -> Unit) {
         viewModelScope.launch {
             try {
-                val db = FirebaseFirestore.getInstance()
-                db.collection("ofertas").document().set(oferta).addOnSuccessListener {
-                    Log.e("Oferta_Creada", "La oferta ha sido creada correctamente")
-                    ofertaCreada = oferta
-                    onComplete(oferta)
-                }.addOnFailureListener { fail ->
+               val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.crearOferta(oferta)
+                if (respuesta.isSuccessful) {
+                    onComplete(respuesta.body())
+                }else {
                     onComplete(null)
-                    Log.e("Error_Failure", fail.message.toString())
                 }
             } catch (e: Exception) {
                 Log.e("Error", "Error al crear la oferta")
                 onComplete(null)
+            }
+        }
+    }
+
+    fun obtenerOfertasUsuario(id : String, onComplete: (MutableList<ModelOferta>?) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.obtenerOfertasUsuario(id)
+                if (respuesta.isSuccessful) {
+                    onComplete(respuesta.body())
+                }else {
+                    onComplete(null)
+                }
+            }catch (e: Exception) {
+                onComplete(null)
+            }
+        }
+    }
+
+    fun eliminarOferta(id: String, onComplete: (did : Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.eliminarOferta(id)
+                if (respuesta.isSuccessful) {
+                    onComplete(true)
+                }else {
+                    onComplete(false)
+                }
+            }catch (e : Exception) {
+                onComplete(false)
             }
         }
     }

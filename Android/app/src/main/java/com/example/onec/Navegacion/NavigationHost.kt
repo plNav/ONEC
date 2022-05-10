@@ -20,7 +20,10 @@ import com.example.onec.Vistas.Main.Anuncios.anuncioDetalle
 import com.example.onec.Vistas.Main.Anuncios.anuncioReviews
 import com.example.onec.Vistas.Main.Anuncios.crearAnuncio
 import com.example.onec.Vistas.Main.Anuncios.editarAnuncio
+import com.example.onec.Vistas.Main.Ofertas.buscarCandidatos
 import com.example.onec.Vistas.Main.Ofertas.crearOferta
+import com.example.onec.Vistas.Main.Ofertas.ofertaDetalles
+import com.example.onec.Vistas.Main.Ofertas.ofertasCandidatos
 import com.example.onec.Vistas.Perfil.configuracion
 import com.example.onec.Vistas.Registro.Registro
 import com.example.onec.Vistas.ResetPassword.Forgot
@@ -143,6 +146,21 @@ fun navHost(context: Context) {
        //Ruta reviews anuncio Subido por usuario
        composable(route = Rutas.AnuncioReviews.route) {
            anuncioReviews(navController = navController)
+       }
+       
+       //Ruta detalles Ofertas
+       composable(route = Rutas.OfertaDetalles.route) {
+           ofertaDetalles(navController = navController)
+       }
+       
+       //Ruta Candidatos de ofertas
+       composable(route = Rutas.OfertaCandidatos.route) {
+           ofertasCandidatos(navController = navController)
+       }
+       
+       //Ruta para buscar candidatos 
+       composable(route = Rutas.BuscarCandidatos.route) {
+           buscarCandidatos(navController = navController)
        }
    }
 }

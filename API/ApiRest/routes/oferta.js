@@ -78,14 +78,14 @@ router.put("/oferta/:id", (req, res) => {
     })
 });
 
-//Eliminar CV
+//Eliminar Oferta
 router.delete("/oferta/:id", (req, res) => {
     const {id} = req.params;
-    cvSchema
+    ofertaSchema
     .remove({_id: id})
     .then((data) => {
         res.json(data);
-        console.log("\nCV Eliminado\n"+data)
+        console.log("\nOferta eliminada\n"+data)
     })
     .catch((err) =>{
         res.json({message:err})

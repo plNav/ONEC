@@ -109,5 +109,12 @@ class StaticVariables {
          * Revisiones
          * */
         var revisionesAnuncioSelecc : MutableList<ResenyaModel> = mutableStateListOf()
+
+
+        /**
+         * Ofertas
+         * */
+
+        var ofertaSeleccionada : ModelOferta? = null
     }
 }

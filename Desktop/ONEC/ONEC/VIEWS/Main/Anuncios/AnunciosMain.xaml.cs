@@ -294,6 +294,7 @@ namespace ONEC.VIEWS.Main.Anuncios
                             if(await Anuncio.eliminarAnuncio(anuncio._id))
                             {
                                 panelAnuncios.Children.Remove(border);
+                                Anuncio.anunciosUsuario.Remove(anuncio);
                                 loading.Close();
                             }else
                             {

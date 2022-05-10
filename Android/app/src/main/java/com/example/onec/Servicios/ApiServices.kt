@@ -22,7 +22,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.20:8081/api/")
+                        .baseUrl("http://192.168.0.23:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -91,12 +91,11 @@ interface ApiServices {
             @Body cv : CvPost
         ): Response<CvModel>
 
-        @Multipart
-        @POST("cv/upload/")
-        fun postImage(
-            @Part filePart: MultipartBody.Part?
-        ): Call<Any>
-
+        @GET("cv/oferta/{id}/{habilidadesReq}")
+        suspend fun buscarCVs(
+            @Path("id") id : String,
+            @Path("habilidadesReq") habilidadesReq : String
+        ): Response<MutableList<CvModel>>
 
         /****************Anuncio*******************/
 
@@ -257,6 +256,23 @@ interface ApiServices {
 
         @DELETE("candidatosOfertas/oferta/{id}")
         suspend fun eliminarCandidatosOferta(
+            @Path("id") id : String
+        ): Response<Any>
+
+
+        /*********************Ofertas**********************/
+        @POST("oferta")
+        suspend fun crearOferta(
+            @Body oferta : OfertaPost
+        ) : Response<ModelOferta>
+
+        @GET("oferta/usuario/{id}")
+        suspend fun obtenerOfertasUsuario(
+            @Path("id") id : String
+        ): Response<MutableList<ModelOferta>>
+
+        @DELETE("oferta/{id}")
+        suspend fun eliminarOferta(
             @Path("id") id : String
         ): Response<Any>
     }
