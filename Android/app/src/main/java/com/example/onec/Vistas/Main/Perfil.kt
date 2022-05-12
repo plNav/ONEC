@@ -56,11 +56,9 @@ fun perfil(navController: NavController) {
                             drawerItems(name = item) {
                                 if (it == "Configuración") {
                                     navController.navigate(Rutas.Configuracion.route) {
-                                        StaticVariables.fragmento = 1
                                         popUpTo(Rutas.Main.route)
                                     }
                                 } else {
-                                    loginViewModel.logOut()
                                     StaticVariables.clean()
                                     navController.navigate(Rutas.Login.route) { popUpTo(0) }
                                 }

@@ -10,15 +10,6 @@ import java.io.File
 class StaticVariables {
     companion object {
 
-        /**
-        * fragmento : Int
-        * 1 = Ofertas
-        * 2 = Anuncios
-        * 3 = CV
-        * 4 = Perfil
-        * */
-        var fragmento = 1
-
 
 
         /**
@@ -27,6 +18,15 @@ class StaticVariables {
         * false = Mode de App candidato
         * */
         var appModo : Boolean = false
+
+        /**
+         * fragmento : Int
+         * 1 = Ofertas
+         * 2 = Anuncios
+         * 3 = CV
+         * 4 = Perfil
+         * */
+        var fragmento = 1
 
 
 
@@ -116,5 +116,12 @@ class StaticVariables {
          * */
 
         var ofertaSeleccionada : ModelOferta? = null
+
+
+        /**
+         * Candidatos Ofertas Guardados
+         * */
+        var candidatoGuardadoSeleccionado : CandidatosOfertasModel? = null
+        var candidatoGuardadoSeleccionadoCV : CvModel? = null
     }
 }

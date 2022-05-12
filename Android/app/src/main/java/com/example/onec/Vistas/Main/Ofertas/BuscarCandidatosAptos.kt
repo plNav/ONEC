@@ -30,12 +30,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.onec.Models.CandidatosOfertasPost
 import com.example.onec.Models.CvModel
 import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
+import com.example.onec.ViewModels.CandidatosOfertasViewModel
 import com.example.onec.ViewModels.CvViewModel
 import com.example.onec.ViewModels.LoginRegistroViewModel
+import com.example.onec.Vistas.Login.dialogLoading
+import com.example.onec.Vistas.Main.Anuncios.errorDialog
 import com.example.onec.ui.theme.OnecTheme
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.MainAxisAlignment
@@ -44,6 +48,11 @@ import com.google.accompanist.flowlayout.SizeMode
 @Composable
 fun buscarCandidatos(navController: NavController) {
     OnecTheme() {
+
+        val candidatosOfertasViewModel = remember {
+            CandidatosOfertasViewModel()
+        }
+
         val loading = remember {
             mutableStateOf(true)
         }
@@ -73,7 +82,7 @@ fun buscarCandidatos(navController: NavController) {
                 backgroundColor = Color(0xFF1B1C29),
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate(Rutas.OfertaDetalles.route) {
+                        navController.navigate(Rutas.OfertaCandidatos.route) {
                             popUpTo(
                                 0
                             )
@@ -125,17 +134,34 @@ fun buscarCandidatos(navController: NavController) {
                             Text(text = "Cargando...", fontSize = 16.sp, color = Color(0xfffcffff), textAlign = TextAlign.Center)
                         }
                     }
-                    val reqH = remember { if (StaticVariables.ofertaSeleccionada!!.habilidadesReq) "S" else "N"}
-                    cvViewModel.buscarCVS(StaticVariables.ofertaSeleccionada!!._id, reqH) { cvs ->
-                        if (cvs == null) {
+                    candidatosOfertasViewModel.obtenerCandidatosOferta(StaticVariables.ofertaSeleccionada!!._id) { candidatosOfertas ->
+                        if (candidatosOfertas == null) {
                             showError.value = true
-                        }else if (cvs.isEmpty()) {
-                            showNoEncontrado.value = true
                         }else {
-                            listCVS.value = cvs.toMutableStateList()
-                            showCVS.value = true
+                           val candidatosIDs = candidatosOfertas.map { it.id_cv }
+                            val reqH = if (StaticVariables.ofertaSeleccionada!!.habilidadesReq) "S" else "N"
+                            cvViewModel.buscarCVS(StaticVariables.ofertaSeleccionada!!._id, reqH) { cvs ->
+                                if (cvs == null) {
+                                    showError.value = true
+                                } else if (cvs.isEmpty()) {
+                                    showNoEncontrado.value = true
+                                } else {
+                                    val lista = mutableListOf<CvModel>()
+                                    cvs.forEach { cv ->
+                                        if (!candidatosIDs.contains(cv._id)) {
+                                            lista.add(cv)
+                                        }
+                                    }
+                                    if (lista.size > 0) {
+                                        listCVS.value = lista.toMutableStateList()
+                                        showCVS.value = true
+                                    }else {
+                                        showNoEncontrado.value = true
+                                    }
+                                }
+                                loading.value = false
+                            }
                         }
-                        loading.value = false
                     }
                 }
                 mostrarCVS(show = showCVS, cvs = listCVS)
@@ -153,11 +179,23 @@ fun mostrarCVS(show : MutableState<Boolean>, cvs : MutableState<SnapshotStateLis
         val showError = remember {
             mutableStateOf(false)
         }
-        
+
+        val errMsj = remember {
+            mutableStateOf("Error desconocido")
+        }
+
+        val showLoading = remember {
+            mutableStateOf(false)
+        }
+
         val scrollState = rememberScrollState()
 
         val position = remember {
             mutableStateOf(0)
+        }
+
+        val candidatosOfertasViewModel = remember {
+            CandidatosOfertasViewModel()
         }
         
         OnecTheme() {
@@ -298,7 +336,21 @@ fun mostrarCVS(show : MutableState<Boolean>, cvs : MutableState<SnapshotStateLis
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.SpaceAround
                                 ) {
-                                    IconButton(onClick = { }) {
+                                    IconButton(onClick = {
+                                        val candidato = CandidatosOfertasPost(cvs.value[position.value].id_user,StaticVariables.ofertaSeleccionada!!._id,cvs.value[position.value]._id)
+                                        showLoading.value = true
+                                        candidatosOfertasViewModel.crearCandidatosOfertas(candidato) { candidato ->
+                                            if (candidato == null) {
+                                                showError.value = true
+                                                errMsj.value = "Error al guardar el candidato"
+                                            }else {
+                                               cvs.value.remove(cvs.value[position.value])
+                                                if (position.value > 0) position.value -= 1
+                                            }
+                                            showLoading.value = false
+                                        }
+
+                                    }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.ic_baseline_thumb_up_24),
                                             contentDescription = "Like",
@@ -348,6 +400,8 @@ fun mostrarCVS(show : MutableState<Boolean>, cvs : MutableState<SnapshotStateLis
                     Text(text = "No quedan más candidatos", fontSize = 19.sp, textAlign = TextAlign.Center, color = Color(0xfffcffff))
                 }
             }
+            errorDialog(show = showError, error = errMsj)
+            dialogLoading(show = showLoading)
         }
     }
 }

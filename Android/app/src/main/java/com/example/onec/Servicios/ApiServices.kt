@@ -22,7 +22,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.23:8081/api/")
+                        .baseUrl("http://192.168.0.24:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -248,6 +248,11 @@ interface ApiServices {
         suspend fun obtenerOfertasCandidato(
            @Path("id") id : String
         ): Response<MutableList<CandidatosOfertasModel>>
+
+        @DELETE("candidatosOfertas/{id}")
+        suspend fun eliminarCandidatosOfertasID(
+            @Path("id") id : String
+        ): Response<Any>
 
         @DELETE("candidatosOfertas/candidato/{id}")
         suspend fun eliminarOfertasCandidato(

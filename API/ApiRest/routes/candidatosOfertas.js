@@ -4,8 +4,8 @@ const candidatosOfertasSchema = require('../controllers/candidatosOfertas');
 
 //añadir nuevo candidato a una oferta
 router.post("/candidatosOfertas", (req, res) => {
-    const anuncio = candidatosOfertasSchema(req.body);
-    candidatosOfertas
+    const candidato = candidatosOfertasSchema(req.body);
+    candidato
     .save()
     .then((data) => {
         res.json(data);
@@ -44,6 +44,21 @@ router.get("/candidatosOfertas/candidato/:id", (req, res) => {
     .catch((err) => {
         res.json({message : err});
         console.log("Error get /candidatosOfertas/candidatos")
+    })
+});
+
+//Eliminar candidatosOfertas específico
+router.delete("/candidatosOfertas/:id",(req,res) => {
+    const {id} = req.params;
+    candidatosOfertasSchema
+    .remove({_id : id})
+    .then((data) => {
+        res.json(data);
+        console.log("Respuesta api/candidatosOfertas "+data);
+    })
+    .catch((err) => {
+        res.json({message:err});
+        console.log("Error delete api/candidatosOfertas")
     })
 });
 

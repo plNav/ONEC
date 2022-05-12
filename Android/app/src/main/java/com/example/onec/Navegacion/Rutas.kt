@@ -36,4 +36,5 @@ sealed class Rutas(
     object OfertaDetalles: Rutas(route = "OfertaDetalels")
     object OfertaCandidatos : Rutas(route = "OfertaCandidato")
     object BuscarCandidatos : Rutas(route = "BuscarCandidatos")
+    object DetallesCandidatoGuardado : Rutas(route = "DetallesCandidatosGuardado")
 }

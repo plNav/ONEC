@@ -1,5 +1,6 @@
 package com.example.onec.ViewModels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.onec.Models.CandidatosOfertasModel
@@ -7,6 +8,7 @@ import com.example.onec.Models.CandidatosOfertasPost
 import com.example.onec.Models.CvModel
 import com.example.onec.Models.CvPost
 import com.example.onec.Servicios.ApiServices
+import com.google.protobuf.Api
 import kotlinx.coroutines.launch
 
 class CandidatosOfertasViewModel : ViewModel() {
@@ -39,6 +41,24 @@ class CandidatosOfertasViewModel : ViewModel() {
                 }
             }catch (e: Exception) {
                 onComplete(null)
+            }
+        }
+    }
+
+    fun eliminarCandidatosOfertasId(id: String, onComplete: (did: Boolean) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val api = ApiServices.ApiServices.getInstance()
+                val respuesta = api.eliminarCandidatosOfertasID(id)
+                if (respuesta.isSuccessful) {
+                    onComplete(true)
+                }else {
+                   onComplete(false)
+                    Log.d("why", respuesta.message())
+                }
+            }catch (e: Exception) {
+                Log.d("why",e.message.toString())
+                onComplete(false)
             }
         }
     }
