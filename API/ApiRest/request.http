@@ -78,7 +78,7 @@ GET http://localhost:8081/api/oferta/usuario/userYeray HTTP/1.1
 GET http://localhost:8081/api/cv/oferta/625ae566603b0ae842d8f828/N HTTP/1.1
 
 ### Obtener CV de un usuario
-GET http://localhost:8081/api/cv/usuario/6220b0aa8197a378ac0f9dab HTTP/1.1
+GET http://localhost:8081/api/cv/usuario/vdfsdf HTTP/1.1
 
 ### Borrar CV de un usuario
 DELETE http://localhost:8081/api/cv/625bf37392ca75023c8385d5 HTTP/1.1
@@ -101,4 +101,35 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8081/api/anuncio/buscar/desarrollo web HTTP/1.1
+GET http://localhost:8081/api/anuncio/buscar/progra HTTP/1.1
+
+###
+GET http://localhost:8081/api/review/anuncio/puntuacion/6dfggfd HTTP/1.1
+
+###
+GET http://localhost:8081/api/anunciosGuardados/usuario/626af4631f1b55214dd28678 HTTP/1.1
+
+###
+GET http://localhost:8081/api/usuario HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv/dgdfg HTTP/1.1
+
+
+###
+GET http://localhost:8081/api/oferta HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv/usuario/626afb627ed51abf76ac03e7 HTTP/1.1
+
+###
+GET http://localhost:8081/api/oferta/627918a9b4ae0bad644181e0 HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv/oferta/627a8e09affb4c03ff5ad06c/S HTTP/1.1
+
+###
+GET http://localhost:8081/api/cv HTTP/1.1
+
+###
+GET http://localhost:8081/api/candidatosOfertas/oferta/627a94e32dc5f207c8888d14 HTTP/1.1

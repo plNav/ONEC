@@ -10,15 +10,6 @@ import java.io.File
 class StaticVariables {
     companion object {
 
-        /**
-        * fragmento : Int
-        * 1 = Ofertas
-        * 2 = Anuncios
-        * 3 = CV
-        * 4 = Perfil
-        * */
-        var fragmento = 1
-
 
 
         /**
@@ -26,17 +17,17 @@ class StaticVariables {
         * true = Modo de App Empresario
         * false = Mode de App candidato
         * */
-        var appModo : Boolean = false
-
-
+        var appModo : Boolean? = null
 
         /**
-        * fun clean() -> Sirve para Resetear valores en la aplicación, por si se cambia de modo, o se cierra sesión
-        * */
-        fun clean() {
-            appModo = false
-            fragmento = 1
-        }
+         * fragmento : Int
+         * 1 = Ofertas
+         * 2 = Anuncios
+         * 3 = CV
+         * 4 = Perfil
+         * */
+        var fragmento = 1
+
 
         /**
          *  Usuario
@@ -51,17 +42,9 @@ class StaticVariables {
         var cv : CvModel? = null
 
 
-
-        /**
-        * Variables estáticas de  creación de CV
-        * */
-
-
         /**
         * imageUri : Uri?   -> Contiene el Uri de la Imagen que ha seleccionado de la galeria el Usuario tipo Estandar en su CV para no perderla al cambiar de Composable
         * */
-        var imagen : File? = null
-        var img : Bitmap? = null
         var imageUri : Uri? = null
         var pasoRegistro: String = "1"
         var nombreCv : String = ""
@@ -106,8 +89,53 @@ class StaticVariables {
 
 
         /**
-         * Revisiones
+         * Ofertas
          * */
-        var revisionesAnuncioSelecc : MutableList<ResenyaModel> = mutableStateListOf()
+
+        var ofertaSeleccionada : ModelOferta? = null
+
+
+        /**
+         * Candidatos Ofertas Guardados
+         * */
+        var candidatoGuardadoSeleccionado : CandidatosOfertasModel? = null
+        var candidatoGuardadoSeleccionadoCV : CvModel? = null
+
+        /**
+         * fun clean() -> Sirve para Resetear valores en la aplicación, por si se cambia de modo, o se cierra sesión
+         * */
+        fun clean() {
+            appModo = false
+            fragmento = 1
+            usuario = null
+            imageUri = null
+            pasoRegistro = "1"
+            nombreCv = ""
+            telefono = ""
+            ubicacion = ""
+            experiencia = 0
+            titulo = ""
+            especialidad = null
+            habilidades.clear()
+            habilidadesLow.clear()
+            anunciosUsuario.clear()
+            anunciosBuscados = false
+            anuncioSeleccionado = null
+            puntuacionAnuncioSelect = null
+            anunciosFavoritos.clear()
+            anuncioGuardadoSelect = null
+            anuncioFavSelect = null
+            correoAnuncioFavSelect = null
+            puntuacionAnuncioFavSelect = null
+            anunciosFavBuscados = false
+            anunciosBuscadosEmpre.clear()
+            anuncioBuscadoSelect = null
+            correoAnuncioBuscadoSelect = null
+            puntuacionAnuncioBuscado = null
+            anuncioEmpreBuscado = false
+            ofertaSeleccionada = null
+            candidatoGuardadoSeleccionado = null
+            candidatoGuardadoSeleccionadoCV = null
+        }
     }
 }

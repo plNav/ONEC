@@ -4,10 +4,10 @@
              xmlns:local="clr-namespace:ONEC"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Key="comfortaa">
-            <Setter Property="TextElement.FontFamily"
-                    Value="/Resources/#comfortaa">
-            </Setter>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+              <ResourceDictionary Source="./Themes/StylishScrollbar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

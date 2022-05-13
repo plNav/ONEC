@@ -2,9 +2,7 @@ package com.example.onec.Vistas.Registro
 
 import android.view.Surface
 import android.widget.ImageButton
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,6 +51,7 @@ fun Registro(
 
 @Composable 
 fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewModel){
+    val scrollState = rememberScrollState(0)
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val repass = remember { mutableStateOf("") }
@@ -67,16 +66,21 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
        Column(
            Modifier
                .fillMaxSize()
-               .align(Alignment.Center)) {
-           Spacer(modifier = Modifier.height(50.dp))
-           Image(painter = painterResource(id = R.drawable.onec), contentDescription = "Logo", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth())
-           Spacer(modifier = Modifier.height(50.dp))
+               .align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally
+       ) {
+           Spacer(modifier = Modifier.fillMaxHeight(0.05f))
+           Image(painter = painterResource(id = R.drawable.onec), contentDescription = "Logo", alignment = Alignment.Center, modifier = Modifier
+               .fillMaxWidth(0.3f)
+               .fillMaxHeight(0.2f))
+           Spacer(modifier = Modifier.fillMaxHeight(0.05f))
            Surface(modifier = Modifier.fillMaxSize(), shape = RoundedCornerShape(50.dp,50.dp,0.dp,0.dp), color = Color(0xff434557)) {
                Column(
                    Modifier
                        .fillMaxSize()
-                       .padding(horizontal = 20.dp)) {
-                   Spacer(Modifier.height(30.dp))
+                       .padding(horizontal = 20.dp)
+                       .verticalScroll(scrollState)
+               ) {
+                   Spacer(modifier = Modifier.height(20.dp))
                    Text(
                        text = "Crear una cuenta",
                        fontSize = 23.sp,
@@ -84,9 +88,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                        color = Color(0xffbfc9c9),
                        modifier = Modifier.fillMaxWidth()
                    )
-                   Spacer(Modifier.height(20.dp))
-                   Spacer(modifier = Modifier.height(10.dp))
-
+                   Spacer(modifier = Modifier.height(20.dp))
                    TextField(value = email.value,
                        singleLine = true,
                        textStyle = TextStyle(
@@ -115,7 +117,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                        )
                    )
 
-                   Spacer(modifier = Modifier.height(20.dp))
+                   Spacer(modifier = Modifier.height(10.dp))
                    TextField(value = password.value,
                        singleLine = true,
                        textStyle = TextStyle(
@@ -155,7 +157,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                            }
                        }
                    )
-                   Spacer(modifier = Modifier.height(20.dp))
+                   Spacer(modifier = Modifier.height(10.dp))
                    TextField(value = repass.value,
                        singleLine = true,
                        textStyle = TextStyle(
@@ -195,9 +197,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                            }
                        }
                    )
-                   Spacer(modifier = Modifier
-                       .height(20.dp)
-                       .fillMaxWidth())
+                   Spacer(modifier = Modifier.height(15.dp))
                    Button(onClick = {
                                     if(email.value.isEmpty() || password.value.isEmpty() || repass.value.isEmpty()) {
                                         isDialogOpen.value = true
@@ -252,7 +252,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                    )) {
                        Text(text = "Registrarse", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(0.dp,7.dp),fontFamily = FontFamily(Font(R.font.comforta)))
                    }
-                   Spacer(modifier = Modifier.height(8.dp))
+                   Spacer(modifier = Modifier.height(10.dp))
                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
                        Text(text = "Ya tienes una cuenta? ", fontSize = 15.sp, color = Color(0xFF999dba))
                        Text(text= "Iniciar sesión", fontSize = 15.sp, color = Color(0xffbfc9c9), modifier = Modifier.clickable { navController.navigate(Rutas.Login.route) {popUpTo(0)} })
@@ -282,7 +282,9 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                        painter = painterResource(id = R.drawable.errorlog),
                                        contentDescription = "ErrorLog",
                                        alignment = Alignment.Center,
-                                       modifier = Modifier.fillMaxWidth()
+                                       modifier = Modifier
+                                           .fillMaxWidth()
+                                           .fillMaxHeight(0.3f)
                                    )
                                    Spacer(modifier = Modifier.height(20.dp))
                                    Text(

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ONEC.API_MODELS;
+using ONEC.VIEWS.Main.Anuncios;
 
 namespace ONEC.VIEWS.Main
 {
@@ -29,7 +31,7 @@ namespace ONEC.VIEWS.Main
             txtOferta.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
         }
 
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Grid elemento = sender as Grid;
             switch(elemento.Tag)
@@ -50,6 +52,7 @@ namespace ONEC.VIEWS.Main
                         cleanElements();
                         imgAnuncios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\anuncios_b.png");
                         txtAnuncios.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                        mainFrame.Content = new AnunciosLoader(this);
                         selectedPage = "anuncios";
                     }
                     break;
@@ -60,6 +63,7 @@ namespace ONEC.VIEWS.Main
                         cleanElements();
                         imgCv.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\cv_b.png");
                         txtCv.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                        mainFrame.Content = new CVLoader(this);
                         selectedPage = "cv";
                     }
                     break;
@@ -103,10 +107,10 @@ namespace ONEC.VIEWS.Main
         {
             if (StaticResources.modoEmpresario)
             {
-                columnaCV.Width = new GridLength(0);
+                columnaCV.Height = new GridLength(0);
             }else
             {
-                columnaCV.Width = new GridLength(1, GridUnitType.Star);
+                columnaCV.Height = new GridLength(1, GridUnitType.Auto);
             }
         }
     }

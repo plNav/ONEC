@@ -1,0 +1,83 @@
+﻿<Page x:Class="ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario.AnuncioCrearReview"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario"
+      mc:Ignorable="d"
+      Height="Auto"
+      Width="Auto"
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="AnuncioCrearReview">
+    <Page.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="7" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="EstiloAceptar" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="10" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="70*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+                <TextBlock x:Name="txtTitu" Text="Dejanos tu opinión" Foreground="#fcffff" TextAlignment="Center" Margin="0,30,0,20" FontSize="30"/>
+                <Image x:Name="imgV" Width="100" Height="100" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/satisfaccion.png" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image x:Name="star1" Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/emptystar.png" Margin="0,30,5,0" Cursor="Hand" MouseLeftButtonDown="star1_MouseLeftButtonDown" />
+                    <Image x:Name="star2" Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/emptystar.png" Margin="0,30,5,0" Cursor="Hand" MouseLeftButtonDown="star2_MouseLeftButtonDown"/>
+                    <Image x:Name="star3" Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/emptystar.png" Margin="0,30,5,0" Cursor="Hand" MouseLeftButtonDown="star3_MouseLeftButtonDown"/>
+                    <Image x:Name="star4" Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/emptystar.png" Margin="0,30,5,0" Cursor="Hand" MouseLeftButtonDown="star4_MouseLeftButtonDown"/>
+                    <Image x:Name="star5" Width="40" Height="40" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/emptystar.png" Margin="0,30,0,0" Cursor="Hand" MouseLeftButtonDown="star5_MouseLeftButtonDown" />
+                </StackPanel>
+                <Border CornerRadius="5" Background="#626375" Height="300" Margin="0,20,0,20">
+                    <Grid>
+                        <TextBox x:Name="SearchTermTextBox" Margin="5" Background="Transparent" BorderThickness="0" TextWrapping="Wrap" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" FontSize="16" Foreground="#fcffff"/>
+                        <TextBlock IsHitTestVisible="False" Text="Descripción..." Foreground="#AAAECA" Padding="5" FontSize="16">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=SearchTermTextBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+                <Button x:Name="btnPublicar" Background="#2983A2" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10" Height="50" Cursor="Hand" Foreground="White" FontSize="19" FontWeight="Bold" Content="Publicar" Click="btnPublicar_Click"/>
+                <Button x:Name="btnCancelar" Background="#AD3B3F" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10" Height="50" Cursor="Hand" Foreground="White" FontSize="19" FontWeight="Bold" Content="Cancelar" Click="btnCancelar_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

@@ -22,6 +22,7 @@ namespace ONEC.VIEWS.Error
         public ErrorPopUp(string error)
         {
             InitializeComponent();
+            Owner = StaticResources.main;
             StaticResources.main.Opacity = 0.5;
             txtError.Text = error;
         }

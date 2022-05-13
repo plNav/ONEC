@@ -57,16 +57,15 @@ fun sended(navController: NavController,loginRegistroViewModel: LoginRegistroVie
                 Icon(painter = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_24), contentDescription = "Ir atrás", tint = Color(0xfffcffff))
             }
         }
-        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
-            Spacer(modifier = Modifier.fillMaxHeight(0.1f))
+        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
             Text(text = "Email enviado!",
                 Modifier.fillMaxWidth(), textAlign = TextAlign.Center, color = Color(0xFFfcffff), fontSize = 25.sp)
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             Text(text = "Revise su correo electrónico\npara restablecer su contraseña",
                 Modifier.fillMaxWidth(), textAlign = TextAlign.Center, color = Color(0xFF999dba), fontSize = 18.sp)
-            Spacer(modifier = Modifier.height(40.dp))
-            Image(painter = painterResource(id = R.drawable.revemail), contentDescription = "SendEmail", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.fillMaxHeight(0.02f))
+            Image(painter = painterResource(id = R.drawable.revemail), contentDescription = "SendEmail", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4f))
+            Spacer(modifier = Modifier.fillMaxHeight(0.02f))
             Button(onClick = { navController.navigate(Rutas.Login.route) { popUpTo(0) } },
                 Modifier
                     .fillMaxWidth()
@@ -80,7 +79,7 @@ fun sended(navController: NavController,loginRegistroViewModel: LoginRegistroVie
                 )
                 )
             }
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.fillMaxHeight(0.02f))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(text = "¿No has recibido ningún correo? ", fontSize = 15.sp, color = Color(0xFF999dba))
                 Text(text = "Reenviar", fontSize = 15.sp, color = Color(0xFFFCFFFF), modifier = Modifier.clickable {
@@ -126,7 +125,9 @@ fun sended(navController: NavController,loginRegistroViewModel: LoginRegistroVie
                                     painter = painterResource(id = R.drawable.errorlog),
                                     contentDescription = "ErrorLog",
                                     alignment = Alignment.Center,
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .fillMaxHeight(0.3f)
                                 )
                                 Spacer(modifier = Modifier.height(20.dp))
                                 Text(
@@ -164,6 +165,7 @@ fun sended(navController: NavController,loginRegistroViewModel: LoginRegistroVie
                     }
                 }
             }
+            Spacer(modifier = Modifier.fillMaxHeight(0.3f))
         }
     }
 }

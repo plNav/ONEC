@@ -60,13 +60,13 @@ fun Forg(navController: NavController,loginRegistroViewModel: LoginRegistroViewM
             }
         }
         Column(Modifier.fillMaxSize()) {
-            Spacer(Modifier.fillMaxHeight(0.1f))
+            Spacer(Modifier.fillMaxHeight(0.05f))
             Text(text = "Contraseña olvidada",Modifier.fillMaxWidth(), textAlign = TextAlign.Center, color = Color(0xFFfcffff), fontSize = 25.sp)
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(Modifier.fillMaxHeight(0.05f))
             Text(text = "Introduce tu correo electrónico\npara restablecer la contraseña",Modifier.fillMaxWidth(), textAlign = TextAlign.Center, color = Color(0xFF999dba), fontSize = 18.sp)
-            Spacer(modifier = Modifier.height(20.dp))
-            Image(painter = painterResource(id = R.drawable.sendemail), contentDescription = "SendEmail", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth())
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(0.03.dp))
+            Image(painter = painterResource(id = R.drawable.sendemail), contentDescription = "SendEmail", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4f))
+            Spacer(modifier = Modifier.height(0.03.dp))
             TextField(value = email.value,
                 singleLine = true,
                 textStyle = TextStyle(
@@ -98,14 +98,7 @@ fun Forg(navController: NavController,loginRegistroViewModel: LoginRegistroViewM
                     cursorColor = Color(0xFF999dba)
                 )
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-                Text(text = "¿Has recordado la contraseña? ", fontSize = 15.sp, color = Color(0xFF999dba))
-                Text(text = "Logear", fontSize = 15.sp, color = Color(0xfffcffff), modifier = Modifier.clickable {
-                    navController.navigate(Rutas.Login.route) {popUpTo(0)}
-                })
-            }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(Modifier.fillMaxHeight(0.07f))
             Button(onClick = {
                              //Comprobamos que el email no este vacio
                              if(email.value.isEmpty()){
@@ -154,6 +147,13 @@ fun Forg(navController: NavController,loginRegistroViewModel: LoginRegistroViewM
                 )) {
                 Text(text = "Enviar", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(0.dp,7.dp), fontFamily = FontFamily(Font(R.font.comforta)))
             }
+            Spacer(Modifier.fillMaxHeight(0.03f))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                Text(text = "¿Has recordado la contraseña? ", fontSize = 15.sp, color = Color(0xFF999dba))
+                Text(text = "Logear", fontSize = 15.sp, color = Color(0xfffcffff), modifier = Modifier.clickable {
+                    navController.navigate(Rutas.Login.route) {popUpTo(0)}
+                })
+            }
             if(isDialogOpen.value) {
                 Dialog(onDismissRequest = { isDialogOpen.value = false }) {
                     Surface(
@@ -178,7 +178,7 @@ fun Forg(navController: NavController,loginRegistroViewModel: LoginRegistroViewM
                                 painter = painterResource(id = R.drawable.errorlog),
                                 contentDescription = "ErrorLog",
                                 alignment = Alignment.Center,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                             )
                             Spacer(modifier = Modifier.height(20.dp))
                             Text(

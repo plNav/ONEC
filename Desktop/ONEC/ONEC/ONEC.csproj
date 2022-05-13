@@ -91,17 +91,92 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API_MODELS\Anuncio.cs" />
+    <Compile Include="API_MODELS\AnunciosGuardados.cs" />
+    <Compile Include="API_MODELS\CandidatosOfertas.cs" />
+    <Compile Include="API_MODELS\CV.cs" />
+    <Compile Include="API_MODELS\Resenyas.cs" />
+    <Compile Include="API_MODELS\Visualizaciones.cs" />
     <Compile Include="SUPPORT\Encrypt.cs" />
     <Compile Include="SUPPORT\StaticResources.cs" />
     <Compile Include="SUPPORT\Titulos.cs" />
+    <Compile Include="VIEWS\Did\Did.xaml.cs">
+      <DependentUpon>Did.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEWS\Error\ErrorPopUp.xaml.cs">
       <DependentUpon>ErrorPopUp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Info\Info.xaml.cs">
+      <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Loading\Loading.xaml.cs">
       <DependentUpon>Loading.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnuncioDetallesError.xaml.cs">
+      <DependentUpon>AnuncioDetallesError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioBuscadoDetalles.xaml.cs">
+      <DependentUpon>AnuncioBuscadoDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioCrearReview.xaml.cs">
+      <DependentUpon>AnuncioCrearReview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscadoValoraciones.xaml.cs">
+      <DependentUpon>AnuncioEmpresarioBuscadoValoraciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscar.xaml.cs">
+      <DependentUpon>AnuncioEmpresarioBuscar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioLoader.xaml.cs">
+      <DependentUpon>AnuncioEmpresarioLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioValoraciones.xaml.cs">
+      <DependentUpon>AnuncioEmpresarioValoraciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioGuardadoDetalles.xaml.cs">
+      <DependentUpon>AnuncioGuardadoDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnunciosMainEmpresario.xaml.cs">
+      <DependentUpon>AnunciosMainEmpresario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosEmpresario\ErrorCargarAnuncioEmpresario.xaml.cs">
+      <DependentUpon>ErrorCargarAnuncioEmpresario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosLoader.xaml.cs">
+      <DependentUpon>AnunciosLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnunciosMain.xaml.cs">
+      <DependentUpon>AnunciosMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnuncioValoraciones.xaml.cs">
+      <DependentUpon>AnuncioValoraciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\CrearAnuncio.xaml.cs">
+      <DependentUpon>CrearAnuncio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\AnuncioDetalles.xaml.cs">
+      <DependentUpon>AnuncioDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\EditarAnuncio.xaml.cs">
+      <DependentUpon>EditarAnuncio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Anuncios\ErrorCargaAnuncios.xaml.cs">
+      <DependentUpon>ErrorCargaAnuncios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\CrearCV.xaml.cs">
+      <DependentUpon>CrearCV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\CVLoader.xaml.cs">
+      <DependentUpon>CVLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\EditarCV.xaml.cs">
+      <DependentUpon>EditarCV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\CV\ErrorCargaCV.xaml.cs">
+      <DependentUpon>ErrorCargaCV.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
@@ -131,7 +206,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\StylishScrollbar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Did\Did.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Error\ErrorPopUp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Info\Info.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +227,90 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VIEWS\Login\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnuncioDetallesError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioBuscadoDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioCrearReview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscadoValoraciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioBuscar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioEmpresarioValoraciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnuncioGuardadoDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\AnunciosMainEmpresario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosEmpresario\ErrorCargarAnuncioEmpresario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnunciosMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnuncioValoraciones.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\CrearAnuncio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\AnuncioDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\EditarAnuncio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Anuncios\ErrorCargaAnuncios.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\CrearCV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\CVLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\EditarCV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\CV\ErrorCargaCV.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,6 +349,33 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\archivar.png" />
+    <Resource Include="IMAGES\buscarB.png" />
+    <Resource Include="IMAGES\enfadado.png" />
+    <Resource Include="IMAGES\feliz.png" />
+    <Resource Include="IMAGES\muyfeliz.png" />
+    <Resource Include="IMAGES\pocosatis.png" />
+    <Resource Include="IMAGES\pro.png" />
+    <Resource Include="IMAGES\satisfaccion.png" />
+    <Resource Include="IMAGES\revisar.png" />
+    <Resource Include="IMAGES\buscar.png" />
+    <Resource Include="IMAGES\fullstarY.png" />
+    <Resource Include="IMAGES\emptystar.png" />
+    <Resource Include="IMAGES\info.png" />
+    <Resource Include="IMAGES\deleteB.png" />
+    <Resource Include="IMAGES\pencilB.png" />
+    <Resource Include="IMAGES\fullstar.png" />
+    <Resource Include="IMAGES\numvistas.png" />
+    <Resource Include="IMAGES\euro.png" />
+    <Resource Include="IMAGES\categoria.png" />
+    <Resource Include="IMAGES\descripcion.png" />
+    <Resource Include="IMAGES\pencil.png" />
+    <Resource Include="IMAGES\agregar.png" />
+    <Resource Include="IMAGES\good.png" />
+    <Resource Include="IMAGES\delete.png" />
+    <Resource Include="IMAGES\location.png" />
+    <Resource Include="IMAGES\phone.png" />
+    <Resource Include="IMAGES\user.png" />
     <Resource Include="IMAGES\errorlog.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -224,8 +422,6 @@
     <Resource Include="IMAGES\revemail.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="VIEWS\Main\Anuncios\" />
-    <Folder Include="VIEWS\Main\CV\" />
     <Folder Include="VIEWS\Main\Ofertas\" />
     <Folder Include="VIEWS\Main\Perfil\" />
   </ItemGroup>

@@ -22,6 +22,7 @@ namespace ONEC.VIEWS.Loading
         public Loading()
         {
             InitializeComponent();
+            Owner = StaticResources.main;
             StaticResources.main.Opacity = 0.5;
         }
 

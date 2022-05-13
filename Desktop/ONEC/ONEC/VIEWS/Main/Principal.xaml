@@ -27,53 +27,53 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="90"/>
-        </Grid.RowDefinitions>
-        <Frame x:Name="mainFrame"/>
-        <Grid Grid.Row="1" Background="#1B1C29">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0" x:Name="columnaCV"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Tag="ofertas" Cursor="Hand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Image x:Name="imgOfertas" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/ofertas.png" RenderOptions.BitmapScalingMode="HighQuality" Height="60" Width="60"/>
-                <TextBlock x:Name="txtOferta" Text="Ofertas" FontSize="16" Foreground="#fcffff" Grid.Row="1" TextAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Frame x:Name="mainFrame" Grid.Column="1"/>
+        <Grid Background="#1B1C29">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" x:Name="columnaCV"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Left" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Tag="ofertas" Cursor="Hand" Margin="20,50,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="imgOfertas" VerticalAlignment="Center" HorizontalAlignment="Left" Source="/ONEC;component/IMAGES/ofertas.png" RenderOptions.BitmapScalingMode="HighQuality" Height="35" Width="35"/>
+                <TextBlock x:Name="txtOferta" Text="Editar mis ofertas" FontSize="17" Foreground="#fcffff" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </Grid>
 
-            <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="anuncios" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Image x:Name="imgAnuncios" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/anuncios.png" RenderOptions.BitmapScalingMode="HighQuality" Height="60" Width="60" Margin="0,0,10,0"/>
-                <TextBlock x:Name="txtAnuncios" Text="Anuncios" FontSize="16" Foreground="#fcffff" Grid.Row="1" TextAlignment="Center"/>
+            <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="anuncios" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand" Margin="20,10,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="imgAnuncios" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/anuncios.png" RenderOptions.BitmapScalingMode="HighQuality" Height="35" Width="35" />
+                <TextBlock x:Name="txtAnuncios" Text="Mis anuncios" FontSize="17" Foreground="#fcffff" Grid.Column="1" TextAlignment="Center" Margin="10,0,0,0" VerticalAlignment="Center"/>
             </Grid>
 
-            <Grid Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="cv" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand"> 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Image x:Name="imgCv" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/cv.png" RenderOptions.BitmapScalingMode="HighQuality" Height="60" Width="60"/>
-                <TextBlock x:Name="txtCv" Text="CV" FontSize="16" Foreground="#fcffff" Grid.Row="1" TextAlignment="Center"/>
+            <Grid Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="cv" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand" Margin="20,10,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="imgCv" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/cv.png" RenderOptions.BitmapScalingMode="HighQuality" Height="35" Width="35"/>
+                <TextBlock x:Name="txtCv" Text="Mi CV" FontSize="17" Foreground="#fcffff" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </Grid>
 
-            <Grid Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Tag="perfil" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Image x:Name="imgPerfil" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/perfil.png" RenderOptions.BitmapScalingMode="HighQuality" Height="55" Width="55"/>
-                <TextBlock x:Name="txtPerfil" Text="Perfil" FontSize="16" Foreground="#fcffff" Grid.Row="1" TextAlignment="Center"/>
+            <Grid Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="perfil" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand" Margin="20,10,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="imgPerfil" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/ONEC;component/IMAGES/perfil.png" RenderOptions.BitmapScalingMode="HighQuality" Height="35" Width="35"/>
+                <TextBlock x:Name="txtPerfil" Text="Editar mi Perfil" FontSize="17" Foreground="#fcffff" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </Grid>
         </Grid>
     </Grid>

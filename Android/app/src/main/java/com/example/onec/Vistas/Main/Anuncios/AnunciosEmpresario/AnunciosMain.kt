@@ -309,7 +309,6 @@ fun listaVacia(show: MutableState<Boolean>) {
 fun errorCargarAnunciosFav(show: MutableState<Boolean>, loading: MutableState<Boolean>) {
     if (show.value) {
         OnecTheme() {
-            val scrollState = rememberScrollState(0)
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -318,30 +317,30 @@ fun errorCargarAnunciosFav(show: MutableState<Boolean>, loading: MutableState<Bo
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .verticalScroll(scrollState)
                         .background(Color(0xff3b3d4c)),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                     Text(
                         text = "Error al cargar Anuncios",
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
-                        contentDescription = "Error log"
+                        contentDescription = "Error log",
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
                         text = "Ha ocurrido un error\nal cargar los anuncios del guardados\ninténtelo más tarde.",
                         fontSize = 16.sp,
                         color = Color(0xfffcffff),
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Button(
                         onClick = {
                             loading.value = true
@@ -366,6 +365,7 @@ fun errorCargarAnunciosFav(show: MutableState<Boolean>, loading: MutableState<Bo
                             )
                         )
                     }
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 }
             }
         }

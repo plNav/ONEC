@@ -9,15 +9,21 @@ const ofertaSchema = mongoose.Schema({
         type: String,
         required: true
     },
+
+    descripcion: {
+        type: String,
+        required: true
+    },
     
     experiencia: {
         type: Number,
-        required: true
+        required: false,
+        default: 0
     },
 
     titulo: {
         type: String,
-        required: true
+        required: false
     },
 
     especialidad: {
@@ -27,6 +33,18 @@ const ofertaSchema = mongoose.Schema({
 
     habilidades: {
         type: Array,
+        required: false,
+        default: []
+    },
+
+    habilidadesLow: {
+        type : Array,
+        required: false,
+        default: []
+    },
+
+    habilidadesReq: {
+        type : Boolean,
         required: false
     }
     
