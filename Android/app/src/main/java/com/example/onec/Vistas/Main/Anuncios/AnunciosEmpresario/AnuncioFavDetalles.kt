@@ -91,10 +91,15 @@ fun anuncioFavoritoDetalles(navController: NavController) {
             //Primero consultamos si el usuario ha realizado alguna reseña de el anuncio
             resenyaViewModel.calcularPuntuacionAnuncio(StaticVariables.anuncioFavSelect!!._id) { puntuacion ->
                 if (puntuacion == null) {
+                    loadingAnuncioVista.value = false
+                    loading.value = false
                     errorCarga.value = true
+
                 }else {
                     loginregVM.obtenerUsuario(StaticVariables.anuncioFavSelect!!.id_user) { userAnuncio ->
                         if (userAnuncio == null) {
+                            loadingAnuncioVista.value = false
+                            loading.value = false
                             errorCarga.value = true
                         }else {
                             resenyaViewModel.obtenerResenyasUsuarioAnuncio(
@@ -102,6 +107,8 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                 StaticVariables.usuario!!._id
                             ) { reviews ->
                                 if (reviews == null) {
+                                    loadingAnuncioVista.value = false
+                                    loading.value = false
                                     errorCarga.value = true
                                 } else if (reviews.isEmpty()) {
                                     yaPuntuado.value = false
@@ -151,8 +158,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
                                 modifier = Modifier.fillMaxWidth()
                             )
                         },
-                        backgroundColor = Color.Transparent,
-                        elevation = 0.dp,
+                        backgroundColor = Color(0xFF1B1C29),
                         actions = {
                             IconButton(
                                 onClick = { /*TODO*/ },
@@ -421,7 +427,7 @@ fun anuncioFavoritoDetalles(navController: NavController) {
         }
         dialogError(show = showDialogError, msj = errorMsj)
         loadingAnuncio(show = loading)
-        errorCargarAnuncio(show = errorCarga, loading = loading)
+        errorCargarAnuncio(show = errorCarga, loading = loadingAnuncioVista)
         eliminandoAnuncioFav(show = eliminandoAnuncio, showDialogError = showDialogError, errorMsj = errorMsj, navController = navController )
 
     }

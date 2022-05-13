@@ -121,12 +121,4 @@ class LoginRegistroViewModel : ViewModel() {
             }
         }
     }
-
-    //Función para cerrar sesión
-    fun logOut() {
-        viewModelScope.launch {
-
-        }
-    }
-
 }

@@ -1,0 +1,153 @@
+﻿<Page x:Class="ONEC.VIEWS.Main.Anuncios.AnuncioDetalles"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ONEC.VIEWS.Main.Anuncios"
+      mc:Ignorable="d"
+      Height="Auto"
+      Width="Auto"
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="EditarAnuncio">
+    <Page.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="7" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="EstiloAceptar" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="10" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Height="50" Background="#FF12141D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Image Height="30" Width="30" VerticalAlignment="Center" Source="/ONEC;component/IMAGES/back.png" RenderOptions.BitmapScalingMode="HighQuality" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown" Margin="20,0,0,0"/>
+            <Label FontSize="25" Foreground="#fcffff" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Content="Detalles anuncio"  Margin="0,0,20,0"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Border  Margin="0,5,0,0" Background="#999dba" CornerRadius="5,5,0,0" Padding="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock x:Name="txtCategoria" TextWrapping="Wrap" Foreground="#202020" Text="Prueba" FontWeight="Bold" FontSize="17" Margin="0,0,0,3"/>
+                                <Border Grid.Row="1" Height="1" Background="#FF646464" CornerRadius="2"/>
+                                <TextBlock x:Name="txtNombre" TextWrapping="Wrap" Foreground="#202020" Text="Nombre Anuncio" FontWeight="SemiBold" FontSize="15" Margin="0,0,0,10" Grid.Row="2"/>
+                                <TextBlock Foreground="#E0E3EB" Text="Descripción"  FontSize="14" Grid.Row="3" Margin="0,0,0,3"/>
+                                <TextBlock x:Name="txtDescripcion" Foreground="#202020" Text="Descripción"  FontSize="15" Grid.Row="4" Margin="5,0,0,10" TextWrapping="Wrap"/>
+                                <TextBlock Foreground="#E0E3EB" Text="Precio"  FontSize="14" Grid.Row="5" Margin="0,0,0,3"/>
+                                <TextBlock x:Name="txtPrecio" Foreground="#202020" Text="60€ Hora"  FontSize="15" Grid.Row="6" Margin="5,0,0,10" TextWrapping="Wrap"/>
+                                <TextBlock Foreground="#E0E3EB" Text="Correo"  FontSize="14" Grid.Row="7" Margin="0,0,0,3"/>
+                                <TextBlock x:Name="txtCorreo" Foreground="#202020" Text="u@gmail.com"  FontSize="15" Grid.Row="8" Margin="5,0,0,10" TextWrapping="Wrap"/>
+                            </Grid>
+                        </Border>
+                        <Border Grid.Row="1" Padding="10" Background="#266E86" CornerRadius="0,0,5,5" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/numvistas.png"/>
+                                    <TextBlock Text="Visualizaciones" Foreground="White" Grid.Row="1" FontSize="12"/>
+                                    <TextBlock x:Name="txtVisualizaciones" Text="0" Grid.Row="2" Foreground="White" TextAlignment="Center"/>
+                                </Grid>
+                                <Grid Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/fullstar.png"/>
+                                    <TextBlock Text="Valoración" Foreground="White" Grid.Row="1" FontSize="12"/>
+                                    <TextBlock x:Name="txtPuntuacion" Text="0.0" Grid.Row="2" Foreground="White" TextAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                    <Button x:Name="btnEditar" Background="#DF9234" Grid.Row="1" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10" Height="50" Cursor="Hand" Click="btnEditar_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Editar" Foreground="White" FontSize="19" FontWeight="Bold"/>
+                            <Image Height="20" Width="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/pencilB.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnReviews" Background="#209956" Grid.Row="2" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10" Height="50" Cursor="Hand" Click="btnReviews_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Reseñas" Foreground="White" FontSize="19" FontWeight="Bold"/>
+                            <Image Height="20" Width="20" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/fullstar.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnEliminar" Background="#A53535" Grid.Row="3" Style="{StaticResource MyButtonStyle}" BorderThickness="0" Margin="0,0,0,10" Height="50" Cursor="Hand" Click="btnEliminar_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Eliminar" Foreground="White" FontSize="19" FontWeight="Bold"/>
+                            <Image Height="25" Width="25" RenderOptions.BitmapScalingMode="HighQuality" Margin="2,0,0,0" Source="/ONEC;component/IMAGES/deleteB.png"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -42,8 +42,8 @@ fun main(navController: NavController, elemento: Int){
     }
 
     when (elemento) {
-         1 -> if (!StaticVariables.appModo) isOfertaSelected.value = true else {isOfertaEmpresarioSelected.value = true}
-         2 -> if (!StaticVariables.appModo) isAnunciosSelected.value = true else {isAnunciosEmpresarioSelected.value = true}
+         1 -> isOfertaSelected.value = true
+         2 -> if (!StaticVariables.appModo!!) isAnunciosSelected.value = true else {isAnunciosEmpresarioSelected.value = true}
          3 -> isCvSelected.value = true
          4 -> isPerfilSelected.value = true
     }
@@ -67,56 +67,58 @@ fun main(navController: NavController, elemento: Int){
                         ) {
 
                             //Ofertas
-                            BottomNavigationItem(
-                                selected = if (!StaticVariables.appModo)isOfertaSelected.value else isOfertaEmpresarioSelected.value,
-                                onClick = {
-                                    if(!StaticVariables.appModo) {
-                                        isOfertaSelected.value = true
-                                        isAnunciosSelected.value = false
-                                        isPerfilSelected.value = false
-                                        isCvSelected.value = false
-                                    }else {
-                                        isOfertaEmpresarioSelected.value = true
-                                        isAnunciosEmpresarioSelected.value = false
-                                        isPerfilSelected.value = false
-                                    }
-                                    StaticVariables.fragmento = 1
-                                },
-                                icon = {
-                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Icon(
-                                            painter = painterResource(id = R.drawable.oferta),
-                                            contentDescription = "Ofertas",
-                                            modifier = Modifier
-                                                .height(25.dp)
-                                                .width(25.dp)
-                                        )
-                                        if (isOfertaSelected.value || isOfertaEmpresarioSelected.value) {
-                                            Text(
-                                                text = "Ofertas",
-                                                textAlign = TextAlign.Center,
-                                                fontSize = 10.sp,
-                                                fontFamily = FontFamily(Font(R.font.comforta))
-                                            )
+                            if (StaticVariables.appModo!!) {
+                                BottomNavigationItem(
+                                    selected = isOfertaSelected.value,
+                                    onClick = {
+                                        if (!StaticVariables.appModo!!) {
+                                            isOfertaSelected.value = true
+                                            isAnunciosSelected.value = false
+                                            isPerfilSelected.value = false
+                                            isCvSelected.value = false
+                                        } else {
+                                            isOfertaSelected.value = true
+                                            isAnunciosEmpresarioSelected.value = false
+                                            isPerfilSelected.value = false
                                         }
-                                    }
-                                },
-                                selectedContentColor = Color(0xFF266E86),
-                                unselectedContentColor = Color(0xfffcffff)
-                            )
+                                        StaticVariables.fragmento = 1
+                                    },
+                                    icon = {
+                                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                            Icon(
+                                                painter = painterResource(id = R.drawable.oferta),
+                                                contentDescription = "Ofertas",
+                                                modifier = Modifier
+                                                    .height(25.dp)
+                                                    .width(25.dp)
+                                            )
+                                            if (isOfertaSelected.value || isOfertaEmpresarioSelected.value) {
+                                                Text(
+                                                    text = "Ofertas",
+                                                    textAlign = TextAlign.Center,
+                                                    fontSize = 10.sp,
+                                                    fontFamily = FontFamily(Font(R.font.comforta))
+                                                )
+                                            }
+                                        }
+                                    },
+                                    selectedContentColor = Color(0xFF266E86),
+                                    unselectedContentColor = Color(0xfffcffff)
+                                )
+                            }
 
                             //Anuncios
                             BottomNavigationItem(
-                                selected = if(!StaticVariables.appModo)isAnunciosSelected.value else isAnunciosEmpresarioSelected.value,
+                                selected = if(!StaticVariables.appModo!!)isAnunciosSelected.value else isAnunciosEmpresarioSelected.value,
                                 onClick = {
-                                    if (!StaticVariables.appModo) {
+                                    if (!StaticVariables.appModo!!) {
                                         isAnunciosSelected.value = true
                                         isOfertaSelected.value = false
                                         isPerfilSelected.value = false
                                         isCvSelected.value = false
                                     }else {
                                         isAnunciosEmpresarioSelected.value = true
-                                        isOfertaEmpresarioSelected.value = false
+                                        isOfertaSelected.value = false
                                         isPerfilSelected.value = false
                                     }
                                     StaticVariables.fragmento = 2
@@ -145,7 +147,7 @@ fun main(navController: NavController, elemento: Int){
                             )
 
                             //CV  -> Lo iniciamos con un if, ya que este solo se verá si estamos en modo Estándar
-                            if (!StaticVariables.appModo) {
+                            if (!StaticVariables.appModo!!) {
                                 BottomNavigationItem(
                                     selected = isCvSelected.value,
                                     onClick = {
@@ -222,8 +224,8 @@ fun main(navController: NavController, elemento: Int){
                     ) {
                         //perfil(selected = isPerfilSelected)
                         anunciosEmpresario(selected = isAnunciosEmpresarioSelected, navController = navController)
-                        ofertaEmpresario(selected = isOfertaEmpresarioSelected, navController = navController)
-                        ofertas(selected = isOfertaSelected, navController =  navController)
+                        ofertaEmpresario(selected = isOfertaSelected, navController = navController)
+                        //ofertas(selected = isOfertaSelected, navController =  navController)
                         anuncios(selected = isAnunciosSelected, navController = navController)
                         cvMain(selected = isCvSelected)
                     }

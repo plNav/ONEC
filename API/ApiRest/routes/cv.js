@@ -24,7 +24,7 @@ router.post("/cv", (req, res) => {
         console.log("\nNuevo CV: \n"+data);
     })
     .catch((err) => {
-        res.json({message:err});
+        res.status(500).json({message : err});
         console.error("Error post /api/cv: "+err);
     })
 });
@@ -75,9 +75,9 @@ router.get("/cv/usuario/:id", (req, res) => {
 //Actualizar CV
 router.put("/cv/:id", (req, res) => {
     const {id} = req.params;
-    const {id_user, foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow} = req.body;
+    const {id_user, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow} = req.body;
     cvSchema
-    .updateOne({_id: id},{$set:{id_user,foto_url, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow}})
+    .updateOne({_id: id},{$set:{id_user, nombre, telefono, ubicacion, correo, experiencia, titulo, especialidad, habilidades, habilidadesLow}})
     .then((data) => {
         res.json(data);
         console.log("\nCV actualizado\n" + data);
@@ -119,12 +119,41 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
        let titulo = data.titulo;
        let especialidad = data.especialidad;
        let experiencia = data.experiencia;
-       let habilidades = data.habilidades
-        if(especialidad != null) {
+       let habilidades = data.habilidades;
+       let habilidadesLow = data.habilidadesLow;
+        if(titulo == null) {
+           if(habilidadesReq != "S") {
+                cvSchema
+                .find()
+                .where("habilidadesLow").in(habilidadesLow)
+                .where("experiencia").gte(experiencia)
+                .sort({experiencia : -1})
+                .then((data) => {
+                    res.json(data);
+                })
+                .catch((err) => {
+                    res.json({message : err})
+                })
+           }else {
+                cvSchema
+                .find()
+                .where("habilidadesLow").all(habilidadesLow)
+                .where("experiencia").gte(experiencia)
+                .sort({experiencia : -1})
+                .then((data) => {
+                    res.json(data)
+                })
+                .catch((err) => {
+                    res.json({message : err})
+                })
+           }
+        }
+        else if(especialidad != null) {
             cvSchema
             .find({titulo : titulo,especialidad : especialidad})
             .where("habilidades").all(habilidades) //El all nos devuelve las colecciones que contienen todos los elementos del array
             .where("experiencia").gte(experiencia)
+            .sort({experiencia : -1})
             .then((data) => {
                 if (data.length != []) {
                     res.json(data)
@@ -133,6 +162,7 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
                     .find({titulo : titulo,especialidad : especialidad})
                     .where("habilidades").in(habilidades) //Este solo muestra los que incluyen algunos de los valores del array
                     .where("experiencia").gte(experiencia) //Mayor o igual
+                    .sort({experiencia : -1})
                     .then((data) => {
                         res.json(data)
                     })
@@ -151,6 +181,7 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
            cvSchema
            .find({titulo : titulo,habilidades:habilidades})
            .where("experiencia").gte(experiencia)
+           .sort({experiencia : -1})
            .then((data) => {
                 if (data.length != []) {
                     res.json(data)
@@ -159,6 +190,7 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
                     .find({titulo : titulo})
                     .where("habilidades").in(habilidades)
                     .where("experiencia").gte(experiencia)
+                    .sort({experiencia : -1})
                     .then((data) => {
                         res.json(data)
                     })

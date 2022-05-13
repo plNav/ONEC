@@ -102,8 +102,7 @@ fun listaReviewsAnuncio(show : MutableState<Boolean>, navController: NavControll
                                 modifier = Modifier.fillMaxWidth()
                             )
                         },
-                        backgroundColor = Color.Transparent,
-                        elevation = 0.dp,
+                        backgroundColor = Color(0xFF1B1C29),
                         actions = {
                             IconButton(
                                 onClick = { /*TODO*/ },
@@ -317,8 +316,7 @@ fun emptyReviewsAnuncio(show: MutableState<Boolean>, navController: NavControlle
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
-                    backgroundColor = Color.Transparent,
-                    elevation = 0.dp,
+                    backgroundColor = Color(0xFF1B1C29),
                     actions = {
                         IconButton(
                             onClick = { /*TODO*/ },

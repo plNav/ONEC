@@ -2,16 +2,14 @@ package com.example.onec.Vistas.Perfil
 
 import android.util.Log
 import android.widget.Space
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +35,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.example.onec.Models.UsuarioModel
 import com.example.onec.Models.UsuarioPost
+import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.Soporte.getSHA256
@@ -138,126 +137,181 @@ fun configuracion(navController: NavController) {
 
         val scrollState = rememberScrollState(0)
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color(0xff434557))
-                .padding(horizontal = 10.dp)
-        ) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-                , horizontalAlignment = Alignment.CenterHorizontally) {
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(text = "Configuración", fontSize = 19.sp, textAlign = TextAlign.Center, color = Color(0XFFFCFFFF))
-                Spacer(modifier = Modifier.height(15.dp))
-                TextField(
-                    value = email.value,
-                    singleLine = true,
-                    textStyle = TextStyle(
-                        fontFamily = FontFamily(Font(R.font.comforta))
-                    ),
-                    leadingIcon = {
-                                  Icon(
-                                      imageVector = Icons.Filled.Email,
-                                      contentDescription = "Email",
-                                      tint = Color(0xFF858585)
-                                  )
-                    },
-                    trailingIcon = {
-                                if (readOnly.value) {
-                                    IconButton(onClick = { readOnly.value = false }) {
-                                        Icon(
-                                            Icons.Filled.Edit,
-                                            contentDescription = "Editar",
-                                            tint = Color(0xFF31778F)
-                                        )
-                                    }
-                                }else {
-                                    IconButton(onClick = {
-                                        readOnly.value = true
-                                        email.value = StaticVariables.usuario!!.email
-                                        mostrarBtnsEditar.value = false
-                                    }) {
-                                        Icon(
-                                            Icons.Filled.Clear,
-                                            contentDescription = "Editar",
-                                            tint = Color(0xFFC03B3B)
-                                        )
-                                    }
-                                }
-                    }
-                    ,label = {
-                        Text(text = "Email", overflow = TextOverflow.Ellipsis)
-                    },
-                    readOnly = readOnly.value
-                    ,
-                    onValueChange = {
-                        it.also { email.value = it }
-                        if (!mostrarBtnsEditar.value) mostrarBtnsEditar.value = true
-                                    },
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = Color(0xFFEEEEEE),
-                        focusedIndicatorColor = Color(
-                            0xFF266E86
-                        ),
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
-                        textColor = Color(
-                            0xFF266E86
-                        ),
-                        cursorColor = Color(
-                            0xFF266E86
+        Scaffold(modifier = Modifier.fillMaxSize(),topBar = {
+            TopAppBar(
+                backgroundColor = Color(0xFF1B1C29),
+                navigationIcon = {
+                    IconButton(onClick = {
+                        navController.navigate(Rutas.Main.route) {
+                            popUpTo(
+                                0
+                            )
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Volver atrás",
+                            tint = Color(0xfffcffff)
                         )
+                    }
+                },
+                title = {
+                    Text(
+                        text = "Configuración",
+                        fontSize = 19.sp,
+                        color = Color(0xfffcffff),
+                        fontFamily = FontFamily(
+                            Font(R.font.comforta)
+                        ),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
                     )
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(
-                    onClick = {
-                              showDialogPass.value = true
-                              tipo.value = "pass"
-                    },
-                    Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(7.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xFFFF2F9234)
-                    )) {
-                    Text(text = "Cambiar contraseña", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(0.dp,7.dp),fontFamily = FontFamily(Font(R.font.comforta)))
+                }, actions = {
+                    IconButton(onClick = { /*TODO*/ }, enabled = false) {
+
+                    }
                 }
-                if (mostrarBtnsEditar.value) {
-                    Spacer(modifier = Modifier.height(20.dp))
-                    Button(
-                        onClick = {
-                            if (email.value.isNullOrEmpty() || email.value.isNullOrBlank()) {
-                                dialogErrMsj.value = "El email no puede estar vacío"
-                                showDialogError.value = true
-                            }else {
-                                showLoading.value = true
-                                loginRegistroViewModel.comprobarEmailExistente(email = email.value) { did, cause ->
-                                    if (did && cause == "existe") {
-                                        showLoading.value = false
-                                        dialogErrMsj.value = "El email introducido\nya pertenece a un usuario"
-                                        showDialogError.value = true
-                                    }else if (!did && cause == "no existe") {
-                                        showLoading.value = false
-                                        showDialogPass.value = true
-                                        tipo.value = "save"
-                                    }else {
-                                       showLoading.value = false
-                                       dialogErrMsj.value = "Error al actualizar el correo\ninténtelo más tarde."
-                                       showDialogError.value = true
-                                    }
+            )
+        }) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color(0xff3b3d4c))
+                    .padding(horizontal = 10.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState)
+                        .padding(0.dp,20.dp,0.dp,0.dp)
+                    ,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Spacer(modifier = Modifier.height(15.dp))
+                    TextField(
+                        value = email.value,
+                        singleLine = true,
+                        textStyle = TextStyle(
+                            fontFamily = FontFamily(Font(R.font.comforta))
+                        ),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Filled.Email,
+                                contentDescription = "Email",
+                                tint = Color(0xFF858585)
+                            )
+                        },
+                        trailingIcon = {
+                            if (readOnly.value) {
+                                IconButton(onClick = { readOnly.value = false }) {
+                                    Icon(
+                                        Icons.Filled.Edit,
+                                        contentDescription = "Editar",
+                                        tint = Color(0xFF31778F)
+                                    )
+                                }
+                            } else {
+                                IconButton(onClick = {
+                                    readOnly.value = true
+                                    email.value = StaticVariables.usuario!!.email
+                                    mostrarBtnsEditar.value = false
+                                }) {
+                                    Icon(
+                                        Icons.Filled.Clear,
+                                        contentDescription = "Editar",
+                                        tint = Color(0xFFC03B3B)
+                                    )
                                 }
                             }
-                                  },
+                        }, label = {
+                            Text(text = "Email", overflow = TextOverflow.Ellipsis)
+                        },
+                        readOnly = readOnly.value,
+                        onValueChange = {
+                            it.also { email.value = it }
+                            if (!mostrarBtnsEditar.value) mostrarBtnsEditar.value = true
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = Color(0xFFEEEEEE),
+                            focusedIndicatorColor = Color(
+                                0xFF266E86
+                            ),
+                            unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
+                            textColor = Color(
+                                0xFF266E86
+                            ),
+                            cursorColor = Color(
+                                0xFF266E86
+                            )
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Button(
+                        onClick = {
+                            showDialogPass.value = true
+                            tipo.value = "pass"
+                        },
                         Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(7.dp),
                         colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color(0xFF266E86)
-                        )) {
-                        Text(text = "Guardar Cambios", color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(0.dp,7.dp),fontFamily = FontFamily(Font(R.font.comforta)))
+                            backgroundColor = Color(0xFFFF2F9234)
+                        )
+                    ) {
+                        Text(
+                            text = "Cambiar contraseña",
+                            color = Color.White,
+                            fontSize = 19.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(0.dp, 7.dp),
+                            fontFamily = FontFamily(Font(R.font.comforta))
+                        )
+                    }
+                    if (mostrarBtnsEditar.value) {
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Button(
+                            onClick = {
+                                if (email.value.isNullOrEmpty() || email.value.isNullOrBlank()) {
+                                    dialogErrMsj.value = "El email no puede estar vacío"
+                                    showDialogError.value = true
+                                } else {
+                                    showLoading.value = true
+                                    loginRegistroViewModel.comprobarEmailExistente(email = email.value) { did, cause ->
+                                        if (did && cause == "existe") {
+                                            showLoading.value = false
+                                            dialogErrMsj.value =
+                                                "El email introducido\nya pertenece a un usuario"
+                                            showDialogError.value = true
+                                        } else if (!did && cause == "no existe") {
+                                            showLoading.value = false
+                                            showDialogPass.value = true
+                                            tipo.value = "save"
+                                        } else {
+                                            showLoading.value = false
+                                            dialogErrMsj.value =
+                                                "Error al actualizar el correo\ninténtelo más tarde."
+                                            showDialogError.value = true
+                                        }
+                                    }
+                                }
+                            },
+                            Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(7.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFF266E86)
+                            )
+                        ) {
+                            Text(
+                                text = "Guardar Cambios",
+                                color = Color.White,
+                                fontSize = 19.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(0.dp, 7.dp),
+                                fontFamily = FontFamily(Font(R.font.comforta))
+                            )
+                        }
                     }
                 }
             }
@@ -268,6 +322,9 @@ fun configuracion(navController: NavController) {
         dialogChangedPass(show = mostrarPassChanged, titulo = titulo, texto = texto)
         dialogToChangePass(show = showDialogToChangePass, showLoading = showLoading, showError = showDialogError, showDid = mostrarPassChanged, errorMsj = dialogErrMsj, titulo, texto)
     }
+    BackHandler(onBack = {
+        navController.navigate(Rutas.Main.route) { popUpTo(0) }
+    })
 }
 
 /**
@@ -699,7 +756,7 @@ fun dialogError(show: MutableState<Boolean>, msj: MutableState<String>) {
                             painter = painterResource(id = R.drawable.errorlog),
                             contentDescription = "ErrorLog",
                             alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(
@@ -767,7 +824,7 @@ fun dialogChangedPass(show: MutableState<Boolean>, titulo : MutableState<String>
                       )
                       Spacer(modifier = Modifier.height(20.dp))
                       Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                          modifier = Modifier.fillMaxWidth() )
+                          modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
                       Text(
                           text = texto.value,
                           textAlign = TextAlign.Center,

@@ -148,7 +148,7 @@ router.get("/review/anuncio/puntuacion/:id", (req, res) => {
         if (data.length != []) {
             const puntuacion = data.map(review => review.puntuacion).reduce((a,b) => a + b, 0) / data.length
             console.log(puntuacion)
-            res.json(puntuacion);
+            res.json(Number.parseFloat(puntuacion.toFixed(1)));
             console.log("Media " + puntuacion)
         }else {
             res.json(0);

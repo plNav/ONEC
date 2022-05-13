@@ -256,7 +256,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                         painter = painterResource(id = R.drawable.errorlog),
                                         contentDescription = "ErrorLog",
                                         alignment = Alignment.Center,
-                                        modifier = Modifier.fillMaxWidth()
+                                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                                     )
                                     Spacer(modifier = Modifier.height(20.dp))
                                     Text(

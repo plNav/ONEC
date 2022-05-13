@@ -62,6 +62,10 @@ fun anuncioBuscadoDetalles(navController: NavController){
             mutableStateOf(false)
         }
 
+        val cargandoAnuncio = remember {
+            mutableStateOf(false)
+        }
+
         val loadingAnuncioVista = remember {
             mutableStateOf(true)
         }
@@ -83,8 +87,7 @@ fun anuncioBuscadoDetalles(navController: NavController){
         }
 
         if (loadingAnuncioVista.value) {
-            loadingAnuncioVista.value = false
-            loading.value = true
+            cargandoAnuncio.value = true
             //Primero obtenemos las visualizaciones del usuario para dicho anuncio y la puntuacion
             resenyaViewModel.calcularPuntuacionAnuncio(StaticVariables.anuncioBuscadoSelect!!._id) { puntuacion ->
                 if (puntuacion != null) {
@@ -122,7 +125,7 @@ fun anuncioBuscadoDetalles(navController: NavController){
                                         } else {
                                             errorCarga.value = true
                                         }
-                                        loading.value = false
+                                        cargandoAnuncio.value = false
                                         loadingAnuncioVista.value = false
                                     }
                                 } else {
@@ -130,13 +133,13 @@ fun anuncioBuscadoDetalles(navController: NavController){
                                 }
                             }
                         } else {
-                            loading.value = false
+                            cargandoAnuncio.value = false
                             loadingAnuncioVista.value = false
                         }
                     }
                 }else {
                     errorCarga.value = true
-                    loading.value = false
+                    cargandoAnuncio.value = false
                     loadingAnuncioVista.value = false
                 }
             }
@@ -166,8 +169,7 @@ fun anuncioBuscadoDetalles(navController: NavController){
                                 modifier = Modifier.fillMaxWidth()
                             )
                         },
-                        backgroundColor = Color.Transparent,
-                        elevation = 0.dp,
+                        backgroundColor = Color(0xFF1B1C29),
                         actions = {
                             IconButton(
                                 onClick = { /*TODO*/ },
@@ -417,15 +419,15 @@ fun anuncioBuscadoDetalles(navController: NavController){
         }
         dialogError(show = showDialogError, msj = errorMsj)
         dialogLoading(show = loading)
-        errorCargarAnuncio(show = errorCarga, loading = loading)
+        loadingAnuncio(loading = cargandoAnuncio )
+        errorCargarAnuncio(show = errorCarga, loading = loadingAnuncioVista)
     }
 }
 
 @Composable
-fun errorCargarAnuncio(show: MutableState<Boolean>, loading: MutableState<Boolean>){
+fun errorCargarAnuncio(show: MutableState<Boolean>, loading : MutableState<Boolean>){
     if (show.value) {
         OnecTheme() {
-            val scrollState = rememberScrollState(0)
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -434,30 +436,32 @@ fun errorCargarAnuncio(show: MutableState<Boolean>, loading: MutableState<Boolea
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .verticalScroll(scrollState)
                         .background(Color(0xff3b3d4c)),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                     Text(
                         text = "Error al cargar Anuncio",
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
-                        contentDescription = "Error log"
+                        contentDescription = "Error log",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.3f)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
                         text = "Ha ocurrido un error\nal cargar el anuncio\ninténtelo más tarde.",
                         fontSize = 16.sp,
                         color = Color(0xfffcffff),
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Button(
                         onClick = {
                             loading.value = true
@@ -482,8 +486,30 @@ fun errorCargarAnuncio(show: MutableState<Boolean>, loading: MutableState<Boolea
                             )
                         )
                     }
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun loadingAnuncio(loading : MutableState<Boolean>){
+    if (loading.value) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xff333542)),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator(
+                color = Color(0xfffcffff), modifier = Modifier
+                    .height(30.dp)
+                    .width(30.dp)
+            )
+            Spacer(modifier = Modifier.height(3.dp))
+            Text(text = "Cargando...", fontSize = 16.sp, color = Color(0xfffcffff))
         }
     }
 }

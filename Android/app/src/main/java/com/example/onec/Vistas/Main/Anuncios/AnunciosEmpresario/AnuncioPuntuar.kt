@@ -97,22 +97,22 @@ fun anuncioPuntuar(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.padding(5.dp)
                 ) {
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                     Text(
                         text = msj.value,
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                     Image(
                         painter = painterResource(id = imagen.value),
                         contentDescription = "Statisfacción",
                         modifier = Modifier
-                            .height(80.dp)
-                            .width(80.dp)
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.2f)
                     )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                     Row(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
@@ -202,7 +202,7 @@ fun anuncioPuntuar(navController: NavController) {
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.02f));
                     TextField(
                         value = descripcion.value,
                         textStyle = TextStyle(
@@ -222,7 +222,7 @@ fun anuncioPuntuar(navController: NavController) {
                         maxLines = 9,
                         modifier = Modifier
                             .fillMaxWidth(0.9f)
-                            .height(180.dp)
+                            .fillMaxHeight(0.3f)
                             .shadow(
                                 elevation = 3.dp,
                                 shape = RoundedCornerShape(7.dp)
@@ -236,7 +236,7 @@ fun anuncioPuntuar(navController: NavController) {
                             cursorColor = Color(0xFFFCFFFF)
                         )
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.1f));
                     Button(
                         onClick = {
                                   //Publicar Anuncio
@@ -279,7 +279,7 @@ fun anuncioPuntuar(navController: NavController) {
                             fontFamily = FontFamily(Font(R.font.comforta))
                         )
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.1f));
                     Button(
                         onClick = {
                             navController.navigate(Rutas.AnuncioFavDetalles.route) { popUpTo(Rutas.Main.route) }
@@ -299,7 +299,7 @@ fun anuncioPuntuar(navController: NavController) {
                             fontFamily = FontFamily(Font(R.font.comforta))
                         )
                     }
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 }
             }
         }
@@ -314,16 +314,16 @@ fun anuncioPuntuar(navController: NavController) {
 fun reviewPublicada(show: MutableState<Boolean> , navController: NavController) {
     if (show.value) {
     OnecTheme {
-        val scrollState = rememberScrollState(0)
-        Box(modifier = Modifier.fillMaxSize().background(Color(0xff333542))) {
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xff333542))) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState),
+                    .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 Text(
                     text = "Valoración publicada",
                     modifier = Modifier.fillMaxWidth(),
@@ -331,13 +331,14 @@ fun reviewPublicada(show: MutableState<Boolean> , navController: NavController) 
                     fontSize = 25.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 Image(
                     painter = painterResource(id = R.drawable.good),
                     contentDescription = "Good",
                     alignment = Alignment.Center,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                 )
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 Text(
                     text = "Su valoración\n ha sido publicada.",
                     textAlign = TextAlign.Center,
@@ -345,7 +346,7 @@ fun reviewPublicada(show: MutableState<Boolean> , navController: NavController) 
                     fontSize = 19.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 Button(
                     onClick = {
                         navController.navigate(Rutas.AnuncioFavDetalles.route) { popUpTo(Rutas.Main.route) }
@@ -369,6 +370,7 @@ fun reviewPublicada(show: MutableState<Boolean> , navController: NavController) 
                         )
                     )
                 }
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
             }
         }
     }

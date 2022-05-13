@@ -38,7 +38,6 @@ import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.AnuncioViewModel
 import com.example.onec.Vistas.Login.dialogLoading
-import com.example.onec.Vistas.Main.circuloLoading
 import com.example.onec.Vistas.Perfil.dialogError
 import com.example.onec.Vistas.Perfil.loading
 import com.example.onec.ui.theme.OnecTheme
@@ -90,12 +89,12 @@ fun crearAnuncio(navController: NavController) {
                         errorMsj = errorMsj,
                         navController = navController
                     )
-                    anuncioCreado(show = showAnuncioCreated, navController)
                     errorAnuncioCrear(show = showError, isLoading = isLoading)
                     loadingAnuncio(show = isLoading)
                     errorDialog(show = showErrorDialog, error = errorMsj)
                     dialogLoading(show = loadingDialog)
             }
+        anuncioCreado(show = showAnuncioCreated, navController)
     }
 
     //Configuramos el Back Handler
@@ -386,7 +385,7 @@ fun anuncioCreado(show: MutableState<Boolean>, navController: NavController) {
         OnecTheme {
             Column(modifier = Modifier
                 .fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                 Text(
                     text = "Anuncio publicado",
                     modifier = Modifier.fillMaxWidth(),
@@ -394,9 +393,12 @@ fun anuncioCreado(show: MutableState<Boolean>, navController: NavController) {
                     fontSize = 25.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                    modifier = Modifier.fillMaxWidth() )
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.3f) )
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Text(
                     text = "El anuncio ha sido públicado.",
                     textAlign = TextAlign.Center,
@@ -404,7 +406,7 @@ fun anuncioCreado(show: MutableState<Boolean>, navController: NavController) {
                     fontSize = 19.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Button(
                     //Le damos el valo de false para que se cierre el diálogo al darle click en el botón.
                     onClick = {
@@ -429,6 +431,7 @@ fun anuncioCreado(show: MutableState<Boolean>, navController: NavController) {
                         )
                     )
                 }
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             }
         }
     }
@@ -461,7 +464,9 @@ fun errorDialog(show : MutableState<Boolean>, error : MutableState<String>){
                             painter = painterResource(id = R.drawable.errorlog),
                             contentDescription = "ErrorLog",
                             alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.3f)
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(

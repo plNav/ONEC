@@ -3,7 +3,6 @@ package com.example.onec.Models
 data class CvModel(
     val _id : String,
     var id_user : String,
-    var foto_url : String,
     var nombre : String,
     var telefono : String,
     var ubicacion: String,

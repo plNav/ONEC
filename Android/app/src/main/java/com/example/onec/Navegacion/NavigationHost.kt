@@ -20,7 +20,7 @@ import com.example.onec.Vistas.Main.Anuncios.anuncioDetalle
 import com.example.onec.Vistas.Main.Anuncios.anuncioReviews
 import com.example.onec.Vistas.Main.Anuncios.crearAnuncio
 import com.example.onec.Vistas.Main.Anuncios.editarAnuncio
-import com.example.onec.Vistas.Main.Ofertas.crearOferta
+import com.example.onec.Vistas.Main.Ofertas.*
 import com.example.onec.Vistas.Perfil.configuracion
 import com.example.onec.Vistas.Registro.Registro
 import com.example.onec.Vistas.ResetPassword.Forgot
@@ -34,7 +34,7 @@ fun navHost(context: Context) {
 
    NavHost(
        navController = navController,
-       startDestination = Rutas.Login.route) {
+       startDestination = if (StaticVariables.usuario == null) Rutas.Login.route else if (StaticVariables.appModo == null) Rutas.TipoCuenta.route else Rutas.Main.route) {
 
        //Ruta Login
        composable(route = Rutas.Login.route) {
@@ -143,6 +143,26 @@ fun navHost(context: Context) {
        //Ruta reviews anuncio Subido por usuario
        composable(route = Rutas.AnuncioReviews.route) {
            anuncioReviews(navController = navController)
+       }
+       
+       //Ruta detalles Ofertas
+       composable(route = Rutas.OfertaDetalles.route) {
+           ofertaDetalles(navController = navController)
+       }
+       
+       //Ruta Candidatos de ofertas
+       composable(route = Rutas.OfertaCandidatos.route) {
+           ofertasCandidatos(navController = navController)
+       }
+       
+       //Ruta para buscar candidatos 
+       composable(route = Rutas.BuscarCandidatos.route) {
+           buscarCandidatos(navController = navController)
+       }
+       
+       //Ruta para ver detalles de candidato guardado
+       composable(route = Rutas.DetallesCandidatoGuardado.route) {
+           detallesCandidatoGuardado(navController = navController)
        }
    }
 }

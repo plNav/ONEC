@@ -86,27 +86,19 @@ class CvViewModel : ViewModel() {
         }
     }
 
-    fun subirImagen(imagen:Bitmap, onComplete: (did: Boolean) -> Unit) {
+    fun buscarCVS(id: String, reqHab : String, onComplete: (cvs : MutableList<CvModel>?) -> Unit) {
         viewModelScope.launch {
             try {
                 val api = ApiServices.ApiServices.getInstance()
-                val stream = ByteArrayOutputStream()
-                imagen.compress(Bitmap.CompressFormat.PNG,90,stream)
-                val imageByte = stream.toByteArray()
-                val requestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(),imageByte)
-                val parte = createFormData("upload",StaticVariables.usuario!!._id, requestBody)
-                val respuesta = api.postImage(parte)
-                if (respuesta.isExecuted) {
-                    onComplete(true)
+                val respuesta = api.buscarCVs(id,reqHab)
+                if (respuesta.isSuccessful) {
+                    onComplete(respuesta.body())
                 }else {
-                    onComplete(false)
-                    Log.d("respuesta",respuesta.toString())
+                    onComplete(null)
                 }
-            }catch (e: Exception) {
-                onComplete(false)
-                Log.d("respuesta",e.message.toString())
+            }catch (e : Exception) {
+                onComplete(null)
             }
-
         }
     }
 }
