@@ -853,7 +853,7 @@ fun did(show : MutableState<Boolean>, navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth() )
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
                         Text(
                             text = "La oferta ha sido actualizada.",
                             textAlign = TextAlign.Center,

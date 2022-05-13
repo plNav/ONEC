@@ -34,7 +34,7 @@ fun navHost(context: Context) {
 
    NavHost(
        navController = navController,
-       startDestination = Rutas.Login.route) {
+       startDestination = if (StaticVariables.usuario == null) Rutas.Login.route else if (StaticVariables.appModo == null) Rutas.TipoCuenta.route else Rutas.Main.route) {
 
        //Ruta Login
        composable(route = Rutas.Login.route) {

@@ -126,7 +126,10 @@ GET http://localhost:8081/api/cv/usuario/626afb627ed51abf76ac03e7 HTTP/1.1
 GET http://localhost:8081/api/oferta/627918a9b4ae0bad644181e0 HTTP/1.1
 
 ###
-GET http://localhost:8081/api/cv/oferta/62791a4e1d74b1a4c3caf437/S HTTP/1.1
+GET http://localhost:8081/api/cv/oferta/627a8e09affb4c03ff5ad06c/S HTTP/1.1
 
 ###
 GET http://localhost:8081/api/cv HTTP/1.1
+
+###
+GET http://localhost:8081/api/candidatosOfertas/oferta/627a94e32dc5f207c8888d14 HTTP/1.1

@@ -317,7 +317,7 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                     .fillMaxSize()
                     .padding(horizontal = 10.dp, vertical = 5.dp)
             ) {
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 Text(
                     text = "Añade tus habilidades",
                     fontSize = 19.sp,
@@ -325,7 +325,7 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                     textAlign = TextAlign.Center,
                     modifier = Modifier.align(CenterHorizontally)
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 TextField(
                     value = habilidadCreada.value,
                     singleLine = true,
@@ -375,7 +375,7 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                         cursorColor = Color(0xFF388BA7)
                     )
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 Column(
                     Modifier
                         .fillMaxSize()
@@ -453,13 +453,14 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                             ) {
                                 Text(
                                     text = "Ninguna habilidad especificada",
+                                    textAlign = TextAlign.Center,
                                     fontSize = 19.sp,
                                     color = Color(0xfffcffff)
                                 )
                             }
                         }
                     }
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.1f));
                     Button(
                         onClick = {
                             guardarCV.value = true
@@ -483,6 +484,7 @@ fun creaCvHabilidades(valor: MutableState<String>, resultState: MutableState<Str
                             fontFamily = FontFamily(Font(R.font.comforta))
                         )
                     }
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
 
                 }
 
@@ -520,7 +522,7 @@ fun dialogoError(showDialog : MutableState<Boolean>,error : MutableState<String>
                         painter = painterResource(id = R.drawable.errorlog),
                         contentDescription = "ErrorLog",
                         alignment = Alignment.Center,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                     )
                     Spacer(modifier = Modifier.height(20.dp))
                     Text(
@@ -1146,8 +1148,6 @@ fun guardarPerfilError(visible : MutableState<Boolean>, cv : CvPost, resultState
             CvViewModel()
         }
 
-        val scrollState = rememberScrollState(0)
-
         val loading = remember {
             mutableStateOf(false)
         }
@@ -1157,25 +1157,25 @@ fun guardarPerfilError(visible : MutableState<Boolean>, cv : CvPost, resultState
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .verticalScroll(scrollState)
                         .padding(horizontal = 5.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(text = "Error al crear CV", fontSize = 23.sp, color = Color(0xfffcffff))
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
-                        contentDescription = "Error"
+                        contentDescription = "Error",
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                     Text(
                         text = "Error producido durante la creación de su CV\n por favor, inténtelo más tarde.",
                         textAlign = TextAlign.Center,
                         fontSize = 17.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.06f));
                     Button(
                         onClick = {loading.value = true},
                         Modifier
@@ -1196,6 +1196,7 @@ fun guardarPerfilError(visible : MutableState<Boolean>, cv : CvPost, resultState
                             fontFamily = FontFamily(Font(R.font.comforta))
                         )
                     }
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f));
                 }
             }else {
                 //Muestra el simbolo de carga

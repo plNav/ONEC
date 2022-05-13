@@ -104,8 +104,7 @@ fun listReviewsFav(show: MutableState<Boolean>, navController: NavController, re
                                 modifier = Modifier.fillMaxWidth()
                             )
                         },
-                        backgroundColor = Color.Transparent,
-                        elevation = 0.dp,
+                        backgroundColor = Color(0xFF1B1C29),
                         actions = {
                             IconButton(
                                 onClick = { /*TODO*/ },
@@ -317,8 +316,7 @@ fun emptyReviewsFav(show : MutableState<Boolean>, navController: NavController) 
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
-                    backgroundColor = Color.Transparent,
-                    elevation = 0.dp,
+                    backgroundColor = Color(0xFF1B1C29),
                     actions = {
                         IconButton(
                             onClick = { /*TODO*/ },

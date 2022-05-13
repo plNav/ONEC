@@ -449,37 +449,37 @@ fun cargandoCandidato(show: MutableState<Boolean>, showErr: MutableState<Boolean
 fun errorCargaCandidato(show: MutableState<Boolean>, loading : MutableState<Boolean>) {
     OnecTheme {
         if (show.value) {
-            val scrollState = rememberScrollState(0)
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(scrollState),
+                        .fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
                         text = "Error al cargar candidato",
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
-                        contentDescription = "Error log"
+                        contentDescription = "Error log",
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
                         text = "Error al cargar candidato\n por favor inténtelo más tarde.",
                         fontSize = 16.sp,
                         color = Color(0xfffcffff),
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Button(
                         onClick = {
                             loading.value = true
@@ -504,6 +504,7 @@ fun errorCargaCandidato(show: MutableState<Boolean>, loading : MutableState<Bool
                             )
                         )
                     }
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 }
             }
         }
@@ -534,7 +535,7 @@ fun dialogoDid(show: MutableState<Boolean>, navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth() )
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
                         Text(
                             text = "El candidato\nha sido eliminado.",
                             textAlign = TextAlign.Center,

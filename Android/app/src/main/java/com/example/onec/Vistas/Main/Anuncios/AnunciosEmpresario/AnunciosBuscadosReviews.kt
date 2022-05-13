@@ -69,36 +69,37 @@ fun anunciosBuscadosReviews(navController: NavController) {
 @Composable
 fun errorCargaReviews(show: MutableState<Boolean>, loading : MutableState<Boolean>) {
     if (show.value) {
-        val scrollState = rememberScrollState(0)
         OnecTheme() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(scrollState)
                     .background(Color(0xff333542))
                 ,
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                 Text(
-                    text = "Error al cargar Anuncios",
+                    text = "Error al cargar Reseñas",
                     fontSize = 19.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Image(
                     painter = painterResource(id = R.drawable.errorlog),
-                    contentDescription = "Error log"
+                    contentDescription = "Error log",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.3f)
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Text(
-                    text = "Error al buscar anuncios\ninténtelo más tarde.",
+                    text = "Error al cargar reseñas\npor favor inténtelo más tarde.",
                     fontSize = 16.sp,
                     color = Color(0xfffcffff),
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Button(
                     onClick = {
                         loading.value = true
@@ -123,6 +124,7 @@ fun errorCargaReviews(show: MutableState<Boolean>, loading : MutableState<Boolea
                         )
                     )
                 }
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             }
         }
     }
@@ -212,8 +214,7 @@ fun emptyReviews(show: MutableState<Boolean>, navController: NavController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
-                    backgroundColor = Color.Transparent,
-                    elevation = 0.dp,
+                    backgroundColor = Color(0xFF1B1C29),
                     actions = {
                         IconButton(
                             onClick = { /*TODO*/ },
@@ -274,8 +275,7 @@ fun listReviews(show: MutableState<Boolean>, navController: NavController , revi
                                 modifier = Modifier.fillMaxWidth()
                             )
                         },
-                        backgroundColor = Color.Transparent,
-                        elevation = 0.dp,
+                        backgroundColor = Color(0xFF1B1C29),
                         actions = {
                             IconButton(
                                 onClick = { /*TODO*/ },

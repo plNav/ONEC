@@ -54,10 +54,6 @@ fun buscarAnuncio(navController: NavController) {
             mutableStateOf(false)
         }
 
-        val showError = remember {
-            mutableStateOf(false)
-        }
-
         val showAnuncioNoEncontrado = remember {
             mutableStateOf(false)
         }
@@ -94,8 +90,7 @@ fun buscarAnuncio(navController: NavController) {
                     .background(Color(0xff333542))
             ) {
                 Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(10.dp, 0.dp)) {
+                    .fillMaxSize()) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -124,8 +119,7 @@ fun buscarAnuncio(navController: NavController) {
                                     modifier = Modifier.fillMaxWidth()
                                 )
                             },
-                            backgroundColor = Color.Transparent,
-                            elevation = 0.dp,
+                            backgroundColor = Color(0xFF1B1C29),
                             actions = {
                                 IconButton(
                                     onClick = { /*TODO*/ },
@@ -133,103 +127,135 @@ fun buscarAnuncio(navController: NavController) {
                                     content = {}) //Lo hacemos sin contenido, solo servirá para hacer que el titulo se quede centrado
                             }
                         )
-                        Spacer(modifier = Modifier.height(15.dp))
-                        TextField(
-                            value = busquedaAnuncio.value,
-                            singleLine = true,
-                            textStyle = TextStyle(
-                                fontFamily = FontFamily(Font(R.font.comforta)),
-                                color = Color(0xFF266E86)
-                            ),
-                            label = {
-                                Text(
-                                    text = "Buscar",
-                                    color = Color(0xFF292929),
-                                    fontFamily = FontFamily(Font(R.font.comforta))
-                                )
-                            },
-                            onValueChange = { it.also { busquedaAnuncio.value = it } },
-                            shape = RoundedCornerShape(7.dp),
-                            trailingIcon = {
-                                Icon(
-                                    imageVector = Icons.Filled.Search,
-                                    contentDescription = "Add",
-                                    tint = Color(0xFF388BA7),
-                                    modifier = Modifier.clickable {
-                                        listaAnuncios.value.clear()
-                                        if (busquedaAnuncio.value.isNullOrEmpty() ||busquedaAnuncio.value.isNullOrBlank() || busquedaAnuncio.value == "") {
-                                            showDialogError.value = true
-                                            dialogMsj.value = "De introducir un campo"
-                                        }else {
-                                            //Limpiamos el resto de variables
-                                            showMsjExplicar.value = false
-                                            showError.value = false
-                                            showListaAnuncios.value = false
-                                            showAnuncioNoEncontrado.value = false
-                                            loading.value = true
-                                            anunciosGuardadosViewModel.obtenerAnunciosFavoritosUsuario { anunciosFav ->
-                                                if (anunciosFav == null) {
-                                                    showError.value = true
-                                                }else if (anunciosFav.isEmpty()) {
-                                                    anuncioViewModel.buscarAnuncios(busquedaAnuncio.value) { anunciosEncontrados ->
-                                                        if (anunciosEncontrados == null) {
-                                                            showError.value = true
-                                                        }else if (anunciosEncontrados.isEmpty()) {
-                                                            showAnuncioNoEncontrado.value = true
-                                                        }else if (anunciosEncontrados.isNotEmpty()) {
-                                                            listaAnuncios.value = anunciosEncontrados
-                                                            StaticVariables.anunciosBuscadosEmpre = anunciosEncontrados
-                                                            StaticVariables.anuncioEmpreBuscado = true
-                                                            showListaAnuncios.value = true
-                                                        }else {
-                                                            showError.value = true
-                                                        }
+                        Column(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(10.dp, 0.dp)) {
+                            Spacer(modifier = Modifier.height(15.dp))
+                            TextField(
+                                value = busquedaAnuncio.value,
+                                singleLine = true,
+                                textStyle = TextStyle(
+                                    fontFamily = FontFamily(Font(R.font.comforta)),
+                                    color = Color(0xFF266E86)
+                                ),
+                                label = {
+                                    Text(
+                                        text = "Buscar",
+                                        color = Color(0xFF292929),
+                                        fontFamily = FontFamily(Font(R.font.comforta))
+                                    )
+                                },
+                                onValueChange = { it.also { busquedaAnuncio.value = it } },
+                                shape = RoundedCornerShape(7.dp),
+                                trailingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Filled.Search,
+                                        contentDescription = "Add",
+                                        tint = Color(0xFF388BA7),
+                                        modifier = Modifier.clickable {
+                                            listaAnuncios.value.clear()
+                                            if (busquedaAnuncio.value.isNullOrEmpty() || busquedaAnuncio.value.isNullOrBlank() || busquedaAnuncio.value == "") {
+                                                showDialogError.value = true
+                                                dialogMsj.value = "De introducir un campo"
+                                            } else {
+                                                //Limpiamos el resto de variables
+                                                showMsjExplicar.value = false
+                                                showListaAnuncios.value = false
+                                                showAnuncioNoEncontrado.value = false
+                                                loading.value = true
+                                                anunciosGuardadosViewModel.obtenerAnunciosFavoritosUsuario { anunciosFav ->
+                                                    if (anunciosFav == null) {
                                                         loading.value = false
-                                                    }
-                                                }else {
-                                                    val idAnunciosFav = anunciosFav.map { it.id_anuncio }
-                                                    anuncioViewModel.buscarAnuncios(busquedaAnuncio.value) { anunciosEncontrados ->
-                                                        if (anunciosEncontrados == null) {
-                                                            showError.value = true
-                                                        }else if (anunciosEncontrados.isEmpty()) {
-                                                            showAnuncioNoEncontrado.value = true
-                                                        }else if (anunciosEncontrados.isNotEmpty()) {
-                                                            Log.d("AnunciosEncontrados", anunciosEncontrados.size.toString())
-                                                            anunciosEncontrados.forEach { anuncio ->
-                                                                if (!idAnunciosFav.contains(anuncio._id)) {
-                                                                    StaticVariables.anunciosBuscadosEmpre.add(anuncio)
-                                                                    StaticVariables.anuncioEmpreBuscado = true
-                                                                    showListaAnuncios.value = true
-                                                                }
-                                                            }
-                                                            //Crear una variable que compruebe que no sea empty la lista para que no pete
-                                                            if (StaticVariables.anunciosBuscadosEmpre.isEmpty()) {
+                                                        showDialogError.value = true
+                                                        dialogMsj.value = "Error al buscar anuncio"
+                                                    } else if (anunciosFav.isEmpty()) {
+                                                        anuncioViewModel.buscarAnuncios(
+                                                            busquedaAnuncio.value
+                                                        ) { anunciosEncontrados ->
+                                                            if (anunciosEncontrados == null) {
+                                                                showDialogError.value = true
+                                                                dialogMsj.value =
+                                                                    "Error al buscar anuncio"
+                                                            } else if (anunciosEncontrados.isEmpty()) {
                                                                 showAnuncioNoEncontrado.value = true
+                                                            } else if (anunciosEncontrados.isNotEmpty()) {
+                                                                listaAnuncios.value =
+                                                                    anunciosEncontrados
+                                                                StaticVariables.anunciosBuscadosEmpre =
+                                                                    anunciosEncontrados
+                                                                StaticVariables.anuncioEmpreBuscado =
+                                                                    true
+                                                                showListaAnuncios.value = true
+                                                            } else {
+                                                                showDialogError.value = true
+                                                                dialogMsj.value =
+                                                                    "Error al buscar anuncio"
                                                             }
-                                                        }else {
-                                                            showError.value = true
+                                                            loading.value = false
                                                         }
-                                                        loading.value = false
+                                                    } else {
+                                                        val idAnunciosFav =
+                                                            anunciosFav.map { it.id_anuncio }
+                                                        anuncioViewModel.buscarAnuncios(
+                                                            busquedaAnuncio.value
+                                                        ) { anunciosEncontrados ->
+                                                            if (anunciosEncontrados == null) {
+                                                                showDialogError.value = true
+                                                                dialogMsj.value =
+                                                                    "Error al buscar anuncio"
+                                                            } else if (anunciosEncontrados.isEmpty()) {
+                                                                showAnuncioNoEncontrado.value = true
+                                                            } else if (anunciosEncontrados.isNotEmpty()) {
+                                                                Log.d(
+                                                                    "AnunciosEncontrados",
+                                                                    anunciosEncontrados.size.toString()
+                                                                )
+                                                                anunciosEncontrados.forEach { anuncio ->
+                                                                    if (!idAnunciosFav.contains(
+                                                                            anuncio._id
+                                                                        )
+                                                                    ) {
+                                                                        StaticVariables.anunciosBuscadosEmpre.add(
+                                                                            anuncio
+                                                                        )
+                                                                        StaticVariables.anuncioEmpreBuscado =
+                                                                            true
+                                                                        showListaAnuncios.value =
+                                                                            true
+                                                                    }
+                                                                }
+                                                                //Crear una variable que compruebe que no sea empty la lista para que no pete
+                                                                if (StaticVariables.anunciosBuscadosEmpre.isEmpty()) {
+                                                                    showAnuncioNoEncontrado.value =
+                                                                        true
+                                                                }
+                                                            } else {
+                                                                showDialogError.value = true
+                                                                dialogMsj.value =
+                                                                    "Error al buscar anuncio"
+                                                            }
+                                                            loading.value = false
+                                                        }
                                                     }
                                                 }
-                                            }
 
+                                            }
                                         }
-                                    }
+                                    )
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .shadow(elevation = 3.dp, shape = RoundedCornerShape(7.dp)),
+                                colors = TextFieldDefaults.textFieldColors(
+                                    backgroundColor = Color(0xFFFCFFFF),
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    disabledIndicatorColor = Color.Transparent,
+                                    textColor = Color(0xFF999dba),
+                                    cursorColor = Color(0xFF388BA7)
                                 )
-                            },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .shadow(elevation = 3.dp, shape = RoundedCornerShape(7.dp)),
-                            colors = TextFieldDefaults.textFieldColors(
-                                backgroundColor = Color(0xFFFCFFFF),
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent,
-                                textColor = Color(0xFF999dba),
-                                cursorColor = Color(0xFF388BA7)
                             )
-                        )
+                        }
                     }
                     if (StaticVariables.anunciosBuscadosEmpre.isNotEmpty()) {
                         Log.d("noesVacio",StaticVariables.anunciosBuscadosEmpre.size.toString())
@@ -239,7 +265,6 @@ fun buscarAnuncio(navController: NavController) {
                     }
                     dialogError(show = showDialogError, msj = dialogMsj )
                     cargar(loading)
-                    errorBusqueda(showError,loading)
                     listaAnunciosBuscados(showListaAnuncios, listaAnuncios.value, navController = navController)
                     noEncontrado(showAnuncioNoEncontrado)
                     mostrarMsjBuscar(show = showMsjExplicar)
@@ -315,112 +340,121 @@ fun listaAnunciosBuscados(show: MutableState<Boolean>, anuncios : MutableList<An
                                            }
                                        }
                                    }
-
                                }
                            }
 
                    }else {
                            //El correo ya está cargado, por lo tanto mostrar el anuncio en forma de card
                            Spacer(modifier = Modifier.height(5.dp))
-                           Card(modifier = Modifier
-                               .fillMaxWidth()
-                               .clickable {
-                                   StaticVariables.anuncioBuscadoSelect = anuncio
-                                   StaticVariables.correoAnuncioBuscadoSelect = correo.value
-                                   StaticVariables.puntuacionAnuncioBuscado = puntuacion.value
-                                   navController.navigate(Rutas.AnuncioBuscadoDetalles.route)
-                               }, backgroundColor = Color(
-                               0xFF266E86
-                           )) {
-                               Column(modifier = Modifier
-                                   .fillMaxWidth()
+                           Column(modifier = Modifier.fillMaxWidth().padding(10.dp,0.dp)) {
+                               Card(
+                                   modifier = Modifier
+                                       .fillMaxWidth()
+                                       .clickable {
+                                           StaticVariables.anuncioBuscadoSelect = anuncio
+                                           StaticVariables.correoAnuncioBuscadoSelect = correo.value
+                                           StaticVariables.puntuacionAnuncioBuscado =
+                                               puntuacion.value
+                                           navController.navigate(Rutas.AnuncioBuscadoDetalles.route)
+                                       }, backgroundColor = Color(
+                                       0xFF266E86
+                                   )
                                ) {
-                                   Box(Modifier.background(color = Color(0xFF999dba))) {
-                                       Column(Modifier.padding(5.dp)) {
-                                           Text(
-                                               text = anuncio.categoria,
-                                               fontSize = 23.sp,
-                                               color = Color(0xFF202020),
-                                               fontWeight = FontWeight.Bold,
-                                               maxLines = 1,
-                                               overflow = TextOverflow.Ellipsis
-                                           )
-                                           Spacer(modifier = Modifier.height(2.dp))
-                                           Divider(thickness = 1.dp)
-                                           Spacer(modifier = Modifier.height(2.dp))
-                                           Text(
-                                               text = anuncio.nombre,
-                                               fontSize = 16.sp,
-                                               color = Color(0xFF202020),
-                                               fontWeight = FontWeight.Bold,
-                                               maxLines = 1,
-                                               overflow = TextOverflow.Ellipsis
-                                           )
-                                           Spacer(modifier = Modifier.height(10.dp))
-                                           Text(
-                                               text = anuncio.descripcion,
-                                               fontSize = 14.sp,
-                                               color = Color(0xFF202020),
-                                               maxLines = 2,
-                                               overflow = TextOverflow.Ellipsis
-                                           )
-                                           Spacer(modifier = Modifier.height(3.dp))
-                                           Text(
-                                               text = anuncio.precio.toString(),
-                                               fontSize = 15.sp,
-                                               color = Color(0xFF202020),
-                                               fontWeight = FontWeight.Bold
-                                           )
-                                           Spacer(modifier = Modifier.height(10.dp))
-                                       }
-                                   }
-                                   Row(
+                                   Column(
                                        modifier = Modifier
                                            .fillMaxWidth()
-                                           .padding(5.dp),
-                                       horizontalArrangement = Arrangement.SpaceEvenly
                                    ) {
-                                       Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                           Icon(
-                                               painter = painterResource(id = R.drawable.numvistas),
-                                               contentDescription = "Num veces visto",
-                                               tint = Color.White,
-                                               modifier = Modifier
-                                                   .height(25.dp)
-                                                   .width(25.dp)
-                                           )
-                                           Text(
-                                               text = "Visualizaciones",
-                                               fontSize = 12.sp,
-                                               fontWeight = FontWeight.Bold,
-                                               color = Color.White
-                                           )
-                                           Spacer(modifier = Modifier.height(7.dp))
-                                           Text(
-                                               text = anuncio.numVecesVisto.toString(), fontSize = 13.sp, color = Color.White
-                                           )
-
+                                       Box(Modifier.background(color = Color(0xFF999dba))) {
+                                           Column(Modifier.padding(5.dp)) {
+                                               Text(
+                                                   text = anuncio.categoria,
+                                                   fontSize = 23.sp,
+                                                   color = Color(0xFF202020),
+                                                   fontWeight = FontWeight.Bold,
+                                                   maxLines = 1,
+                                                   overflow = TextOverflow.Ellipsis
+                                               )
+                                               Spacer(modifier = Modifier.height(2.dp))
+                                               Divider(thickness = 1.dp)
+                                               Spacer(modifier = Modifier.height(2.dp))
+                                               Text(
+                                                   text = anuncio.nombre,
+                                                   fontSize = 16.sp,
+                                                   color = Color(0xFF202020),
+                                                   fontWeight = FontWeight.Bold,
+                                                   maxLines = 1,
+                                                   overflow = TextOverflow.Ellipsis
+                                               )
+                                               Spacer(modifier = Modifier.height(10.dp))
+                                               Text(
+                                                   text = anuncio.descripcion,
+                                                   fontSize = 14.sp,
+                                                   color = Color(0xFF202020),
+                                                   maxLines = 2,
+                                                   overflow = TextOverflow.Ellipsis
+                                               )
+                                               Spacer(modifier = Modifier.height(3.dp))
+                                               Text(
+                                                   text = anuncio.precio.toString(),
+                                                   fontSize = 15.sp,
+                                                   color = Color(0xFF202020),
+                                                   fontWeight = FontWeight.Bold
+                                               )
+                                               Spacer(modifier = Modifier.height(10.dp))
+                                           }
                                        }
-                                       Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                       Row(
+                                           modifier = Modifier
+                                               .fillMaxWidth()
+                                               .padding(5.dp),
+                                           horizontalArrangement = Arrangement.SpaceEvenly
+                                       ) {
+                                           Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                               Icon(
+                                                   painter = painterResource(id = R.drawable.numvistas),
+                                                   contentDescription = "Num veces visto",
+                                                   tint = Color.White,
+                                                   modifier = Modifier
+                                                       .height(25.dp)
+                                                       .width(25.dp)
+                                               )
+                                               Text(
+                                                   text = "Visualizaciones",
+                                                   fontSize = 12.sp,
+                                                   fontWeight = FontWeight.Bold,
+                                                   color = Color.White
+                                               )
+                                               Spacer(modifier = Modifier.height(7.dp))
+                                               Text(
+                                                   text = anuncio.numVecesVisto.toString(),
+                                                   fontSize = 13.sp,
+                                                   color = Color.White
+                                               )
 
-                                           Icon(
-                                               imageVector = Icons.Filled.Star,
-                                               contentDescription = "valoracion",
-                                               tint = Color.White,
-                                               modifier = Modifier
-                                                   .height(25.dp)
-                                                   .width(25.dp)
-                                           )
-                                           Text(
-                                               text = "Valoración",
-                                               fontSize = 12.sp,
-                                               fontWeight = FontWeight.Bold,
-                                               color = Color.White
-                                           )
-                                           Spacer(modifier = Modifier.height(7.dp))
-                                           Text(
-                                               text = puntuacion.value.toString(), fontSize = 13.sp, color = Color.White
-                                           )
+                                           }
+                                           Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+                                               Icon(
+                                                   imageVector = Icons.Filled.Star,
+                                                   contentDescription = "valoracion",
+                                                   tint = Color.White,
+                                                   modifier = Modifier
+                                                       .height(25.dp)
+                                                       .width(25.dp)
+                                               )
+                                               Text(
+                                                   text = "Valoración",
+                                                   fontSize = 12.sp,
+                                                   fontWeight = FontWeight.Bold,
+                                                   color = Color.White
+                                               )
+                                               Spacer(modifier = Modifier.height(7.dp))
+                                               Text(
+                                                   text = puntuacion.value.toString(),
+                                                   fontSize = 13.sp,
+                                                   color = Color.White
+                                               )
+                                           }
                                        }
                                    }
                                }
@@ -460,66 +494,6 @@ fun cargar(show : MutableState<Boolean>) {
                 )
                 Spacer(modifier = Modifier.height(3.dp))
                 Text(text = "Cargando...", fontSize = 16.sp, color = Color(0xfffcffff))
-            }
-        }
-    }
-}
-
-@Composable
-fun errorBusqueda(show: MutableState<Boolean>, loading : MutableState<Boolean>) {
-    val scrollState = rememberScrollState(0)
-    if (show.value) {
-        OnecTheme() {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "Error al cargar Anuncios",
-                    fontSize = 19.sp,
-                    color = Color(0xfffcffff)
-                )
-                Spacer(modifier = Modifier.height(15.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.errorlog),
-                    contentDescription = "Error log"
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "Error al buscar anuncios\ninténtelo más tarde.",
-                    fontSize = 16.sp,
-                    color = Color(0xfffcffff),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(
-                    onClick = {
-                        loading.value = true
-                        show.value = false
-                    },
-                    Modifier.fillMaxWidth(0.9f),
-                    shape = RoundedCornerShape(7.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(
-                            0xFF266E86
-                        )
-                    )
-                ) {
-                    Text(
-                        text = "Reintentar",
-                        color = Color.White,
-                        fontSize = 19.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(0.dp, 7.dp),
-                        fontFamily = FontFamily(
-                            Font(R.font.comforta)
-                        )
-                    )
-                }
             }
         }
     }

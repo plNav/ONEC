@@ -116,8 +116,7 @@ fun ofertaDetalles(navController: NavController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
-                    backgroundColor = Color.Transparent,
-                    elevation = 0.dp,
+                    backgroundColor = Color(0xFF1B1C29),
                     actions = {
                         IconButton(
                             onClick = { /*TODO*/ },
@@ -282,10 +281,12 @@ fun ofertaDetalles(navController: NavController) {
                                               showErr.value = true
                                               errMsj.value = "Error al eliminar oferta"
                                           }
+                                          showDialogLoading.value = false
                                       }
                                   }else {
                                       showErr.value = true
                                       errMsj.value = "Error al eliminar oferta"
+                                      showDialogLoading.value = false
                                   }
                               }
                     },
@@ -349,7 +350,7 @@ fun ofertaEliminada(show : MutableState<Boolean>, navController: NavController) 
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth() )
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
                         Text(
                             text = "La oferta\nha sido eliminada.",
                             textAlign = TextAlign.Center,

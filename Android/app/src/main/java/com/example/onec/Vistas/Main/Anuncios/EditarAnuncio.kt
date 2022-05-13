@@ -396,7 +396,7 @@ fun updated(show: MutableState<Boolean>, navController: NavController) {
         OnecTheme() {
             Column(modifier = Modifier
                 .fillMaxSize().background(Color(0xff3b3d4c)), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                 Text(
                     text = "Anuncio Actualizado",
                     modifier = Modifier.fillMaxWidth(),
@@ -404,9 +404,10 @@ fun updated(show: MutableState<Boolean>, navController: NavController) {
                     fontSize = 25.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                    modifier = Modifier.fillMaxWidth() )
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Text(
                     text = "El anuncio ha sido actualizado.",
                     textAlign = TextAlign.Center,
@@ -414,7 +415,7 @@ fun updated(show: MutableState<Boolean>, navController: NavController) {
                     fontSize = 19.sp,
                     color = Color(0xfffcffff)
                 )
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Button(
                     //Le damos el valo de false para que se cierre el diálogo al darle click en el botón.
                     onClick = {
@@ -439,6 +440,7 @@ fun updated(show: MutableState<Boolean>, navController: NavController) {
                         )
                     )
                 }
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             }
         }
     }

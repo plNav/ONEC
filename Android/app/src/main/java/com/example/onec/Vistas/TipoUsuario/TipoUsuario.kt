@@ -4,7 +4,9 @@ import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
@@ -29,20 +31,22 @@ import com.example.onec.ui.theme.OnecTheme
 
 @Composable
 fun tipoUsuario(navController: NavController) {
-    OnecTheme() {
+    OnecTheme {
         Box(modifier = Modifier
             .fillMaxSize()
             .background(color = Color(0xff3b3d4c)), contentAlignment = Alignment.Center) {
             Column(
                 Modifier
-                    .fillMaxWidth(0.95f)
-                    .fillMaxHeight(0.9f)) {
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center
+            ) {
                 Box(modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(0.26f), contentAlignment = Alignment.BottomCenter) {
+                    .fillMaxHeight(0.20f), contentAlignment = Alignment.BottomCenter) {
                     Image(painter = painterResource(id = R.drawable.onec), contentDescription = "Logo", alignment = Alignment.Center, modifier = Modifier.fillMaxWidth())
                 }
-                Spacer(modifier = Modifier.fillMaxHeight(0.04f))
+                Spacer(modifier = Modifier.fillMaxHeight(0.08f))
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.7f)) {
@@ -76,7 +80,7 @@ fun tipoUsuario(navController: NavController) {
                                     textAlign = TextAlign.Center,
                                     fontSize = 16.sp
                                 )
-                                Spacer(modifier = Modifier.fillMaxHeight(0.35f))
+                                Spacer(modifier = Modifier.fillMaxHeight(0.25f))
                                 Button(onClick = {
                                     StaticVariables.appModo = true
                                     StaticVariables.fragmento = 1// Esto quiere decir que El modo de app es Empresario
@@ -87,7 +91,7 @@ fun tipoUsuario(navController: NavController) {
                                 )) {
                                     Text(text = "Buscador", fontSize = 19.sp, fontWeight = FontWeight.W300, color = Color(0xfffcffff))
                                 }
-                                Spacer(modifier = Modifier.fillMaxHeight(0.15f))
+                                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                                 Button(onClick = {
                                     StaticVariables.appModo = false
                                     StaticVariables.fragmento = 2

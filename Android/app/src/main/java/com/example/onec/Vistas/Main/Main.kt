@@ -43,7 +43,7 @@ fun main(navController: NavController, elemento: Int){
 
     when (elemento) {
          1 -> isOfertaSelected.value = true
-         2 -> if (!StaticVariables.appModo) isAnunciosSelected.value = true else {isAnunciosEmpresarioSelected.value = true}
+         2 -> if (!StaticVariables.appModo!!) isAnunciosSelected.value = true else {isAnunciosEmpresarioSelected.value = true}
          3 -> isCvSelected.value = true
          4 -> isPerfilSelected.value = true
     }
@@ -67,11 +67,11 @@ fun main(navController: NavController, elemento: Int){
                         ) {
 
                             //Ofertas
-                            if (StaticVariables.appModo) {
+                            if (StaticVariables.appModo!!) {
                                 BottomNavigationItem(
                                     selected = isOfertaSelected.value,
                                     onClick = {
-                                        if (!StaticVariables.appModo) {
+                                        if (!StaticVariables.appModo!!) {
                                             isOfertaSelected.value = true
                                             isAnunciosSelected.value = false
                                             isPerfilSelected.value = false
@@ -109,9 +109,9 @@ fun main(navController: NavController, elemento: Int){
 
                             //Anuncios
                             BottomNavigationItem(
-                                selected = if(!StaticVariables.appModo)isAnunciosSelected.value else isAnunciosEmpresarioSelected.value,
+                                selected = if(!StaticVariables.appModo!!)isAnunciosSelected.value else isAnunciosEmpresarioSelected.value,
                                 onClick = {
-                                    if (!StaticVariables.appModo) {
+                                    if (!StaticVariables.appModo!!) {
                                         isAnunciosSelected.value = true
                                         isOfertaSelected.value = false
                                         isPerfilSelected.value = false
@@ -147,7 +147,7 @@ fun main(navController: NavController, elemento: Int){
                             )
 
                             //CV  -> Lo iniciamos con un if, ya que este solo se verá si estamos en modo Estándar
-                            if (!StaticVariables.appModo) {
+                            if (!StaticVariables.appModo!!) {
                                 BottomNavigationItem(
                                     selected = isCvSelected.value,
                                     onClick = {

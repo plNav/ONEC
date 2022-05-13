@@ -289,7 +289,6 @@ fun mostrarItems(show : MutableState<Boolean> , lista: MutableState<SnapshotStat
 @Composable
 fun errorCargaOfertas(show : MutableState<Boolean>, loading: MutableState<Boolean>) {
     if (show.value) {
-        val scrollState = rememberScrollState(0)
         OnecTheme() {
             Box(
                 modifier = Modifier
@@ -299,30 +298,30 @@ fun errorCargaOfertas(show : MutableState<Boolean>, loading: MutableState<Boolea
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .verticalScroll(scrollState)
                         .background(Color(0xff3b3d4c)),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                     Text(
                         text = "Error al cargar ofertas",
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
-                        contentDescription = "Error log"
+                        contentDescription = "Error log",
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
                         text = "Error al cargar ofertas\n por favor inténtelo más tarde.",
                         fontSize = 16.sp,
                         color = Color(0xfffcffff),
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Button(
                         onClick = {
                             loading.value = true
@@ -347,6 +346,7 @@ fun errorCargaOfertas(show : MutableState<Boolean>, loading: MutableState<Boolea
                             )
                         )
                     }
+                    Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 }
             }
         }

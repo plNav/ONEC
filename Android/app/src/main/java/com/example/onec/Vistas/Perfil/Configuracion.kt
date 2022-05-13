@@ -756,7 +756,7 @@ fun dialogError(show: MutableState<Boolean>, msj: MutableState<String>) {
                             painter = painterResource(id = R.drawable.errorlog),
                             contentDescription = "ErrorLog",
                             alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Text(
@@ -824,7 +824,7 @@ fun dialogChangedPass(show: MutableState<Boolean>, titulo : MutableState<String>
                       )
                       Spacer(modifier = Modifier.height(20.dp))
                       Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                          modifier = Modifier.fillMaxWidth() )
+                          modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
                       Text(
                           text = texto.value,
                           textAlign = TextAlign.Center,

@@ -145,24 +145,25 @@ fun LoadCv() {
 fun dialogError(showError: MutableState<Boolean>, recarga : MutableState<Boolean>) {
     OnecTheme() {
     if (showError.value) {
-            val scrollState = rememberScrollState(0)
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(scrollState),
+                    .fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
                 Text(text = "Error al cargar CV", fontSize = 19.sp, color = Color(0xfffcffff))
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Image(
                     painter = painterResource(id = R.drawable.errorlog),
-                    contentDescription = "Error log"
+                    contentDescription = "Error log",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.3f)
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Text(text = "Ha ocurrido un error\nal cargar el CV del usuario\nreinténtelo más tarde.", fontSize = 16.sp, color = Color(0xfffcffff), textAlign = TextAlign.Center)
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                 Button(
                     onClick = {
                               recarga.value = true
@@ -186,6 +187,7 @@ fun dialogError(showError: MutableState<Boolean>, recarga : MutableState<Boolean
                         )
                     )
                 }
+                Spacer(modifier = Modifier.fillMaxHeight(0.1f))
             }
         }
     }
@@ -934,7 +936,9 @@ fun dialogActualizado(show : MutableState<Boolean>) {
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth() )
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.3f) )
                         Text(
                             text = "Su curriculum vitae\nha sido actualizado.",
                             textAlign = TextAlign.Center,

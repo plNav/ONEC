@@ -36,7 +36,7 @@ router.get("/oferta", (req, res) => {
 router.get("/oferta/usuario/:id", (req, res) => {
     const {id} = req.params
     ofertaSchema
-    .find({id : id})
+    .find({id_user : id})
     .then((data) => {
         res.json(data);
         console.log("\nOfertas de usuario:\n" + data);
