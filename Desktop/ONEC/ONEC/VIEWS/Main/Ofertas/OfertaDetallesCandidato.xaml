@@ -1,0 +1,92 @@
+﻿<Page x:Class="ONEC.VIEWS.Main.Ofertas.OfertaDetallesCandidato"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ONEC.VIEWS.Main.Ofertas"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="OfertaDetallesCandidato">
+    <Page.Resources>
+        <Style x:Key="MyButtonStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="2" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="EstiloAceptar" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                        CornerRadius="10" 
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Height="50" Background="#FF12141D">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Content="Detalles candidato" FontSize="25" Foreground="#fcffff" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1" Margin="0,0,35,0"/>
+                <Image Height="25" Width="25" Source="/ONEC;component/IMAGES/back.png" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" Cursor="Hand" Margin="10,0,0,0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+            </Grid>
+        </Border>
+        <ScrollViewer Grid.Row="1">
+            <Border Padding="20">
+                <StackPanel>
+                    <TextBlock FontSize="19" Foreground="#fcffff" Text="Detalles Personales" FontWeight="Bold"/>
+                    <TextBlock FontSize="16" Foreground="#2C8AAF" Text="Correo" Margin="7,10,0,0"/>
+                    <TextBlock x:Name="txtCorreo" FontSize="17" Foreground="#fcffff" Text="prue@gamil.com" Margin="10,2,0,0"/>
+                    <TextBlock FontSize="16" Foreground="#2C8AAF" Text="Nombre" Margin="7,10,0,0"/>
+                    <TextBlock x:Name="txtNombre" FontSize="17" Foreground="#fcffff" Text="xcvbxcvb" Margin="10,2,0,0"/>
+                    <TextBlock FontSize="16" Foreground="#2C8AAF" Text="Teléfono" Margin="7,10,0,0"/>
+                    <TextBlock x:Name="txtTelefono" FontSize="17" Foreground="#fcffff" Text="prue@gamil.com" Margin="10,2,0,0"/>
+                    <TextBlock FontSize="16" Foreground="#2C8AAF" Text="Ubicación" Margin="7,10,0,0"/>
+                    <TextBlock x:Name="txtUbicacion" FontSize="17" Foreground="#fcffff" Text="ghjfghjgj" Margin="10,2,0,0"/>
+                    <Border CornerRadius="3" Height="2" Background="#EAEAEC" Margin="0,20,0,0"/>
+                    <TextBlock FontSize="19" Foreground="#fcffff" Text="Titulación" FontWeight="Bold" Margin="0,20,0,0"/>
+                    <TextBlock FontSize="16" Foreground="#2C8AAF" Text="Título" Margin="7,10,0,0"/>
+                    <TextBlock x:Name="txtTitulo" FontSize="17" Foreground="#fcffff" Text="sdfgjkjhjkkdkfjfhg" Margin="10,2,0,0"/>
+                    <Border CornerRadius="3" Height="2" Background="#EAEAEC" Margin="0,20,0,0"/>
+                    <TextBlock FontSize="19" Foreground="#fcffff" Text="Experiencia profesional" FontWeight="Bold" Margin="0,20,0,0"/>
+                    <TextBlock FontSize="16" Foreground="#2C8AAF" Text="Experiencia" Margin="7,10,0,0"/>
+                    <TextBlock x:Name="txtExp" FontSize="17" Foreground="#fcffff" Text="2 años" Margin="10,2,0,0"/>
+                    <Border CornerRadius="3" Height="2" Background="#EAEAEC" Margin="0,20,0,0"/>
+                    <TextBlock FontSize="19" Foreground="#fcffff" Text="Habilidades" FontWeight="Bold" Margin="0,20,0,0"/>
+                    <WrapPanel x:Name="wrapHab" Margin="0,10,0,0"/>
+                    <TextBlock x:Name="txtSinHab" FontSize="17" Foreground="#fcffff" Text="Ninguna habilidad especificada" Margin="10,2,0,0" Visibility="Collapsed"/>
+                    <Border CornerRadius="3" Height="2" Background="#EAEAEC" Margin="0,20,0,0"/>
+                    <Button FontSize="19" Foreground="White" Background="#A53535" Grid.Column="1" Grid.Row="17" Height="50"  Style="{StaticResource ResourceKey=EstiloAceptar}" Margin="0,30,0,0" Cursor="Hand" Click="Button_Click">
+                        <WrapPanel Height="Auto" VerticalAlignment="Center">
+                            <TextBlock Foreground="White" FontSize="19" Text="Eliminar"/>
+                            <Image Height="23" Width="23" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" Source="/ONEC;component/IMAGES/deleteB.png" Margin="5,0,0,0"/>
+                        </WrapPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</Page>

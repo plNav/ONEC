@@ -28,6 +28,7 @@ namespace ONEC.API_MODELS
         public List<string> habilidadesLow { get; set; }
 
         public static CV cvActual;
+        public static List<CV> cvsCompatiblesOferta;
 
         /********************************
          *          Constructores       *
@@ -99,6 +100,21 @@ namespace ONEC.API_MODELS
 
         }
 
+        public static async Task<CV> obtenerCv(string id)
+        {
+            string url = $"{StaticResources.urlHead}cv/{id}";
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.GetAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                CV cv = JsonSerializer.Deserialize<CV>(content);
+                cvActual = cv;
+                return cv;
+            }
+            else throw new HttpRequestException("Respuesta fallida en comprobarMail");
+        }
+
         public static async Task<CV> obtenerCvId(string id)
         {
             string url = $"{StaticResources.urlHead}cv/usuario/{id}";
@@ -111,6 +127,23 @@ namespace ONEC.API_MODELS
                 cvActual = cv;
                 return cv;
             }else throw new HttpRequestException("Respuesta fallida en comprobarMail");
+        }
+
+
+        //Buscador de CVs para oferta
+        public static async Task<List<CV>> buscadorCvOferta(string id, string reqHab)
+        {
+            string url = $"{StaticResources.urlHead}cv/oferta/{id}/{reqHab}";
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.GetAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                List<CV> cvs = JsonSerializer.Deserialize<List<CV>>(content);
+                cvsCompatiblesOferta = cvs;
+                return cvs;
+            }
+            else throw new HttpRequestException("Respuesta fallida en comprobarMail");
         }
 
         public static async Task<bool> actualizarCV(string id, CV cv)

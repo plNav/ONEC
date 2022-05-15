@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ONEC.API_MODELS;
 using ONEC.VIEWS.Main.Anuncios;
+using ONEC.VIEWS.Main.Ofertas;
 
 namespace ONEC.VIEWS.Main
 {
@@ -27,8 +28,6 @@ namespace ONEC.VIEWS.Main
         {
             InitializeComponent();
             setModo();
-            imgOfertas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\ofertas_b.png");
-            txtOferta.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
         }
 
         private async void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -42,6 +41,7 @@ namespace ONEC.VIEWS.Main
                         cleanElements();
                         imgOfertas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\ofertas_b.png");
                         txtOferta.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                        mainFrame.Content = new OfertasLoader(this);
                         selectedPage = "ofertas";
                     }
                     break;
@@ -108,9 +108,22 @@ namespace ONEC.VIEWS.Main
             if (StaticResources.modoEmpresario)
             {
                 columnaCV.Height = new GridLength(0);
-            }else
+                txtCv.Visibility = Visibility.Collapsed;
+                imgOfertas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\ofertas_b.png");
+                txtOferta.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                mainFrame.Content = new OfertasLoader(this);
+                selectedPage = "ofertas";
+            }
+            else
             {
                 columnaCV.Height = new GridLength(1, GridUnitType.Auto);
+                columnaOfertas.Height = new GridLength(0);
+                txtOferta.Visibility = Visibility.Collapsed;
+                imgAnuncios.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\anuncios_b.png");
+                txtAnuncios.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                mainFrame.Content = new AnunciosLoader(this);
+                gridAnun.Margin = new Thickness(20, 50, 0, 20);
+                selectedPage = "anuncios";
             }
         }
     }

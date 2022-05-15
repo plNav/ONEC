@@ -62,7 +62,7 @@ router.get("/oferta/:id", (req, res) => {
     })
 });
 
-//Actualizar CV
+//Actualizar Oferta
 router.put("/oferta/:id", (req, res) => {
     const {id} = req.params;
     const {id_user, nombre, experiencia, titulo, especialidad, habilidades} = req.body;

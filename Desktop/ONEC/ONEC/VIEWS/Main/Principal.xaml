@@ -34,7 +34,7 @@
         <Frame x:Name="mainFrame" Grid.Column="1"/>
         <Grid Background="#1B1C29">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" x:Name="columnaOfertas"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto" x:Name="columnaCV"/>
                 <RowDefinition Height="Auto"/>
@@ -49,7 +49,7 @@
                 <TextBlock x:Name="txtOferta" Text="Editar mis ofertas" FontSize="17" Foreground="#fcffff" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,0"/>
             </Grid>
 
-            <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="anuncios" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand" Margin="20,10,0,20">
+            <Grid Grid.Row="1" x:Name="gridAnun" VerticalAlignment="Center" HorizontalAlignment="Left" Tag="anuncios" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Cursor="Hand" Margin="20,10,0,20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>

@@ -95,6 +95,7 @@
     <Compile Include="API_MODELS\AnunciosGuardados.cs" />
     <Compile Include="API_MODELS\CandidatosOfertas.cs" />
     <Compile Include="API_MODELS\CV.cs" />
+    <Compile Include="API_MODELS\Ofertas.cs" />
     <Compile Include="API_MODELS\Resenyas.cs" />
     <Compile Include="API_MODELS\Visualizaciones.cs" />
     <Compile Include="SUPPORT\Encrypt.cs" />
@@ -177,6 +178,30 @@
     </Compile>
     <Compile Include="VIEWS\Main\CV\ErrorCargaCV.xaml.cs">
       <DependentUpon>ErrorCargaCV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\BuscarCandidatosOferta.xaml.cs">
+      <DependentUpon>BuscarCandidatosOferta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\CrearOfertas.xaml.cs">
+      <DependentUpon>CrearOfertas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\ErrorCargaOfertas.xaml.cs">
+      <DependentUpon>ErrorCargaOfertas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\OfertaCandidatos.xaml.cs">
+      <DependentUpon>OfertaCandidatos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\OfertaDetalles.xaml.cs">
+      <DependentUpon>OfertaDetalles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\OfertaDetallesCandidato.xaml.cs">
+      <DependentUpon>OfertaDetallesCandidato.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\OfertasLoader.xaml.cs">
+      <DependentUpon>OfertasLoader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Ofertas\OfertasMain.xaml.cs">
+      <DependentUpon>OfertasMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="VIEWS\Main\Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
@@ -314,6 +339,38 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Main\Ofertas\BuscarCandidatosOferta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\CrearOfertas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\ErrorCargaOfertas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\OfertaCandidatos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\OfertaDetalles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\OfertaDetallesCandidato.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\OfertasLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Ofertas\OfertasMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Main\Principal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -349,6 +406,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\left.png" />
+    <Resource Include="IMAGES\right.png" />
+    <Resource Include="IMAGES\dislike.png" />
+    <Resource Include="IMAGES\like.png" />
+    <Resource Include="IMAGES\userB.png" />
+    <Resource Include="IMAGES\add.png" />
     <Resource Include="IMAGES\archivar.png" />
     <Resource Include="IMAGES\buscarB.png" />
     <Resource Include="IMAGES\enfadado.png" />
@@ -422,7 +485,6 @@
     <Resource Include="IMAGES\revemail.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="VIEWS\Main\Ofertas\" />
     <Folder Include="VIEWS\Main\Perfil\" />
   </ItemGroup>
   <ItemGroup>

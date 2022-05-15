@@ -47,7 +47,6 @@ namespace ONEC.VIEWS.Main.Anuncios
                 catch (Exception ex)
                 {
                     principal.mainFrame.Content = new ErrorCargaAnuncios(principal);
-                    MessageBox.Show(ex.Message);
                 }
             }else
             {

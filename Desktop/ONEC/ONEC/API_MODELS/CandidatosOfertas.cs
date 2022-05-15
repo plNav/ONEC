@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace ONEC.API_MODELS
 {
-    class CandidatosOfertas
+    public class CandidatosOfertas
     {
+        public string _id { get; set; }
         public string id_usuario { get; set; }
 
         public string id_oferta { get; set; }
 
         public string id_cv { get; set; }
+
+        public static CandidatosOfertas candidatoCreado  {get; set;}
 
         public CandidatosOfertas()
         {
@@ -50,6 +53,7 @@ namespace ONEC.API_MODELS
                 {
                     string result = await httpResponse.Content.ReadAsStringAsync();
                     CandidatosOfertas co = JsonSerializer.Deserialize<CandidatosOfertas>(result);
+                    candidatoCreado = co;
                     return co;
                 }
                 else return null;
@@ -111,6 +115,23 @@ namespace ONEC.API_MODELS
         public static async Task<bool> eliminarCandidatosOferta(string id)
         {
             string url = $"{StaticResources.urlHead}candidatosOfertas/oferta/{id}";
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.DeleteAsync(url);
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                string content = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        //Eliminar candidato específico
+        public static async Task<bool> eliminarCandidatoID(string id)
+        {
+            string url = $"{StaticResources.urlHead}candidatosOfertas/{id}";
             HttpResponseMessage httpResponse = await StaticResources.httpClient.DeleteAsync(url);
 
             if (httpResponse.IsSuccessStatusCode)

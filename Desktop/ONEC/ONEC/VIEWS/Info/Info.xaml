@@ -8,7 +8,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         Title="Error" Height="300" Width="300"
         ResizeMode="NoResize"
         Closing="Window_Closing"
