@@ -203,6 +203,15 @@
     <Compile Include="VIEWS\Main\Ofertas\OfertasMain.xaml.cs">
       <DependentUpon>OfertasMain.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VIEWS\Main\Perfil\CambioPass.xaml.cs">
+      <DependentUpon>CambioPass.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Perfil\Configuracion.xaml.cs">
+      <DependentUpon>Configuracion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWS\Main\Perfil\Verificacion.xaml.cs">
+      <DependentUpon>Verificacion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VIEWS\Main\Principal.xaml.cs">
       <DependentUpon>Principal.xaml</DependentUpon>
     </Compile>
@@ -371,6 +380,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VIEWS\Main\Perfil\CambioPass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Perfil\Configuracion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VIEWS\Main\Perfil\Verificacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VIEWS\Main\Principal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -406,6 +427,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="IMAGES\cancelar.png" />
     <Resource Include="IMAGES\left.png" />
     <Resource Include="IMAGES\right.png" />
     <Resource Include="IMAGES\dislike.png" />
@@ -484,9 +506,7 @@
   <ItemGroup>
     <Resource Include="IMAGES\revemail.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="VIEWS\Main\Perfil\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="IMAGES\anuncios.png" />
     <Resource Include="IMAGES\anuncios_b.png" />

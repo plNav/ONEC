@@ -122,7 +122,7 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
        let habilidades = data.habilidades;
        let habilidadesLow = data.habilidadesLow;
         if(titulo == null) {
-           if(habilidadesReq != "S") {
+           if (habilidadesReq != "S") {
                 cvSchema
                 .find()
                 .where("habilidadesLow").in(habilidadesLow)
@@ -135,8 +135,92 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
                     res.json({message : err})
                 })
            }else {
-                cvSchema
+            cvSchema
                 .find()
+                .where("habilidadesLow").all(habilidadesLow)
+                .where("experiencia").gte(experiencia)
+                .sort({experiencia : -1})
+                .then((data) => {
+                    res.json(data);
+                })
+                .catch((err) => {
+                    res.json({message : err})
+                })
+           }
+        }
+        else if(especialidad != null) {
+           if (habilidadesReq != "S") {
+                if (habilidades == null || habilidades == [] || habilidades.length == 0) {
+                    cvSchema
+                    .find({titulo : titulo,especialidad : especialidad})
+                    .where("experiencia").gte(experiencia) //Mayor o igual
+                    .sort({experiencia : -1})
+                    .then((data) => {
+                        res.json(data);
+                    })
+                    .catch((err) => {
+                        res.json({message : err});
+                    })
+                }else {
+                    cvSchema
+                    .find({titulo : titulo,especialidad : especialidad})
+                    .where("habilidades").in(habilidades)
+                    .where("experiencia").gte(experiencia) //Mayor o igual
+                    .sort({experiencia : -1})
+                    .then((data) => {
+                        res.json(data);
+                    })
+                    .catch((err) => {
+                        res.json({message : err});
+                    }) 
+                }  
+           }else {
+                cvSchema
+                .find({titulo : titulo,especialidad : especialidad})
+                .where("habilidades").all(habilidades)
+                .where("experiencia").gte(experiencia) //Mayor o igual
+                .sort({experiencia : -1})
+                .then((data) => {
+                 res.json(data);
+                })
+                .catch((err) => {
+                    res.json({message : err});
+                }) 
+           }
+        }else {
+            if (habilidades == null || habilidades == [] || habilidades.length == 0) {
+                //La oferta no tiene habilidades
+                cvSchema
+                .find({titulo : titulo})
+                .where("experiencia").gte(experiencia)
+                .sort({experiencia : -1})
+                .then((data) => {
+                    res.json(data);
+                })
+                .catch((err) => {
+                    res.json({message : err});
+                })
+            }else {
+                //La oferta tiene habilidades
+                if (habilidadesReq != "S") {
+                    console.log("entra bien");
+                    //usar in
+                    cvSchema
+                        .find({titulo : titulo})
+                        .where("habilidadesLow").in(habilidadesLow)
+                        .where("experiencia").gte(experiencia)
+                        .sort({experiencia : -1})
+                        .then((data) => {
+                            res.json(data)
+                            console.log("prueba\n" + data)
+                        })
+                        .catch((err) => {
+                            res.json({message : err})
+                        })
+                }else {
+                    //usar all
+                    cvSchema
+                .find({titulo : titulo})
                 .where("habilidadesLow").all(habilidadesLow)
                 .where("experiencia").gte(experiencia)
                 .sort({experiencia : -1})
@@ -146,61 +230,8 @@ router.get("/cv/oferta/:id/:habilidadesReq", (req, res) => {
                 .catch((err) => {
                     res.json({message : err})
                 })
-           }
-        }
-        else if(especialidad != null) {
-            cvSchema
-            .find({titulo : titulo,especialidad : especialidad})
-            .where("habilidades").all(habilidades) //El all nos devuelve las colecciones que contienen todos los elementos del array
-            .where("experiencia").gte(experiencia)
-            .sort({experiencia : -1})
-            .then((data) => {
-                if (data.length != []) {
-                    res.json(data)
-                }else if(habilidadesReq != "S"){
-                    cvSchema
-                    .find({titulo : titulo,especialidad : especialidad})
-                    .where("habilidades").in(habilidades) //Este solo muestra los que incluyen algunos de los valores del array
-                    .where("experiencia").gte(experiencia) //Mayor o igual
-                    .sort({experiencia : -1})
-                    .then((data) => {
-                        res.json(data)
-                    })
-                    .catch((err) => {
-                        res.json({message : err})
-                    })
-
-                }else {
-                    res.json(data)
                 }
-            })
-            .catch((err) => {
-                res.json({message : err})
-            })
-        }else {
-           cvSchema
-           .find({titulo : titulo,habilidades:habilidades})
-           .where("experiencia").gte(experiencia)
-           .sort({experiencia : -1})
-           .then((data) => {
-                if (data.length != []) {
-                    res.json(data)
-                }else if(habilidadesReq != "S"){
-                    cvSchema
-                    .find({titulo : titulo})
-                    .where("habilidades").in(habilidades)
-                    .where("experiencia").gte(experiencia)
-                    .sort({experiencia : -1})
-                    .then((data) => {
-                        res.json(data)
-                    })
-                    .catch((err) => {
-                        res.json({message : err})
-                    })
-                }else {
-                    res.json(data)
-                }
-           }) 
+            }
         }   
        
     }).catch((err) => {

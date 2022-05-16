@@ -51,6 +51,7 @@ namespace ONEC.VIEWS.Main.Ofertas
         private void chckHab_Checked(object sender, RoutedEventArgs e)
         {
             gridHabilidades.Visibility = Visibility.Visible;
+            chckReqHab.IsChecked = true;
         }
 
         private void chckTitulo_Unchecked(object sender, RoutedEventArgs e)
@@ -74,6 +75,7 @@ namespace ONEC.VIEWS.Main.Ofertas
             gridHabilidades.Visibility = Visibility.Collapsed;
             habilidades.Clear();
             wrapHabilidades.Children.Clear();
+            chckReqHab.IsChecked = false;
         }
         private void cmbTitulos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

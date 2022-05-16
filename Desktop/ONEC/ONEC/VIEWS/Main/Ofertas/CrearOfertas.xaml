@@ -155,7 +155,7 @@
                         </Border>
                         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10,10,20,0">
                             <TextBlock Foreground="#fcffff" FontSize="18" Text="Requerir todas"/>
-                            <CheckBox x:Name="chckReqHab" VerticalAlignment="Center" Margin="3,4,0,0" IsChecked="True"/>
+                            <CheckBox x:Name="chckReqHab" VerticalAlignment="Center" Margin="3,4,0,0"/>
                         </StackPanel>
                     </Grid>
                     <Button Grid.Column="1" Content="Aceptar" FontSize="19" FontWeight="Bold" Style="{StaticResource MyButtonStyle}" Background="#2f93b5" BorderThickness="0" Height="50" Foreground="White" Margin="20,30,20,0" Click="Button_Click"/>

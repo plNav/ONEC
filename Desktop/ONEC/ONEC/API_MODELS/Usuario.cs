@@ -117,7 +117,7 @@ namespace ONEC.API_MODELS
 
             HttpContent content = new StringContent(values.ToString(), System.Text.Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponse = await StaticResources.httpClient.PostAsync(url, content);
+            HttpResponseMessage httpResponse = await StaticResources.httpClient.PutAsync(url, content);
 
             if (httpResponse.IsSuccessStatusCode)
             {

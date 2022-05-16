@@ -242,7 +242,8 @@ namespace ONEC.VIEWS
                 {
                     if (await CV.crearCV(cv))
                     {
-                        MessageBox.Show("El CV ha sido creado");
+                        Did.Did did = new Did.Did("Curriculum creado", "El curriculum ha sido creado");
+                        did.ShowDialog();
                         principal.mainFrame.Content = new EditarCV(CV.cvActual);
                     }else
                     {

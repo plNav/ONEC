@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ONEC.API_MODELS;
 using ONEC.VIEWS.Main.Anuncios;
 using ONEC.VIEWS.Main.Ofertas;
+using ONEC.VIEWS.Main.Perfil;
 
 namespace ONEC.VIEWS.Main
 {
@@ -74,6 +75,7 @@ namespace ONEC.VIEWS.Main
                         cleanElements();
                         imgPerfil.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\perfil_b.png");
                         txtPerfil.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                        mainFrame.Content = new Configuracion(this);
                         selectedPage = "perfil";
                     }
                     break;
@@ -82,6 +84,7 @@ namespace ONEC.VIEWS.Main
                 default:
                     imgOfertas.Source = (ImageSource)new ImageSourceConverter().ConvertFrom("..\\..\\IMAGES\\ofertas_b.png");
                     txtOferta.Foreground = (Brush)(new BrushConverter().ConvertFrom("#266E86"));
+                    mainFrame.Content = new OfertasLoader(this);
                     selectedPage = "ofertas";
                     break;
             }
