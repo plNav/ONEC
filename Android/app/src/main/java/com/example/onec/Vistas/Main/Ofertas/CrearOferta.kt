@@ -352,7 +352,6 @@ fun crearOferta(navController: NavController) {
                                 mostrarEspecialidad.value = false
                                 especialidad.value = null
                                 mostrarEspecialidad.value = false
-                                requerirHabilidades.value = true
                             }
                             "Postgrado", "Máster", "Otros títulos, certificaciones y carnés", "Otros cursos y certificación no reglada" -> {
                                 mostrarEspecialidad.value = true
@@ -854,7 +853,7 @@ fun did(show : MutableState<Boolean>, navController: NavController) {
                         Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
                         Text(
-                            text = "La oferta ha sido actualizada.",
+                            text = "La oferta ha sido creada.",
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth(),
                             fontSize = 19.sp,

@@ -40,7 +40,7 @@ namespace ONEC.VIEWS.Main.Anuncios
 
                     List<AnunciosGuardados> anunciosG = await AnunciosGuardados.obtenerAnunciosGuardadosUsuarioID(Usuario.usuarioActual._id);
                     List<Anuncio> anuncios = await obtenerAnuncios(anunciosG);
-                    List<Usuario> usuarios = await obtenerUsuarios(anunciosG);
+                    List<Usuario> usuarios = await obtenerUsuarios(anuncios);
                     List<float> puntuaciones = await obtenerPuntuaciones(anunciosG);
                     principal.mainFrame.Content = new AnunciosMainEmpresario(principal, anuncios, usuarios, puntuaciones, anunciosG);
                 }
@@ -76,12 +76,13 @@ namespace ONEC.VIEWS.Main.Anuncios
             return lista;
         }
 
-        private async Task<List<Usuario>> obtenerUsuarios(List<AnunciosGuardados> anuncios)
+        private async Task<List<Usuario>> obtenerUsuarios(List<Anuncio> anuncios)
         {
             List<Usuario> usuarios = new List<Usuario>();
-            foreach (AnunciosGuardados an in anuncios)
+            foreach (Anuncio an in anuncios)
             {
-                usuarios.Add(await Usuario.obtenerUsuarioId(an.id_user));
+                Usuario u = await Usuario.obtenerUsuarioId(an.id_user);
+                usuarios.Add(u);
             }
             return usuarios;
         }

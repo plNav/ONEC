@@ -61,6 +61,7 @@ namespace ONEC.VIEWS.Main.Ofertas
                 }
                 if (cvsPintar.Count > 0)
                 {
+                    if (cvsPintar.Count== 1) imgRight.Visibility = Visibility.Collapsed;
                     this.cvs = cvsPintar;
                     rowCargando.Height = new GridLength(0);
                     stackCargando.Visibility = Visibility.Collapsed;

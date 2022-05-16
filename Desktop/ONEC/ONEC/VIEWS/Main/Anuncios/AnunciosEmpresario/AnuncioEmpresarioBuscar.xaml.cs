@@ -75,6 +75,7 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
 
         private async void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
+            stackAnuncios.Children.Clear();
             resetViews();
             string campo = txtBusqueda.Text.Trim();
             if (!String.IsNullOrEmpty(campo) && !String.IsNullOrWhiteSpace(campo))
@@ -156,21 +157,32 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
                         List<Visualizaciones> visualizaciones = await Visualizaciones.obtenerVisualizacionesUsuarioAnuncio(anuncios[int.Parse(grid.Tag.ToString())]._id, Usuario.usuarioActual._id);
                         if (visualizaciones.Count() <= 0)
                         {
-                            Anuncio anuncio = new Anuncio(anuncios[int.Parse(grid.Tag.ToString())].id_user, anuncios[int.Parse(grid.Tag.ToString())].categoria, anuncios[int.Parse(grid.Tag.ToString())].nombre, anuncios[int.Parse(grid.Tag.ToString())].descripcion, anuncios[int.Parse(grid.Tag.ToString())].precio, anuncios[int.Parse(grid.Tag.ToString())].precioPorHora,anuncios[int.Parse(grid.Tag.ToString())].numVecesVisto + 1);
-                            if(await Anuncio.actualizarAnuncio(anuncios[int.Parse(grid.Tag.ToString())]._id, anuncio))
-                            {
-                                loading.Close();
-                                anuncios[x].numVecesVisto += 1;
-                                Usuario usu = await Usuario.obtenerUsuarioId(anuncios[int.Parse(grid.Tag.ToString())].id_user);
-                                float puntuacion = await Resenyas.obtenerPuntuacionAnuncio(anuncios[int.Parse(grid.Tag.ToString())]._id);
-                                principal.mainFrame.Content = new AnuncioBuscadoDetalles(principal, idsAnuncios ,anuncios[int.Parse(grid.Tag.ToString())], campo,usu.email, puntuacion);
-                            }else
+                            Visualizaciones v = new Visualizaciones(anuncios[int.Parse(grid.Tag.ToString())]._id, Usuario.usuarioActual._id); 
+                            if (await Visualizaciones.crearVisualizacion(v))
+                            {    
+                                Anuncio anuncio = new Anuncio(anuncios[int.Parse(grid.Tag.ToString())].id_user, anuncios[int.Parse(grid.Tag.ToString())].categoria, anuncios[int.Parse(grid.Tag.ToString())].nombre, anuncios[int.Parse(grid.Tag.ToString())].descripcion, anuncios[int.Parse(grid.Tag.ToString())].precio, anuncios[int.Parse(grid.Tag.ToString())].precioPorHora,anuncios[int.Parse(grid.Tag.ToString())].numVecesVisto + 1);
+                                if(await Anuncio.actualizarAnuncio(anuncios[int.Parse(grid.Tag.ToString())]._id, anuncio))
+                                {
+                                    loading.Close();
+                                    anuncios[int.Parse(grid.Tag.ToString())].numVecesVisto += 1;
+                                    Usuario usu = await Usuario.obtenerUsuarioId(anuncios[int.Parse(grid.Tag.ToString())].id_user);
+                                    float puntuacion = await Resenyas.obtenerPuntuacionAnuncio(anuncios[int.Parse(grid.Tag.ToString())]._id);
+                                    principal.mainFrame.Content = new AnuncioBuscadoDetalles(principal, idsAnuncios ,anuncios[int.Parse(grid.Tag.ToString())], campo,usu.email, puntuacion);
+                                }else
+                                {
+                                    loading.Close();
+                                    ErrorPopUp err = new ErrorPopUp("Error al cargar el anuncio");
+                                    err.ShowDialog();
+                                }
+                            }
+                            else
                             {
                                 loading.Close();
                                 ErrorPopUp err = new ErrorPopUp("Error al cargar el anuncio");
                                 err.ShowDialog();
                             }
-                        }else
+                        }
+                        else
                         {
                             //Mostrar detalles de anuncio
                             Usuario usu = await Usuario.obtenerUsuarioId(anuncios[int.Parse(grid.Tag.ToString())].id_user);
@@ -180,6 +192,7 @@ namespace ONEC.VIEWS.Main.Anuncios.AnunciosEmpresario
                         }
                     }catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message);
                         loading.Close();
                         ErrorPopUp err = new ErrorPopUp("Error al cargar el anuncio");
                         err.ShowDialog();
