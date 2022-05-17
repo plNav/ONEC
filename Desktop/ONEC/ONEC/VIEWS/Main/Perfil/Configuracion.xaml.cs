@@ -115,5 +115,11 @@ namespace ONEC.VIEWS.Main.Perfil
             }
 
         }
+
+        private void Image_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+            System.Diagnostics.Process.Start(Environment.GetCommandLineArgs()[0]);
+        }
     }
 }

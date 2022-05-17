@@ -48,7 +48,12 @@
         </Grid.RowDefinitions>
         <Border Height="50" Background="#FF12141D">
             <Grid>
-                <Label Content="Configuración" FontSize="25" Foreground="#fcffff" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Configuración" FontSize="25" Foreground="#fcffff" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <Image Height="40" Width="40" Grid.Column="1" Cursor="Hand" Margin="0,0,20,0" Source="/ONEC;component/IMAGES/logout.png" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="Image_MouseLeftButtonDown_1"/>
             </Grid>
         </Border>
         <Border Grid.Row="1" Padding="20">

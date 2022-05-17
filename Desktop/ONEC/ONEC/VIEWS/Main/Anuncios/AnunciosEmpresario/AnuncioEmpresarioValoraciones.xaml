@@ -63,8 +63,13 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition x:Name="rowPanel"/>
+                        <RowDefinition x:Name="rowTxt" Height="0"/>
+                    </Grid.RowDefinitions>
                     <StackPanel x:Name="panelReviews" Margin="0,10,0,10">
                     </StackPanel>
+                    <TextBlock x:Name="txtSinReviews" Text="Ninguna reseña añadida" FontSize="19" Foreground="#fcffff" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Visibility="Collapsed"/>
                 </Grid>
             </Grid>
         </ScrollViewer>
