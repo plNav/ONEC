@@ -167,6 +167,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                         .clickable { navController.navigate(Rutas.Forgot.route) }, textAlign = TextAlign.Right)
                     Spacer(modifier = Modifier.height(5.dp))
                     Button(onClick = {
+                                    StaticVariables.clean()
                                     //Validar Mail y logear
                                     if(email.value.isEmpty() || password.value.isEmpty()) {
                                         isDialogOpen.value = true
@@ -256,7 +257,9 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                         painter = painterResource(id = R.drawable.errorlog),
                                         contentDescription = "ErrorLog",
                                         alignment = Alignment.Center,
-                                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .fillMaxHeight(0.3f)
                                     )
                                     Spacer(modifier = Modifier.height(20.dp))
                                     Text(

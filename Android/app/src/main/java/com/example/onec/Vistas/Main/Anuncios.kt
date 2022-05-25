@@ -44,127 +44,158 @@ import com.example.onec.ui.theme.OnecTheme
 
 @Composable
 fun anuncios(selected: MutableState<Boolean>,navController: NavController) {
-    if(selected.value) {
+        if (selected.value) {
 
-        val anuncioModel = remember {
-            mutableStateOf<AnuncioModel?>(null)
-        }
+            val anuncioModel = remember {
+                mutableStateOf<AnuncioModel?>(null)
+            }
 
-        val eliminando = remember {
-            mutableStateOf(false)
-        }
+            val eliminando = remember {
+                mutableStateOf(false)
+            }
 
-        val errorMsj = remember {
-            mutableStateOf("Error al realizar la operación")
-        }
+            val errorMsj = remember {
+                mutableStateOf("Error al realizar la operación")
+            }
 
-        val isLoading = remember {
-            mutableStateOf(false)
-        }
+            val isLoading = remember {
+                mutableStateOf(false)
+            }
 
-        val showError = remember {
-            mutableStateOf(false)
-        }
+            val showError = remember {
+                mutableStateOf(false)
+            }
 
 
-        val showlistEmpty = remember {
-            mutableStateOf(false)
-        }
+            val showlistEmpty = remember {
+                mutableStateOf(false)
+            }
 
-        val showList = remember {
-            mutableStateOf(false)
-        }
+            val showList = remember {
+                mutableStateOf(false)
+            }
 
-        val anuncioViewModel = remember {
-            AnuncioViewModel()
-        }
+            val anuncioViewModel = remember {
+                AnuncioViewModel()
+            }
 
-        val listaItemsEliminados = remember {
-            mutableStateOf<MutableList<AnuncioModel>>(mutableStateListOf())
-        }
+            val listaItemsEliminados = remember {
+                mutableStateOf<MutableList<AnuncioModel>>(mutableStateListOf())
+            }
 
-        OnecTheme() {
-            Scaffold( topBar = {
-                TopAppBar(
-                    backgroundColor = Color(0xFF1B1C29),
-                    title = {
-                        Text(
-                            text = "Mis anuncios", fontFamily = FontFamily(Font(R.font.comforta)), color = Color(0xfffcffff), fontWeight = FontWeight.W500
-                        ) },
-                    actions = {
-                        IconButton(onClick = {
-                            navController.navigate(Rutas.CrearAnuncio.route)
-                        }) {
-                            Icon(Icons.Filled.Add, contentDescription = "Agregar oferta", tint = Color(0xfffcffff))
-                        }
-                    }, modifier = Modifier
-                        .shadow(elevation = 0.dp)
-                        .fillMaxHeight(0.08f)
-                )
-            }){
-                //Primero comprobamos, que no se haya cargado ya la lista de anuncios del usuario, si no está cargada ponemos en true el isLoading
-                if (!StaticVariables.anunciosBuscados ) {
-                    isLoading.value = true
-                }else {
-                     if(StaticVariables.anunciosUsuario.isEmpty()) {
-                        //La respuesta llega correctamente, pero el usuario no tienen ningun anuncio creado
-                        showlistEmpty.value = true
-                    }else if (StaticVariables.anunciosUsuario.isNotEmpty()) {
-                        //El usuario tiene anuncios ya creados
-                        showList.value = true
-                    }else {
-                        //Mostrar Error por si acaso
-                        showError.value = true
-                    }
-                }
-
-                //Gestionamos la carga de los anuncios
-                if (isLoading.value) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color(0xff3b3d4c))
-                    ){
-                        Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                            CircularProgressIndicator(modifier = Modifier
-                                .height(50.dp)
-                                .width(50.dp), color = Color(0xfffcffff))
-                            Text(text = "Cargando...", fontSize = 16.sp, color = Color(0xfffcffff), textAlign = TextAlign.Center)
-                        }
-                    }
-                    anuncioViewModel.obtenerAnunciosUsuario(StaticVariables.usuario!!._id) { anuncios ->
-                        if (anuncios == null) {
-                           //Mostrar error
-                            showError.value = true
-                            isLoading.value = false
-                        }else if(anuncios.isEmpty()) {
+            OnecTheme() {
+                Scaffold(topBar = {
+                    TopAppBar(
+                        backgroundColor = Color(0xFF1B1C29),
+                        title = {
+                            Text(
+                                text = "Mis anuncios",
+                                fontFamily = FontFamily(Font(R.font.comforta)),
+                                color = Color(0xfffcffff),
+                                fontWeight = FontWeight.W500
+                            )
+                        },
+                        actions = {
+                            IconButton(onClick = {
+                                navController.navigate(Rutas.CrearAnuncio.route)
+                            }) {
+                                Icon(
+                                    Icons.Filled.Add,
+                                    contentDescription = "Agregar oferta",
+                                    tint = Color(0xfffcffff)
+                                )
+                            }
+                        }, modifier = Modifier
+                            .shadow(elevation = 0.dp)
+                            .fillMaxHeight(0.08f)
+                    )
+                }) {
+                    //Primero comprobamos, que no se haya cargado ya la lista de anuncios del usuario, si no está cargada ponemos en true el isLoading
+                    if (!StaticVariables.anunciosBuscados) {
+                        isLoading.value = true
+                    } else {
+                        if (StaticVariables.anunciosUsuario.isEmpty()) {
                             //La respuesta llega correctamente, pero el usuario no tienen ningun anuncio creado
                             showlistEmpty.value = true
-                            StaticVariables.anunciosBuscados = true
-                            StaticVariables.anunciosUsuario = anuncios.toMutableStateList()
-                            isLoading.value = false
-                        }else if (anuncios.isNotEmpty()) {
+                        } else if (StaticVariables.anunciosUsuario.isNotEmpty()) {
                             //El usuario tiene anuncios ya creados
                             showList.value = true
-                            isLoading.value = false
-                            StaticVariables.anunciosBuscados = true
-                            StaticVariables.anunciosUsuario = anuncios.toMutableStateList()
-                        }else {
+                        } else {
                             //Mostrar Error por si acaso
                             showError.value = true
-                            isLoading.value = false
                         }
                     }
-                }else {
-                    listAnuncios(showList, navController, eliminando, anuncioModel, listaItemsEliminados)
-                    listAnunciosEmpty(showlistEmpty)
-                    errorCarga(isLoading,showError)
-                    dialogEliminando(show = eliminando, showError, anuncioModel.value, listaItemsEliminados, errorMsj)
-                    dialogError(show = showError , msj = errorMsj )
+
+                    //Gestionamos la carga de los anuncios
+                    if (isLoading.value) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color(0xff3b3d4c))
+                        ) {
+                            Column(
+                                Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier
+                                        .height(50.dp)
+                                        .width(50.dp), color = Color(0xfffcffff)
+                                )
+                                Text(
+                                    text = "Cargando...",
+                                    fontSize = 16.sp,
+                                    color = Color(0xfffcffff),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                        anuncioViewModel.obtenerAnunciosUsuario(StaticVariables.usuario!!._id) { anuncios ->
+                            if (anuncios == null) {
+                                //Mostrar error
+                                showError.value = true
+                                isLoading.value = false
+                            } else if (anuncios.isEmpty()) {
+                                //La respuesta llega correctamente, pero el usuario no tienen ningun anuncio creado
+                                showlistEmpty.value = true
+                                StaticVariables.anunciosBuscados = true
+                                StaticVariables.anunciosUsuario = anuncios.toMutableStateList()
+                                isLoading.value = false
+                            } else if (anuncios.isNotEmpty()) {
+                                //El usuario tiene anuncios ya creados
+                                showList.value = true
+                                isLoading.value = false
+                                StaticVariables.anunciosBuscados = true
+                                StaticVariables.anunciosUsuario = anuncios.toMutableStateList()
+                            } else {
+                                //Mostrar Error por si acaso
+                                showError.value = true
+                                isLoading.value = false
+                            }
+                        }
+                    } else {
+                        listAnuncios(
+                            showList,
+                            navController,
+                            eliminando,
+                            anuncioModel,
+                            listaItemsEliminados
+                        )
+                        listAnunciosEmpty(showlistEmpty)
+                        errorCarga(isLoading, showError)
+                        dialogEliminando(
+                            show = eliminando,
+                            showError,
+                            anuncioModel.value,
+                            listaItemsEliminados,
+                            errorMsj
+                        )
+                        dialogError(show = showError, msj = errorMsj)
+                    }
                 }
             }
         }
-    }
 }
 
 

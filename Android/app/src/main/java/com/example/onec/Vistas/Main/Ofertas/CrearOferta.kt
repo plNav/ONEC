@@ -324,28 +324,28 @@ fun crearOferta(navController: NavController) {
                             cursorColor = Color(0xFF999dba)
                         )
                     )
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false },
-                        modifier = Modifier
-                            .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                            .fillMaxHeight(0.5f)
-                            .background(color = Color(0xFFEEEEEE))
-                    ) {
-                        stringArrayResource(R.array.titulos).forEach { label ->
-                            DropdownMenuItem(
-                                modifier = Modifier.background(color = Color(0xFFEEEEEE)),
-                                onClick = {
-                                    titulo.value = label
-                                    especialidad.value = ""
-                                    listHabilidades.value.clear()
-                                    expanded = false
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.9f)
+                                .background(color = Color(0xFFEEEEEE))
+                        ) {
+                            stringArrayResource(R.array.titulos).forEach { label ->
+                                DropdownMenuItem(
+                                    modifier = Modifier.background(color = Color(0xFFEEEEEE)),
+                                    onClick = {
+                                        titulo.value = label
+                                        especialidad.value = ""
+                                        listHabilidades.value.clear()
+                                        expanded = false
+                                    }
+                                ) {
+                                    Text(text = label, color = Color(0xff3b3d4c))
                                 }
-                            ) {
-                                Text(text = label, color = Color(0xff3b3d4c))
                             }
                         }
-                    }
                     if (!titulo.value.isNullOrEmpty() || !titulo.value.isNullOrBlank()) {
                         when (titulo.value) {
                             "ESO", "Bachiller" -> {
@@ -513,8 +513,8 @@ fun crearOferta(navController: NavController) {
                                 expanded = expandedEsp,
                                 onDismissRequest = { expandedEsp = false },
                                 modifier = Modifier
-                                    .fillMaxHeight(0.4f)
-                                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
+                                    .fillMaxHeight(0.9f)
+                                    .fillMaxWidth()
                             ) {
                                 if (expandedEsp) {
                                     especialidadRes.value!!.forEach { label ->
@@ -851,7 +851,9 @@ fun did(show : MutableState<Boolean>, navController: NavController) {
                         )
                         Spacer(modifier = Modifier.height(20.dp))
                         Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.3f) )
                         Text(
                             text = "La oferta ha sido creada.",
                             textAlign = TextAlign.Center,

@@ -60,7 +60,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock FontSize="16" Foreground="#999dba" Text="¿No has recibido ningún correo?"/>
-                <TextBlock  Grid.Column="1" FontSize="16" Foreground="#fcffff" Text="Reenviar" HorizontalAlignment="Left" Margin="5,0,0,0" Cursor="Hand"/>
+                <TextBlock  Grid.Column="1" FontSize="16" Foreground="#fcffff" Text="Reenviar" HorizontalAlignment="Left" Margin="5,0,0,0" Cursor="Hand" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
             </Grid>
         </Grid>
     </Grid>

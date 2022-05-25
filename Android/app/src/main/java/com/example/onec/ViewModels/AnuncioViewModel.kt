@@ -30,22 +30,6 @@ class AnuncioViewModel : ViewModel() {
         }
     }
 
-    fun obtenerAnuncios(onComplete: (anuncios: List<AnuncioModel>?) -> Unit){
-        viewModelScope.launch {
-            try {
-                val api = ApiServices.ApiServices.getInstance()
-                val respuesta = api.obtenerAnuncios()
-                if (respuesta.isSuccessful) {
-                    onComplete(respuesta.body())
-                }else {
-                    onComplete(null)
-                }
-            }catch (e: Exception){
-                onComplete(null)
-            }
-        }
-    }
-
     fun obtenerAnuncio(id: String,onComplete: (anuncioModel: AnuncioModel?) -> Unit) {
         viewModelScope.launch {
             try {

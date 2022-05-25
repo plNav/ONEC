@@ -446,8 +446,8 @@ fun muestraCv() {
                     expanded = expanded,
                     onDismissRequest = { expanded = false },
                     modifier = Modifier
-                        .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                        .fillMaxHeight(0.5f)
+                        .fillMaxHeight(0.9f)
+                        .fillMaxWidth()
                         .background(color = Color(0xFFEEEEEE))
                 ) {
                     stringArrayResource(R.array.titulos).forEach { label ->
@@ -606,8 +606,9 @@ fun muestraCv() {
                         DropdownMenu(expanded = expandedEsp,
                             onDismissRequest = { expandedEsp = false },
                             modifier = Modifier
-                                .fillMaxHeight(0.4f)
-                                .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
+                                .fillMaxHeight(0.9f)
+                                .fillMaxWidth()
+
                         ) {
                             if (expandedEsp) {
                                 especialidadRes.value!!.forEach { label ->

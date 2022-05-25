@@ -647,8 +647,8 @@ fun selectedDropDownMenu(valor : MutableState<String>) {
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 modifier = Modifier
-                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                    .fillMaxHeight(0.5f)
+                    .fillMaxHeight(0.9f)
+                    .fillMaxWidth()
                     .background(color = Color(0xFFEEEEEE))
             ) {
                 stringArrayResource(R.array.titulos).forEach { label ->
@@ -803,8 +803,9 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                 }
 
                 DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false}, modifier = Modifier
-                    .fillMaxHeight(0.4f)
-                    .width(with(LocalDensity.current) { textfieldSize.width.toDp() })) {
+                    .fillMaxHeight(0.9f)
+                    .fillMaxWidth()
+                ) {
                     if (expanded) {
                         especialidad.value!!.forEach { label ->
                             DropdownMenuItem(
@@ -1007,7 +1008,6 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                               StaticVariables.experiencia = anyos
                               StaticVariables.pasoRegistro = "3"
                               valor.value = "3"
-                              Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                           }catch (e : Exception) {
                              isDialogOpen.value = true
                              dialogError.value = "Debe introducir la experiencia\núnicamente en años."
@@ -1017,7 +1017,6 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                           StaticVariables.especialidad = especialidadSelect.value
                           StaticVariables.pasoRegistro = "3"
                           valor.value = "3"
-                          Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                       }
                   }else if(muestraEspecialidadList.value) {
                       if (especialidadSelect.value == "") {
@@ -1034,7 +1033,6 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                               StaticVariables.experiencia = anyos
                               StaticVariables.pasoRegistro = "3"
                               valor.value = "3"
-                              Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                           }catch (e: Exception) {
                               isDialogOpen.value = true
                               dialogError.value = "Debe introducir la experiencia\núnicamente en años."
@@ -1044,7 +1042,6 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                           StaticVariables.especialidad = especialidadSelect.value
                           StaticVariables.pasoRegistro = "3"
                           valor.value = "3"
-                          Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                       }
                   }else if(muestraBtnSiguiente.value) {
                         if (showExp.value && experiencia.value == "") {
@@ -1057,7 +1054,6 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                                 StaticVariables.experiencia = anyos
                                 StaticVariables.pasoRegistro = "3"
                                 valor.value = "3"
-                                Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                             }catch (e: Exception) {
                                 isDialogOpen.value = true
                                 dialogError.value = "Debe introducir la experiencia\núnicamente en años."
@@ -1066,7 +1062,6 @@ fun dropDownEspecialidad(valor : MutableState<String>,titulo: MutableState<Strin
                             StaticVariables.titulo = titulo.value
                             StaticVariables.pasoRegistro = "3"
                             valor.value = "3"
-                            Log.e("Resultado","imagen ${StaticVariables.imageUri}\nNombre ${StaticVariables.nombreCv}\nTelefono ${StaticVariables.telefono}\nUbicacion ${StaticVariables.ubicacion}\nExperiencia ${StaticVariables.experiencia}\nTitulo ${StaticVariables.titulo}\nEspecialidad ${StaticVariables.especialidad}")
                         }
                   }
         },

@@ -280,13 +280,10 @@ fun loadingReviewsFav(show: MutableState<Boolean>, showList : MutableState<Boole
 fun emptyReviewsFav(show : MutableState<Boolean>, navController: NavController) {
     if (show.value) {
         OnecTheme {
-            val scrollState = rememberScrollState(0)
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xff333542))
-                    .verticalScroll(scrollState)
             ) {
                 TopAppBar(
                     navigationIcon = {

@@ -36,6 +36,7 @@ import androidx.navigation.NavController
 import com.example.onec.Models.UsuarioPost
 import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
+import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.LoginRegistroViewModel
 import com.example.onec.ui.theme.OnecTheme
 
@@ -199,6 +200,7 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                    )
                    Spacer(modifier = Modifier.height(15.dp))
                    Button(onClick = {
+                                    StaticVariables.clean()
                                     if(email.value.isEmpty() || password.value.isEmpty() || repass.value.isEmpty()) {
                                         isDialogOpen.value = true
                                         dialogError.value = "Se deben de rellenar\ntodos los campos."

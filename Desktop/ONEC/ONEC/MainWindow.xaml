@@ -12,7 +12,8 @@
         MinWidth="800"
         WindowStartupLocation="CenterScreen" 
         SizeToContent="Manual" 
-        FontFamily="/ONEC;component/Resources/#Comfortaa">
+        FontFamily="/ONEC;component/Resources/#Comfortaa" 
+        Icon="IMAGES/Onec.png">
     <Grid Background="#333542">
         <Frame x:Name="frameContent" NavigationUIVisibility="Hidden">
             

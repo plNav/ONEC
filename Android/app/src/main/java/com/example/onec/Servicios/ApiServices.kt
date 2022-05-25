@@ -22,7 +22,7 @@ interface ApiServices {
             fun getInstance(): ApiServices {
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.18:8081/api/")
+                        .baseUrl("http://192.168.0.19:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -143,45 +143,16 @@ interface ApiServices {
         @POST("review")
         suspend fun crearResenya(@Body resenya : ResenyaPost) : Response<ResenyaModel>
 
-        @GET("review")
-        suspend fun obtenerResenyas() : Response<List<ResenyaModel>>
-
-        @GET("review/{id}")
-        suspend fun obtenerResenya(
-            @Path("id") id : String
-        ): Response<ResenyaModel>
-
         @GET("review/anuncio/{id}")
         suspend fun obtenerResenyasAnuncio(
             @Path("id") id : String
         ): Response<MutableList<ResenyaModel>>
-
-        @GET("review/usuario/{id}")
-        suspend fun obtenerResenyasUsuario(
-            @Path("id") id : String
-        ) : Response<List<ResenyaModel>>
 
         @GET("review/{id}/{id_user}")
         suspend fun obtenerResenyasAnuncioUsuario(
             @Path("id") id : String,
             @Path("id_user") id_user : String
         ) : Response<List<ResenyaModel>>
-
-        @GET("review/anuncio/puntuacion/{id}")
-        suspend fun obtenerPuntuacionAnuncio(
-            @Path("id") id : String
-        ) : Response<Float>
-
-        @PUT("review/{id}")
-        suspend fun actualizarResenya(
-            @Path("id") id : String,
-            @Body resenya: ResenyaPost
-        ) : Response<ResenyaModel>
-
-        @DELETE("review/{id}")
-        suspend fun borrarResenya(
-            @Path("id") id: String
-        ): Response<ResenyaModel>
 
         @DELETE("review/anuncio/{id}")
         suspend fun borrarResenyasAnuncio(
@@ -200,10 +171,6 @@ interface ApiServices {
             @Path("id") id : String
         ) : Response<MutableList<AnunciosGuardadosModel>>
 
-        @GET("anunciosGuardados/{id}")
-        suspend fun obtenerAnuncioFav(
-            @Path("id") id :  String
-        ) : Response<AnunciosGuardadosModel>
 
        @DELETE("anunciosGuardados/{id}")
        suspend fun borrarAnuncioFavoritos(

@@ -45,32 +45,31 @@ import com.example.onec.ui.theme.OnecTheme
 
 @Composable
 fun ofertaEmpresario(selected: MutableState<Boolean>, navController: NavController) {
+        if (selected.value) {
+            OnecTheme {
+                val viewModelOferta = remember {
+                    OfertaViewModel()
+                }
+                val hasError = remember {
+                    mutableStateOf(false)
+                }
 
-    if (selected.value) {
-        OnecTheme {
-        val viewModelOferta = remember {
-            OfertaViewModel()
-        }
-        val hasError = remember {
-            mutableStateOf(false)
-        }
 
+                val isLoading = remember {
+                    mutableStateOf(true)
+                }
 
-        val isLoading = remember {
-            mutableStateOf(true)
-        }
+                val mostrarLista = remember {
+                    mutableStateOf(false)
+                }
 
-        val mostrarLista = remember {
-            mutableStateOf(false)
-        }
+                val mostrarNoCreado = remember {
+                    mutableStateOf(false)
+                }
 
-        val mostrarNoCreado = remember {
-            mutableStateOf(false)
-        }
-
-        val listaOfertas = remember {
-            mutableStateOf(mutableListOf<ModelOferta>().toMutableStateList())
-        }
+                val listaOfertas = remember {
+                    mutableStateOf(mutableListOf<ModelOferta>().toMutableStateList())
+                }
                 Scaffold(topBar = {
                     TopAppBar(
                         backgroundColor = Color(0xFF1B1C29),
@@ -121,30 +120,30 @@ fun ofertaEmpresario(selected: MutableState<Boolean>, navController: NavControll
                         }
                     }
                     if (isLoading.value) {
-                    viewModelOferta.obtenerOfertasUsuario(StaticVariables.usuario!!._id) { ofertas ->
-                        if (ofertas == null) {
-                            hasError.value = true
-                        } else if (ofertas.isEmpty()) {
-                            mostrarNoCreado.value = true
-                        } else {
-                            listaOfertas.value = ofertas.toMutableStateList()
-                            mostrarLista.value = true
+                        viewModelOferta.obtenerOfertasUsuario(StaticVariables.usuario!!._id) { ofertas ->
+                            if (ofertas == null) {
+                                hasError.value = true
+                            } else if (ofertas.isEmpty()) {
+                                mostrarNoCreado.value = true
+                            } else {
+                                listaOfertas.value = ofertas.toMutableStateList()
+                                mostrarLista.value = true
+                            }
+                            isLoading.value = false
                         }
-                        isLoading.value = false
-                    }
-                }else {
-                    mostrarItems(
-                        show = mostrarLista,
-                        lista = listaOfertas,
-                        navController = navController
-                    )
-                    errorCargaOfertas(show = hasError, loading = isLoading)
-                    mostrarNoEncontrado(show = mostrarNoCreado)
+                    } else {
+                        mostrarItems(
+                            show = mostrarLista,
+                            lista = listaOfertas,
+                            navController = navController
+                        )
+                        errorCargaOfertas(show = hasError, loading = isLoading)
+                        mostrarNoEncontrado(show = mostrarNoCreado)
 
+                    }
                 }
             }
         }
-    }
 }
 
 

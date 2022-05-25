@@ -63,21 +63,6 @@ class CandidatosOfertasViewModel : ViewModel() {
         }
     }
 
-    fun obtenerOfertasCandidato(id : String, onComplete: (candidatosOfertas: MutableList<CandidatosOfertasModel>?) -> Unit){
-        viewModelScope.launch {
-            try {
-                val api = ApiServices.ApiServices.getInstance()
-                val respuesta = api.obtenerOfertasCandidato(id)
-                if (respuesta.isSuccessful) {
-                    onComplete(respuesta.body())
-                }else {
-                    onComplete(null)
-                }
-            }catch (e: Exception) {
-                onComplete(null)
-            }
-        }
-    }
 
     fun eliminarOfertasCandidato(id: String, onComplete : (did : Boolean) -> Unit) {
         viewModelScope.launch {

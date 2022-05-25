@@ -16,8 +16,6 @@ import java.lang.Exception
  */
 class OfertaViewModel : ViewModel() {
 
-    var ofertaCreada : ModelOferta? = null
-
     fun crearOferta(oferta: OfertaPost, onComplete : (ModelOferta?) -> Unit) {
         viewModelScope.launch {
             try {

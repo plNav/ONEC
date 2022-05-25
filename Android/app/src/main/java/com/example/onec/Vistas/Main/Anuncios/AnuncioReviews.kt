@@ -280,13 +280,10 @@ fun cargarListaReviewsAnuncio(show: MutableState<Boolean>, showList : MutableSta
 fun emptyReviewsAnuncio(show: MutableState<Boolean>, navController: NavController) {
     if (show.value) {
         OnecTheme {
-            val scrollState = rememberScrollState(0)
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color(0xff333542))
-                    .verticalScroll(scrollState)
             ) {
                 TopAppBar(
                     navigationIcon = {

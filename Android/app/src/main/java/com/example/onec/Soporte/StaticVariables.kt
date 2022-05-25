@@ -45,7 +45,6 @@ class StaticVariables {
         /**
         * imageUri : Uri?   -> Contiene el Uri de la Imagen que ha seleccionado de la galeria el Usuario tipo Estandar en su CV para no perderla al cambiar de Composable
         * */
-        var imageUri : Uri? = null
         var pasoRegistro: String = "1"
         var nombreCv : String = ""
         var telefono : String = ""
@@ -101,14 +100,14 @@ class StaticVariables {
         var candidatoGuardadoSeleccionado : CandidatosOfertasModel? = null
         var candidatoGuardadoSeleccionadoCV : CvModel? = null
 
+
         /**
          * fun clean() -> Sirve para Resetear valores en la aplicación, por si se cambia de modo, o se cierra sesión
          * */
         fun clean() {
-            appModo = false
+            appModo = null
             fragmento = 1
             usuario = null
-            imageUri = null
             pasoRegistro = "1"
             nombreCv = ""
             telefono = ""

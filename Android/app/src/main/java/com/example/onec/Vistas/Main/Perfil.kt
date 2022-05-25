@@ -14,6 +14,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.vector.PathNode
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -59,8 +60,7 @@ fun perfil(navController: NavController) {
                                         popUpTo(Rutas.Main.route)
                                     }
                                 } else {
-                                    StaticVariables.clean()
-                                    navController.navigate(Rutas.Login.route) { popUpTo(0) }
+                                    navController.navigate(Rutas.Login.route) { popUpTo(0)}
                                 }
                             }
                         }
