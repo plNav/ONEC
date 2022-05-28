@@ -531,8 +531,8 @@ fun anuncioCargado(show: MutableState<Boolean>, showDialogLoading : MutableState
                         shape = RoundedCornerShape(7.dp),
                         color = Color(0xff3b3d4c)
                     ) {
-                        Column() {
-                            Spacer(modifier = Modifier.height(15.dp))
+                        Column(verticalArrangement = Arrangement.SpaceBetween) {
+                            Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                             Text(
                                 text = "Error",
                                 modifier = Modifier.fillMaxWidth(),
@@ -540,16 +540,14 @@ fun anuncioCargado(show: MutableState<Boolean>, showDialogLoading : MutableState
                                 fontSize = 25.sp,
                                 color = Color(0xfffcffff)
                             )
-                            Spacer(modifier = Modifier.height(20.dp))
                             Image(
                                 painter = painterResource(id = R.drawable.errorlog),
                                 contentDescription = "ErrorLog",
                                 alignment = Alignment.Center,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .fillMaxHeight(0.3f)
+                                    .fillMaxHeight(0.4f)
                             )
-                            Spacer(modifier = Modifier.height(20.dp))
                             Text(
                                 text = "Error al cargar el anuncio\nInténtelo más tarde",
                                 textAlign = TextAlign.Center,
@@ -557,7 +555,7 @@ fun anuncioCargado(show: MutableState<Boolean>, showDialogLoading : MutableState
                                 fontSize = 19.sp,
                                 color = Color(0xfffcffff)
                             )
-                            Spacer(modifier = Modifier.height(15.dp))
+                            Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                             Button(
                                 onClick = { show.value = false },
                                 Modifier.fillMaxWidth(),
@@ -599,8 +597,8 @@ fun anuncioCargado(show: MutableState<Boolean>, showDialogLoading : MutableState
                         shape = RoundedCornerShape(7.dp),
                         color = Color(0xff3b3d4c)
                     ) {
-                        Column() {
-                            Spacer(modifier = Modifier.height(15.dp))
+                        Column(verticalArrangement = Arrangement.SpaceBetween) {
+                            Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                             Text(
                                 text = "No se puede editar",
                                 modifier = Modifier.fillMaxWidth(),
@@ -608,16 +606,14 @@ fun anuncioCargado(show: MutableState<Boolean>, showDialogLoading : MutableState
                                 fontSize = 25.sp,
                                 color = Color(0xfffcffff)
                             )
-                            Spacer(modifier = Modifier.height(20.dp))
                             Image(
                                 painter = painterResource(id = R.drawable.info),
                                 contentDescription = "ErrorLog",
                                 alignment = Alignment.Center,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .fillMaxHeight(0.3f)
+                                    .fillMaxHeight(0.4f)
                             )
-                            Spacer(modifier = Modifier.height(20.dp))
                             Text(
                                 text = "El anuncio no se puede editar\nya que ha sido reseñado por otros usuarios.",
                                 textAlign = TextAlign.Center,
@@ -625,7 +621,7 @@ fun anuncioCargado(show: MutableState<Boolean>, showDialogLoading : MutableState
                                 fontSize = 19.sp,
                                 color = Color(0xfffcffff)
                             )
-                            Spacer(modifier = Modifier.height(15.dp))
+                            Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                             Button(
                                 onClick = { show.value = false },
                                 Modifier.fillMaxWidth(),

@@ -472,7 +472,7 @@ fun noEncontrado(show: MutableState<Boolean>) {
     if (show.value) {
         OnecTheme() {
             Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "No se ha encontrado ningún anuncio", fontSize = 19.sp, color = Color(0xfffcffff))
+                Text(text = "No se ha encontrado ningún anuncio", fontSize = 19.sp, color = Color(0xfffcffff), textAlign = TextAlign.Center)
             }
         }
     }

@@ -238,13 +238,13 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                             Surface(
                                 modifier = Modifier
                                     .padding(5.dp)
-                                    .fillMaxWidth(1f)
+                                    .fillMaxWidth()
                                     .shadow(elevation = 3.dp, shape = RoundedCornerShape(7.dp)),
                                 shape = RoundedCornerShape(7.dp),
                                 color = Color(0xff3b3d4c)
                             ) {
-                                Column() {
-                                    Spacer(modifier = Modifier.height(15.dp))
+                                Column(verticalArrangement = Arrangement.SpaceBetween) {
+                                    Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                                     Text(
                                         text = "Error",
                                         modifier = Modifier.fillMaxWidth(),
@@ -252,16 +252,14 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                         fontSize = 25.sp,
                                         color = Color(0xfffcffff)
                                     )
-                                    Spacer(modifier = Modifier.height(20.dp))
                                     Image(
                                         painter = painterResource(id = R.drawable.errorlog),
                                         contentDescription = "ErrorLog",
                                         alignment = Alignment.Center,
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .fillMaxHeight(0.3f)
+                                            .fillMaxHeight(0.4f)
                                     )
-                                    Spacer(modifier = Modifier.height(20.dp))
                                     Text(
                                         text = dialogError.value,
                                         textAlign = TextAlign.Center,
@@ -269,7 +267,7 @@ fun Reg(navController: NavController, loginRegistroViewModel: LoginRegistroViewM
                                         fontSize = 19.sp,
                                         color = Color(0xfffcffff)
                                     )
-                                    Spacer(modifier = Modifier.height(15.dp))
+                                    Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                                     Button(
                                         onClick = { isDialogOpen.value = false },
                                         Modifier.fillMaxWidth(),

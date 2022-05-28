@@ -742,8 +742,8 @@ fun dialogError(show: MutableState<Boolean>, msj: MutableState<String>) {
                     shape = RoundedCornerShape(7.dp),
                     color = Color(0xff3b3d4c)
                 ) {
-                    Column() {
-                        Spacer(modifier = Modifier.height(15.dp))
+                    Column(verticalArrangement = Arrangement.SpaceBetween) {
+                        Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                         Text(
                             text = "Error",
                             modifier = Modifier.fillMaxWidth(),
@@ -751,14 +751,12 @@ fun dialogError(show: MutableState<Boolean>, msj: MutableState<String>) {
                             fontSize = 25.sp,
                             color = Color(0xfffcffff)
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
                         Image(
                             painter = painterResource(id = R.drawable.errorlog),
                             contentDescription = "ErrorLog",
                             alignment = Alignment.Center,
-                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
+                            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4f)
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
                         Text(
                             text = msj.value,
                             textAlign = TextAlign.Center,
@@ -766,7 +764,7 @@ fun dialogError(show: MutableState<Boolean>, msj: MutableState<String>) {
                             fontSize = 19.sp,
                             color = Color(0xfffcffff)
                         )
-                        Spacer(modifier = Modifier.height(15.dp))
+                        Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                         Button(
                             //Le damos el valo de false para que se cierre el diálogo al darle click en el botón.
                             onClick = { show.value = false },
@@ -813,8 +811,8 @@ fun dialogChangedPass(show: MutableState<Boolean>, titulo : MutableState<String>
                   shape = RoundedCornerShape(7.dp),
                   color = Color(0xff3b3d4c)
               ) {
-                  Column() {
-                      Spacer(modifier = Modifier.height(15.dp))
+                  Column(verticalArrangement = Arrangement.SpaceBetween) {
+                      Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                       Text(
                           text = titulo.value,
                           modifier = Modifier.fillMaxWidth(),
@@ -822,9 +820,8 @@ fun dialogChangedPass(show: MutableState<Boolean>, titulo : MutableState<String>
                           fontSize = 25.sp,
                           color = Color(0xfffcffff)
                       )
-                      Spacer(modifier = Modifier.height(20.dp))
                       Image(painter = painterResource(id = R.drawable.good), contentDescription = "Good", alignment = Alignment.Center,
-                          modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f) )
+                          modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4f) )
                       Text(
                           text = texto.value,
                           textAlign = TextAlign.Center,
@@ -832,7 +829,7 @@ fun dialogChangedPass(show: MutableState<Boolean>, titulo : MutableState<String>
                           fontSize = 19.sp,
                           color = Color(0xfffcffff)
                       )
-                      Spacer(modifier = Modifier.height(15.dp))
+                      Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                       Button(
                           //Le damos el valo de false para que se cierre el diálogo al darle click en el botón.
                           onClick = { show.value = false },

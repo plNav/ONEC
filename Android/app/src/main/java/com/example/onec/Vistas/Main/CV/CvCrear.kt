@@ -508,8 +508,8 @@ fun dialogoError(showDialog : MutableState<Boolean>,error : MutableState<String>
                 shape = RoundedCornerShape(7.dp),
                 color = Color(0xff3b3d4c)
             ) {
-                Column() {
-                    Spacer(modifier = Modifier.height(15.dp))
+                Column(verticalArrangement = Arrangement.SpaceBetween) {
+                    Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                     Text(
                         text = "Error",
                         modifier = Modifier.fillMaxWidth(),
@@ -517,14 +517,12 @@ fun dialogoError(showDialog : MutableState<Boolean>,error : MutableState<String>
                         fontSize = 25.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
                         contentDescription = "ErrorLog",
                         alignment = Alignment.Center,
-                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.4f)
                     )
-                    Spacer(modifier = Modifier.height(20.dp))
                     Text(
                         text = error.value,
                         textAlign = TextAlign.Center,
@@ -532,7 +530,7 @@ fun dialogoError(showDialog : MutableState<Boolean>,error : MutableState<String>
                         fontSize = 19.sp,
                         color = Color(0xfffcffff)
                     )
-                    Spacer(modifier = Modifier.height(15.dp))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                     Button(
                         //Le damos el valo de false para que se cierre el diálogo al darle click en el botón.
                         onClick = { showDialog.value = false },
