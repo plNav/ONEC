@@ -12,7 +12,15 @@ namespace ONEC
 {
     class StaticResources
     {
-        public static string urlHead = "http://localhost:8081/api/";
+        /**
+         * modo
+         * 1 = Despliegue local
+         * 2 = Despliegue Heroku
+         * **/
+        private static int modo = 2;
+
+
+        public static string urlHead = modo == 1 ? "http://localhost:8081/api/" :  "https://onec-nuevo.herokuapp.com/api/";
         public static HttpClient httpClient = new HttpClient();
         public static MainWindow main;
         public static Principal principal;

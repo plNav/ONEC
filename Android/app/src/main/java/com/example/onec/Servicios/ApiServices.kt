@@ -20,9 +20,23 @@ interface ApiServices {
             private var apiServices: ApiServices? = null
 
             fun getInstance(): ApiServices {
+                /***
+                 * modo
+                 * 1 = Despliegue localHost
+                 * 2 = Despliegue Heroku
+                 * */
+                    val modo = 2
+
+                /***
+                 * ipLocal = introducir la ip local de la máquina en la que está ejecutándose el servidor web
+                 * */
+                    val ipLocal : String = "192.168.0.22"
+
+
+                /**Crear instancia*/
                 if (apiServices == null) {
                     apiServices = Retrofit.Builder()
-                        .baseUrl("http://192.168.0.16:8081/api/")
+                        .baseUrl(if(modo == 2) "https://onec-nuevo.herokuapp.com/api/" else "http://$ipLocal:8081/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build()
                         .create(ApiServices::class.java)
@@ -32,6 +46,9 @@ interface ApiServices {
                 return apiServices!!
             }
         }
+
+
+
 
 
         /*********************RUTAS**********************/
