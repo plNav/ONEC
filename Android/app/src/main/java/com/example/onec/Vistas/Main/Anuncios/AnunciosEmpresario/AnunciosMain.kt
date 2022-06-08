@@ -214,7 +214,7 @@ fun listaAnunciosFav(show : MutableState<Boolean>, navController: NavController,
                                                 )
                                                 Spacer(modifier = Modifier.height(3.dp))
                                                 Text(
-                                                    text = "50€ Hora",
+                                                    text = if(anuncioModel.value!!.precioPorHora)anuncioModel.value!!.precio.toString() + "€ Hora" else anuncioModel.value!!.precio.toString(),
                                                     fontSize = 15.sp,
                                                     color = Color(0xFF202020),
                                                     fontWeight = FontWeight.Bold

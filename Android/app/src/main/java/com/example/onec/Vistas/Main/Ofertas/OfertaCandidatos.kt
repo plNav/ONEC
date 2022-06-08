@@ -178,7 +178,9 @@ fun errorCargaCandidatos(show : MutableState<Boolean>, loading : MutableState<Bo
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
                         contentDescription = "Error log",
-                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.3f)
                     )
                     Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
@@ -291,14 +293,19 @@ fun mostrarCandidatos(show: MutableState<Boolean>, candidatos: MutableState<Snap
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 700))
                         ) {
+                            val deleted = remember {
+                                mutableStateOf(false)
+                            }
                             Column(Modifier.fillMaxWidth()) {
                             Spacer(modifier = Modifier.height(5.dp))
                             Card(modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    StaticVariables.candidatoGuardadoSeleccionadoCV = cv.value
-                                    StaticVariables.candidatoGuardadoSeleccionado = candidato
-                                    navController.navigate(Rutas.DetallesCandidatoGuardado.route)
+                                    if(!deleted.value) {
+                                        StaticVariables.candidatoGuardadoSeleccionadoCV = cv.value
+                                        StaticVariables.candidatoGuardadoSeleccionado = candidato
+                                        navController.navigate(Rutas.DetallesCandidatoGuardado.route)
+                                    }
                                 }, backgroundColor = Color(0xFFEDEEFF)
                             ) {
                                 Column(
@@ -359,20 +366,26 @@ fun mostrarCandidatos(show: MutableState<Boolean>, candidatos: MutableState<Snap
                                         }
                                         IconButton(
                                             onClick = {
-                                                showLoadingDialog.value = true
-                                                candidatosOfertasViewModel.eliminarCandidatosOfertasId(candidato._id) { did ->
-                                                   if (did) {
-                                                       listaCVsEliminados.value.add(cv.value!!)
-                                                       if (can.value -1 <= 0) {
-                                                           show.value = false
-                                                           showNoEnc.value = true
-                                                       }else {
-                                                           can.value -= 1
-                                                       }
-                                                   }else {
-                                                       showErr.value = true
-                                                   }
-                                                    showLoadingDialog.value = false
+                                                if (!deleted.value) {
+                                                    deleted.value = true
+                                                    showLoadingDialog.value = true
+                                                    candidatosOfertasViewModel.eliminarCandidatosOfertasId(
+                                                        candidato._id
+                                                    ) { did ->
+                                                        if (did) {
+                                                            listaCVsEliminados.value.add(cv.value!!)
+                                                            if (can.value - 1 <= 0) {
+                                                                show.value = false
+                                                                showNoEnc.value = true
+                                                            } else {
+                                                                can.value -= 1
+                                                            }
+                                                        } else {
+                                                            deleted.value = false
+                                                            showErr.value = true
+                                                        }
+                                                        showLoadingDialog.value = false
+                                                    }
                                                 }
                                             },
                                             modifier = Modifier.fillMaxWidth()

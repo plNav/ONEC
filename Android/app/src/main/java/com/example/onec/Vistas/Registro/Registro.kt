@@ -38,6 +38,7 @@ import com.example.onec.Navegacion.Rutas
 import com.example.onec.R
 import com.example.onec.Soporte.StaticVariables
 import com.example.onec.ViewModels.LoginRegistroViewModel
+import com.example.onec.Vistas.Login.dialogLoading
 import com.example.onec.ui.theme.OnecTheme
 
 @Composable
@@ -58,6 +59,9 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
     val repass = remember { mutableStateOf("") }
     val isDialogOpen = remember { mutableStateOf(false)}
     val dialogError = remember { mutableStateOf("")}
+    val showDialogLoading = remember {
+        mutableStateOf(false)
+    }
     var passwordVisibility by remember { mutableStateOf(false) }
     var rpasswordVisibility by remember { mutableStateOf(false) }
    Box(modifier = Modifier
@@ -200,14 +204,17 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                    )
                    Spacer(modifier = Modifier.height(15.dp))
                    Button(onClick = {
+                                    showDialogLoading.value = true
                                     StaticVariables.clean()
                                     if(email.value.isEmpty() || password.value.isEmpty() || repass.value.isEmpty()) {
+                                        showDialogLoading.value = false
                                         isDialogOpen.value = true
                                         dialogError.value = "Se deben de rellenar\ntodos los campos."
                                     }else {
                                       //Comprobamos cada campo y registramos al usuario
                                         //Comprobamos que el valor de email sea un email válido
                                         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email.value.trim()).matches()) {
+                                            showDialogLoading.value = false
                                             isDialogOpen.value = true
                                             dialogError.value = "El campo de email\ncontiene un formato no válido."
 
@@ -216,31 +223,37 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                             loginRegistroViewModel.comprobarEmailExistente(email = email.value){ existe,cause ->
                                                 if (existe && cause == "existe") {
                                                     //El correo ya existe, mostramos un error
+                                                    showDialogLoading.value = false
                                                     isDialogOpen.value = true
                                                     dialogError.value = "El correo introducido\nya pertenece a un usuario."
                                                 }else if (!existe && cause == "no existe"){
                                                         //Todos los campos son válidos, comprobar que las contraseñas coinciden
                                                             if (password.value.contains(" ") || repass.value.contains(" ")) {
+                                                                showDialogLoading.value = false
                                                                 isDialogOpen.value = true
                                                                 dialogError.value = "La contraseña\nno puede contener espacios."
                                                             }else if (password.value == repass.value) {
                                                                 loginRegistroViewModel.registrar(email = email.value.trim(), password = password.value) { registrado, cause ->
                                                                     if (registrado && cause == "good") {
+                                                                        showDialogLoading.value = false
                                                                 //El usuario se ha registrado, navegar hacia la vista de Main
                                                                         navController.navigate(Rutas.TipoCuenta.route) {
                                                                             popUpTo(0)
                                                                         }
                                                                     } else {
                                                                         //Ha ocurrido un error al registrar el usuario, mostrar el dialog.
+                                                                        showDialogLoading.value = false
                                                                         isDialogOpen.value = true
                                                                         dialogError.value = "Ha ocurrido un error\npor favor, intentelo más tarde."
                                                                     }
                                                                 }
                                                             }else {
+                                                                showDialogLoading.value = false
                                                                 isDialogOpen.value = true
                                                                 dialogError.value = "Las contraseñas introducidas\ndeben coincidir"
                                                             }
                                                 }else {
+                                                    showDialogLoading.value = false
                                                     isDialogOpen.value = true
                                                     dialogError.value = "Ha ocurrido un error\npor favor, intentelo más tarde."
                                                 }
@@ -265,13 +278,13 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                            Surface(
                                modifier = Modifier
                                    .padding(5.dp)
-                                   .fillMaxWidth(1f)
+                                   .fillMaxWidth()
                                    .shadow(elevation = 3.dp, shape = RoundedCornerShape(7.dp)),
                                shape = RoundedCornerShape(7.dp),
                                color = Color(0xff3b3d4c)
                            ) {
-                               Column() {
-                                   Spacer(modifier = Modifier.height(15.dp))
+                               Column(verticalArrangement = Arrangement.SpaceBetween) {
+                                   Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                                    Text(
                                        text = "Error",
                                        modifier = Modifier.fillMaxWidth(),
@@ -279,16 +292,14 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                        fontSize = 25.sp,
                                        color = Color(0xfffcffff)
                                    )
-                                   Spacer(modifier = Modifier.height(20.dp))
                                    Image(
                                        painter = painterResource(id = R.drawable.errorlog),
                                        contentDescription = "ErrorLog",
                                        alignment = Alignment.Center,
                                        modifier = Modifier
                                            .fillMaxWidth()
-                                           .fillMaxHeight(0.3f)
+                                           .fillMaxHeight(0.4f)
                                    )
-                                   Spacer(modifier = Modifier.height(20.dp))
                                    Text(
                                        text = dialogError.value,
                                        textAlign = TextAlign.Center,
@@ -296,9 +307,8 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
                                        fontSize = 19.sp,
                                        color = Color(0xfffcffff)
                                    )
-                                   Spacer(modifier = Modifier.height(15.dp))
+                                   Spacer(modifier = Modifier.fillMaxHeight(0.01f))
                                    Button(
-                                       //Le damos el valo de false para que se cierre el diálogo al darle click en el botón.
                                        onClick = { isDialogOpen.value = false },
                                        Modifier.fillMaxWidth(),
                                        shape = RoundedCornerShape(0.dp, 0.dp, 7.dp, 7.dp),
@@ -327,4 +337,5 @@ fun Reg(navController: NavController,loginRegistroViewModel: LoginRegistroViewMo
            }
        }
    }
+    dialogLoading(show = showDialogLoading)
 }

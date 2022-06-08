@@ -135,7 +135,8 @@ fun ofertaEmpresario(selected: MutableState<Boolean>, navController: NavControll
                         mostrarItems(
                             show = mostrarLista,
                             lista = listaOfertas,
-                            navController = navController
+                            navController = navController,
+                            mostrarNoCreado
                         )
                         errorCargaOfertas(show = hasError, loading = isLoading)
                         mostrarNoEncontrado(show = mostrarNoCreado)
@@ -151,12 +152,13 @@ fun ofertaEmpresario(selected: MutableState<Boolean>, navController: NavControll
 
 
 @Composable
-fun mostrarItems(show : MutableState<Boolean> , lista: MutableState<SnapshotStateList<ModelOferta>>, navController: NavController) {
+fun mostrarItems(show : MutableState<Boolean> , lista: MutableState<SnapshotStateList<ModelOferta>>, navController: NavController, showNoOfertas : MutableState<Boolean>) {
     OnecTheme() {
         if (show.value) {
             val listaItemsEliminados = remember {
                 mutableStateOf(mutableListOf<ModelOferta>().toMutableStateList())
             }
+
             val showLoadingDialog = remember {
                 mutableStateOf(false)
             }
@@ -186,14 +188,19 @@ fun mostrarItems(show : MutableState<Boolean> , lista: MutableState<SnapshotStat
                             enter = expandVertically(),
                             exit = shrinkVertically(animationSpec = tween(durationMillis = 700))
                         ) {
+                            val deleted = remember {
+                                mutableStateOf(false)
+                            }
 
                             Box(
                                 Modifier
                                     .fillMaxWidth()
                                     .background(Color.Transparent)
                                     .clickable {
-                                        StaticVariables.ofertaSeleccionada = oferta
-                                        navController.navigate(Rutas.OfertaDetalles.route)
+                                        if (!deleted.value) {
+                                            StaticVariables.ofertaSeleccionada = oferta
+                                            navController.navigate(Rutas.OfertaDetalles.route)
+                                        }
                                     }
                             ) {
                                 Column(
@@ -252,15 +259,24 @@ fun mostrarItems(show : MutableState<Boolean> , lista: MutableState<SnapshotStat
                                                 }
                                             }
                                             IconButton(onClick = {
-                                                showLoadingDialog.value = true
-                                                ofertaViewModel.eliminarOferta(oferta._id) { did ->
-                                                    if (did) {
-                                                        listaItemsEliminados.value.add(oferta)
-                                                    }else {
-                                                        showErrDialog.value = true
-                                                        errMsj.value = "Error al eliminar oferta\npor favor inténtelo más tarde."
+                                                if (!deleted.value) {
+                                                    deleted.value = true
+                                                    showLoadingDialog.value = true
+                                                    ofertaViewModel.eliminarOferta(oferta._id) { did ->
+                                                        if (did) {
+                                                            listaItemsEliminados.value.add(oferta)
+                                                            if (listaItemsEliminados.value.size == lista.value.size) {
+                                                                show.value = false
+                                                                showNoOfertas.value = true
+                                                            }
+                                                        } else {
+                                                            deleted.value = false
+                                                            showErrDialog.value = true
+                                                            errMsj.value =
+                                                                "Error al eliminar oferta\npor favor inténtelo más tarde."
+                                                        }
+                                                        showLoadingDialog.value = false
                                                     }
-                                                    showLoadingDialog.value = false
                                                 }
 
                                             }) {
@@ -311,7 +327,9 @@ fun errorCargaOfertas(show : MutableState<Boolean>, loading: MutableState<Boolea
                     Image(
                         painter = painterResource(id = R.drawable.errorlog),
                         contentDescription = "Error log",
-                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.3f)
                     )
                     Spacer(modifier = Modifier.fillMaxHeight(0.03f))
                     Text(
@@ -360,7 +378,7 @@ fun mostrarNoEncontrado(show : MutableState<Boolean>) {
                 Modifier
                     .fillMaxSize()
                     .background(Color(0xff3b3d4c)), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Todavía no ha creado\nninguna oferta", fontSize = 19.sp, color = Color(0xfffcffff))
+                Text(text = "Todavía no ha creado\nninguna oferta", textAlign = TextAlign.Center, fontSize = 19.sp, color = Color(0xfffcffff))
             }
         }
     }

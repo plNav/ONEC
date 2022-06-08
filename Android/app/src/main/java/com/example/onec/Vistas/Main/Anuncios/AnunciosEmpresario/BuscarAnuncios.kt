@@ -395,7 +395,7 @@ fun listaAnunciosBuscados(show: MutableState<Boolean>, anuncios : MutableList<An
                                                )
                                                Spacer(modifier = Modifier.height(3.dp))
                                                Text(
-                                                   text = anuncio.precio.toString(),
+                                                   text = if(anuncio.precioPorHora)anuncio.precio.toString() +"€ Hora" else anuncio.precio.toString()+"€",
                                                    fontSize = 15.sp,
                                                    color = Color(0xFF202020),
                                                    fontWeight = FontWeight.Bold
