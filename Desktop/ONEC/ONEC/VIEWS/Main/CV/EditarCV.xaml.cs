@@ -69,7 +69,8 @@ namespace ONEC.VIEWS
                         Foreground = Brushes.White,
                         FontSize = 13,
                         VerticalAlignment = VerticalAlignment.Center,
-                        Content = "# " + txtHabilidades.Text
+                        Content = "# " + txtHabilidades.Text,
+                        Tag =   txtHabilidades.Text
                     };
 
                     Grid.SetColumn(habilidad, 0);
@@ -80,14 +81,15 @@ namespace ONEC.VIEWS
                         Height = 30,
                         Width = 30,
                         VerticalAlignment = VerticalAlignment.Center,
-                        Margin = new Thickness(0, 0, 2, 0)
+                        Margin = new Thickness(0, 0, 2, 0),
+                        Cursor = Cursors.Hand
                     };
                     RenderOptions.SetBitmapScalingMode(borrar, BitmapScalingMode.HighQuality);
 
                     borrar.MouseLeftButtonDown += (object senderMouseLegtButtonDown, MouseButtonEventArgs re) =>
                     {
                         wrapHabilidades.Children.Remove(border);
-                        habilidades.Remove(habilidad.Content.ToString());
+                        habilidades.Remove(habilidad.Tag.ToString());
                     };
 
                     Grid.SetColumn(borrar, 1);
@@ -366,7 +368,8 @@ namespace ONEC.VIEWS
                     Foreground = Brushes.White,
                     FontSize = 13,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Content = "# " + habilidad
+                    Content = "# " + habilidad,
+                    Tag = habilidad
                 };
 
                 Grid.SetColumn(hab, 0);
@@ -377,7 +380,8 @@ namespace ONEC.VIEWS
                     Height = 30,
                     Width = 30,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(0, 0, 2, 0)
+                    Margin = new Thickness(0, 0, 2, 0),
+                    Cursor = Cursors.Hand
                 };
                 RenderOptions.SetBitmapScalingMode(borrar, BitmapScalingMode.HighQuality);
 
@@ -417,7 +421,7 @@ namespace ONEC.VIEWS
                 CV cv = new CV(Usuario.usuarioActual._id, txtNombre.Text, txtTelefono.Text, txtUbicacion.Text, Usuario.usuarioActual.email, experiencia,cmbTitulos.SelectedItem.ToString(), especialidad, habilidades, listLower);
                 Loading.Loading loading = new Loading.Loading();
                 loading.Show();
-                if (!CV.cvActual.titulo.Equals(cv.titulo) || !CV.cvActual.especialidad.Equals(cv.especialidad))
+                if (CV.cvActual.titulo != null && !CV.cvActual.titulo.Equals(cv.titulo) ||CV.cvActual.especialidad != null && !CV.cvActual.especialidad.Equals(cv.especialidad))
                 {
                     if (await CandidatosOfertas.eliminarOfertasCandidato(CV.cvActual._id))
                     {

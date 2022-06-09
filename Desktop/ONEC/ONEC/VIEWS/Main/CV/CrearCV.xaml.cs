@@ -181,7 +181,8 @@ namespace ONEC.VIEWS
                         Foreground = Brushes.White,
                         FontSize = 13,
                         VerticalAlignment = VerticalAlignment.Center,
-                        Content = "# "+ txtHabilidades.Text
+                        Content = "# "+ txtHabilidades.Text,
+                        Tag = txtHabilidades.Text
                     };
 
                     Grid.SetColumn(habilidad, 0);
@@ -192,14 +193,15 @@ namespace ONEC.VIEWS
                           Height = 30,
                           Width = 30,
                           VerticalAlignment = VerticalAlignment.Center,
-                          Margin = new Thickness(0,0,2,0)
+                          Margin = new Thickness(0,0,2,0),
+                          Cursor = Cursors.Hand
                     };
                     RenderOptions.SetBitmapScalingMode(borrar, BitmapScalingMode.HighQuality);
                  
                     borrar.MouseLeftButtonDown += (object senderMouseLegtButtonDown, MouseButtonEventArgs re) =>
                     {
                         wrapHabilidades.Children.Remove(border);
-                        habilidades.Remove(habilidad.Content.ToString());
+                        habilidades.Remove(habilidad.Tag.ToString());
                     };
 
                     Grid.SetColumn(borrar, 1);

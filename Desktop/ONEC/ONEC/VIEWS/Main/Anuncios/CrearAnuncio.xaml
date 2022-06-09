@@ -141,8 +141,8 @@
                     <TextBox x:Name="txtPrecio" VerticalContentAlignment="Center" FontSize="16" Foreground="#999dba" Grid.Column="1" Background="Transparent" BorderThickness="0" Margin="10,0,0,0" PreviewTextInput="txtPrecio_PreviewTextInput"/>
                 </Grid>
             </Border>
-            <Button x:Name="aceptar" Content="Publicar" BorderThickness="0" Background="#277a96" Foreground="White" Grid.Column="1" Grid.Row="6" Height="60" FontSize="20" Margin="0,30,0,0" Style="{StaticResource EstiloAceptar}" Click="aceptar_Click"/>
-            <Button x:Name="cancelar" Content="Cancelar" BorderThickness="0" Background="#FFBD3232" Foreground="White" Grid.Column="1" Grid.Row="7" Height="60" FontSize="20" Margin="0,30,0,10" Style="{StaticResource EstiloAceptar}" Click="cancelar_Click"/>
+            <Button x:Name="aceptar" Content="Publicar" BorderThickness="0" Background="#277a96" Foreground="White" Grid.Column="1" Grid.Row="6" Height="60" FontSize="20" Margin="0,30,0,0" Style="{StaticResource EstiloAceptar}" Click="aceptar_Click" Cursor="Hand"/>
+            <Button x:Name="cancelar" Content="Cancelar" BorderThickness="0" Background="#FFBD3232" Foreground="White" Grid.Column="1" Grid.Row="7" Height="60" FontSize="20" Margin="0,30,0,10" Style="{StaticResource EstiloAceptar}" Click="cancelar_Click" Cursor="Hand"/>
         </Grid>
     </ScrollViewer>
 </Page>

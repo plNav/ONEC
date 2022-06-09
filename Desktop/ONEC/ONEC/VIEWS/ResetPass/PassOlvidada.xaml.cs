@@ -88,5 +88,10 @@ namespace ONEC.VIEWS.ResetPass
             Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
             return regex.IsMatch(s);
         }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            StaticResources.main.frameContent.Content = new Login();
+        }
     }
 }

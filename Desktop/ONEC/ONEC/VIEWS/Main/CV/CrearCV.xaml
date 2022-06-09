@@ -177,7 +177,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBox FontSize="14" x:Name="txtHabilidades" Width="200"/>
-                    <Button Grid.Column="1" Content="Añadir" Style="{StaticResource MyButtonStyle}" Background="#2f93b5" Width="60" BorderThickness="0" Height="20" Foreground="White" Margin="5,0,0,0" Click="Button_Click_2"/>
+                    <Button Grid.Column="1" Content="Añadir" Style="{StaticResource MyButtonStyle}" Background="#2f93b5" Width="60" BorderThickness="0" Height="20" Foreground="White" Margin="5,0,0,0" Click="Button_Click_2" Cursor="Hand"/>
                 </Grid>
                 <Border Grid.Row="2" Background="#26272e" CornerRadius="7" Height="200" Margin="0,5,0,0">
                     <ScrollViewer>
@@ -187,7 +187,7 @@
                     </ScrollViewer>
                 </Border>
             </Grid>
-            <Button Content="Crear CV" FontSize="19" Foreground="White" Background="#277a96" Grid.Column="1" Grid.Row="17" Height="50" Width="250" Style="{StaticResource ResourceKey=EstiloAceptar}" Margin="0,0,0,10" Click="Button_Click_3"/>
+            <Button Content="Crear CV" FontSize="19" Foreground="White" Background="#277a96" Grid.Column="1" Grid.Row="17" Height="50" Width="250" Style="{StaticResource ResourceKey=EstiloAceptar}" Margin="0,0,0,10" Click="Button_Click_3" Cursor="Hand"/>
         </Grid>
     </ScrollViewer>
 </Page>
