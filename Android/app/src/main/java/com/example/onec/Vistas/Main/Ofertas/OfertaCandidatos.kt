@@ -227,7 +227,7 @@ fun errorCargaCandidatos(show : MutableState<Boolean>, loading : MutableState<Bo
 fun noCandidatos(show: MutableState<Boolean>) {
     if (show.value) {
         Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(text = "ningún candidato guardado", fontSize = 19.sp, color = Color(0xfffcffff))
+            Text(text = "ningún candidato guardado", fontSize = 19.sp, color = Color(0xfffcffff), textAlign = TextAlign.Center)
         }
     }
 }

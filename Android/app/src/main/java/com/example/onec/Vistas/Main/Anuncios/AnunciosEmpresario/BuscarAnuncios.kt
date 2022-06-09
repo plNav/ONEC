@@ -293,7 +293,8 @@ fun mostrarMsjBuscar(show: MutableState<Boolean>) {
                 Text(
                     text = "Introduzca un campo\npara buscar un anuncio",
                     fontSize = 19.sp,
-                    color = Color(0xfffcffff)
+                    color = Color(0xfffcffff),
+                    textAlign = TextAlign.Center
                 )
             }
         }

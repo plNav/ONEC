@@ -30,7 +30,7 @@ interface ApiServices {
                 /***
                  * ipLocal = introducir la ip local de la máquina en la que está ejecutándose el servidor web
                  * */
-                    val ipLocal : String = "192.168.0.19"
+                    val ipLocal : String = "192.168.0.20"
 
 
                 /**Crear instancia*/
